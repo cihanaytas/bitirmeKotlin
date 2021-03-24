@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".view.KayitFragment">
+
+    <EditText
+        android:id="@+id/UserNickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="Kullanıcı Adı"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/UserName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/UserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="Ad"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/UserPassword"
+        app:layout_constraintStart_toStartOf="@+id/UserPassword"
+        app:layout_constraintTop_toBottomOf="@+id/UserNickName" />
+
+    <EditText
+        android:id="@+id/UserSurname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="42dp"
+        android:ems="10"
+        android:hint="Soyad"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/UserName"
+        app:layout_constraintTop_toBottomOf="@+id/UserName" />
+
+    <EditText
+        android:id="@+id/UserMail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="3dp"
+        android:ems="10"
+        android:hint="Mail"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/UserSurname"
+        app:layout_constraintTop_toBottomOf="@+id/UserSurname" />
+
+    <EditText
+        android:id="@+id/UserPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:ems="10"
+        android:hint="Parola"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/UserCity"
+        app:layout_constraintStart_toStartOf="@+id/UserCity"
+        app:layout_constraintTop_toBottomOf="@+id/UserMail" />
+
+    <EditText
+        android:id="@+id/UserCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="63dp"
+        android:layout_marginTop="46dp"
+        android:ems="10"
+        android:hint="Şehir"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserPassword" />
+
+    <EditText
+        android:id="@+id/UserDistrict"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="48dp"
+        android:ems="10"
+        android:hint="İlçe"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/UserStreet"
+        app:layout_constraintStart_toStartOf="@+id/UserStreet" />
+
+    <EditText
+        android:id="@+id/UserStreet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="142dp"
+        android:ems="10"
+        android:hint="Sokak"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="@+id/UserHomeNo"
+        app:layout_constraintStart_toStartOf="@+id/UserHomeNo"
+        app:layout_constraintTop_toBottomOf="@+id/UserCity" />
+
+    <EditText
+        android:id="@+id/UserHomeNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="69dp"
+        android:ems="10"
+        android:hint="No"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserStreet" />
+
+
+    <Spinner
+        android:id="@+id/planets_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserHomeNo" />
+
+    <Button
+        android:id="@+id/buttonKayitOl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Kayıt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.43"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/planets_spinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
