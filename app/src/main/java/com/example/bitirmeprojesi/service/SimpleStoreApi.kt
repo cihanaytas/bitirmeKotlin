@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 
 
-interface SimpleStoreApi{
+interface SimpleStoreApi : SimpleNewApi {
 
 
 //    @GET("cars")

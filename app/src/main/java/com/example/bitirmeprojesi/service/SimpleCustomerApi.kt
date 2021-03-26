@@ -11,12 +11,16 @@ import retrofit2.http.*
 interface SimpleCustomerApi{
 
 
-    @GET("api/data")
-    fun test(@Header("Authorization") autHeader: String): Call<String>
+    @GET("logout")
+    fun logOut(): Call<String>
+
+    @GET("test")
+    fun testCustomer(): Deferred<Response<String>>
 
 
-    @GET("testc")
-    fun testCustomer(): Call<String>
+
+
+
 
 //
 //    @GET("cars")
@@ -40,8 +44,6 @@ interface SimpleCustomerApi{
 //    fun getCihan(): Call<Customer>
 
 
-    @GET("logout")
-    fun logOut(): Call<String>
 
 
 

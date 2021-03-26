@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.core.view.get
+import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.models.Address
 import com.example.bitirmeprojesi.models.UserAccount
@@ -60,7 +61,7 @@ class KayitFragment : Fragment(){
 
 
         buttonKayitOl.setOnClickListener{
-            kayitOl()
+            kayitOl(it)
         }
 
 
@@ -68,7 +69,7 @@ class KayitFragment : Fragment(){
 
 
 
-    fun kayitOl(){
+    fun kayitOl(view: View){
         val userAddress = Address(UserCity.text.toString(),UserDistrict.text.toString(),UserStreet.text.toString(),UserHomeNo.text.toString())
         val user = UserAccount(UserNickName.text.toString(),UserName.text.toString(),UserSurname.text.toString(),UserMail.text.toString(),UserPassword.text.toString(),userAddress,planets_spinner.selectedItem.toString())
         println(user)
@@ -83,6 +84,8 @@ class KayitFragment : Fragment(){
                 if(response.isSuccessful) {
                     println(response.body())
                     Toast.makeText(activity, "Kayıt Başarılı", Toast.LENGTH_LONG).show()
+                    val action = KayitFragmentDirections.actionKayitFragmentToGirisFragment()
+                    Navigation.findNavController(view).navigate(action)
                 }
                 else
                 {

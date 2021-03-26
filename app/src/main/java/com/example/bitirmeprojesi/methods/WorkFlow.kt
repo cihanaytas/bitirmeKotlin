@@ -1,12 +1,20 @@
 package com.example.bitirmeprojesi.methods
 
 import android.content.SharedPreferences
+import android.widget.Toast
 import com.example.bitirmeprojesi.models.ReqBodyLogin
+import com.example.bitirmeprojesi.service.RetrofitInstance
+import com.example.bitirmeprojesi.service.SimpleCustomerApi
 import com.example.bitirmeprojesi.service.SimpleNewApi
+import com.example.bitirmeprojesi.view.serviceCustomer
+import retrofit2.await
 
-class WorkFlow() {
+class WorkFlow(service: SimpleNewApi) {
 
-    suspend fun getUserRole(username: String, service: SimpleNewApi): String {
+
+val service = service
+
+    suspend fun getUserRole(username: String): String {
         val carRequest = service.getUserRole(username).await()
         if (carRequest.isSuccessful) {
             val role = carRequest.body()
@@ -17,27 +25,19 @@ class WorkFlow() {
     }
 
 
-    suspend fun getLoginControl(user: ReqBodyLogin,service: SimpleNewApi,sharedPreferences: SharedPreferences,checked:Boolean): Boolean? {
+    suspend fun getLoginControl(user: ReqBodyLogin): Boolean? {
         val req = service.login(user).await()
         if(req.isSuccessful){
                         if (req.body()?.equals(true)!!) {
-                            return true
                             println("giriş başarılı")
-                           //Toast.makeText(activity, "Giriş Başarılı", Toast.LENGTH_LONG).show()
-
-
-//                            changeActivityGiris()
-                        } else {
+                            return true
+                       } else {
                             println("istek başarılı ama username veya pssword yanlşış")
                             return false
-
-                           // Toast.makeText(activity, "Kullanıcı adınız veya parolanız hatalı", Toast.LENGTH_LONG).show()
                         }
         }else{
             return false
         }
     }
-
-
 
 }

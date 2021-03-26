@@ -41,7 +41,6 @@ object RetrofitInstance {
         }.create()
 
 
-
         if (api == null)
             api = Retrofit.Builder()
                 .baseUrl(BASE_URL_CUSTOMER)
@@ -80,7 +79,8 @@ object RetrofitInstance {
                     .baseUrl(BASE_URL_STORE)
                     .client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                    //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
 
         return api as Retrofit
@@ -99,7 +99,6 @@ object RetrofitInstance {
                 .setLenient()
                 .create()
 
-
         if (api == null)
             api =  Retrofit.Builder()
                 .baseUrl(BASE_URL_NEW)
@@ -114,12 +113,5 @@ object RetrofitInstance {
     }
 
 
-    fun getInstance() : Retrofit {
-        return api!!
-    }
 
-
-    fun getClient() : OkHttpClient{
-        return client!!
-    }
 }
