@@ -2,7 +2,10 @@ package com.example.bitirmeprojesi.service
 
 
 
+import com.example.bitirmeprojesi.models.ReqBodyLogin
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 
 
@@ -10,14 +13,16 @@ import retrofit2.http.GET
 interface SimpleStoreApi : SimpleNewApi {
 
 
-//    @GET("cars")
-//    fun getCars(): Call<List<Car>>
-//
-//    @GET("accepts")
-//    fun getAccepts(): Call<List<Accept>>
-//
-//    @GET("testadmin")
-//    fun testAdmin(): Call<String>
+    @GET("test")
+    fun testStore(): Deferred<Response<String>>
+
+    @GET("xx")
+    fun cihan(): Deferred<Response<ReqBodyLogin>>
+
+
+
+
+
 
 
 }

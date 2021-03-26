@@ -34,8 +34,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 lateinit var sharedPreferences: SharedPreferences
 var isRemembered = false
-lateinit var serviceCustomer: SimpleCustomerApi
-lateinit var serviceStore: SimpleStoreApi
 class GirisFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +44,11 @@ class GirisFragment : Fragment() {
         isRemembered = sharedPreferences.getBoolean("CHECKBOX",false)
 
         if(isRemembered){
+            val username = sharedPreferences.getString("USERNAME","").toString()
+            val password = sharedPreferences.getString("PASSWORD","").toString()
+            val user = ReqBodyLogin(username,password)
             val role = sharedPreferences.getString("ROLE","")
-            role?.let { goPage(it) }
+            role?.let { goPage(it,user) }
         }
 
     }
@@ -77,18 +78,8 @@ class GirisFragment : Fragment() {
         val user =  ReqBodyLogin(kullaniciAdi.text.toString(),kullaniciParola.text.toString())
         val checked: Boolean = checkBoxRemember.isChecked
 
-        val clientt = OkHttpClient.Builder().build()
-        val gson = GsonBuilder()
-                .setLenient()
-                .create()
-        var service = Retrofit.Builder()
-                    .baseUrl(Constants.BASE_URL_NEW)
-                    .client(clientt)
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    // .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build().create(SimpleNewApi::class.java)
+
+        val service = RetrofitInstance.createInstanceNew().create(SimpleNewApi::class.java)
 
         val wf = WorkFlow(service)
 
@@ -98,12 +89,12 @@ class GirisFragment : Fragment() {
             if(sonuc==true){
                 if(checked) {
                     sharedPreferences.edit().putString("USERNAME", user.username).apply()
-                    sharedPreferences.edit().putString("PASSWORD", user.password).apply()
+                    sharedPreferences.edit().putString("PASSWORD",user.password).apply()
                     sharedPreferences.edit().putBoolean("CHECKBOX", checked).apply()
                     sharedPreferences.edit().putString("ROLE",role).apply()
                 }
 
-                 goPage(role)
+                 goPage(role,user)
             }
             else{
                 Toast.makeText(activity, "Kullanıcı adınız veya parolanız hatalı", Toast.LENGTH_LONG).show()
@@ -123,22 +114,26 @@ class GirisFragment : Fragment() {
     }
 
 
-    fun goPage(role: String){
+    fun goPage(role: String,user:ReqBodyLogin){
         if(role=="CUSTOMER")
-            goCustomerPage()
+            goCustomerPage(user)
         else if(role=="STORE")
-            goStorePage()
+            goStorePage(user)
     }
 
-    fun goCustomerPage(){
+    fun goCustomerPage(user:ReqBodyLogin){
 
         val intent = Intent(getActivity(), CustomerHomePage::class.java)
+        intent.putExtra("username",user.username)
+        intent.putExtra("password",user.password)
         startActivity(intent)
         getActivity()?.finish()
     }
 
-    fun goStorePage(){
+    fun goStorePage(user:ReqBodyLogin){
         val intent = Intent(getActivity(), StoreHomePage::class.java)
+        intent.putExtra("username",user.username)
+        intent.putExtra("password",user.password)
         startActivity(intent)
         getActivity()?.finish()
     }

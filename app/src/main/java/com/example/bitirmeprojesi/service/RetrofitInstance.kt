@@ -41,10 +41,11 @@ object RetrofitInstance {
         }.create()
 
 
-        if (api == null)
+
             api = Retrofit.Builder()
                 .baseUrl(BASE_URL_CUSTOMER)
                 .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -61,11 +62,12 @@ object RetrofitInstance {
                 .addInterceptor(BasicAuthInterceptor(username, password))
                 .build()
 
+
         val gson = GsonBuilder().apply {
             setLenient()
             registerTypeAdapter(Date::class.java,
                     JsonDeserializer<Date> { json, typeOfT, context ->
-                        if(json.asJsonPrimitive.isNumber) {
+                        if (json.asJsonPrimitive.isNumber) {
                             Date(json.asJsonPrimitive.asLong * 1000)
                         } else {
                             null
@@ -74,14 +76,16 @@ object RetrofitInstance {
         }.create()
 
 
-        if (api == null)
-            api =  Retrofit.Builder()
-                    .baseUrl(BASE_URL_STORE)
-                    .client(client)
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                    //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                    .build()
+
+        api = Retrofit.Builder()
+                .baseUrl(BASE_URL_STORE)
+                .client(client)
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                //.addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
+        //.create(SimpleApi::class.java)
 
         return api as Retrofit
     }
@@ -99,11 +103,11 @@ object RetrofitInstance {
                 .setLenient()
                 .create()
 
-        if (api == null)
+
             api =  Retrofit.Builder()
                 .baseUrl(BASE_URL_NEW)
                 .client(clientt)
-                    .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                     .addCallAdapterFactory(CoroutineCallAdapterFactory())
                // .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

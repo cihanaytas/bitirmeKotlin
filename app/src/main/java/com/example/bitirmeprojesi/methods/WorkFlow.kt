@@ -6,13 +6,11 @@ import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.service.RetrofitInstance
 import com.example.bitirmeprojesi.service.SimpleCustomerApi
 import com.example.bitirmeprojesi.service.SimpleNewApi
-import com.example.bitirmeprojesi.view.serviceCustomer
+
 import retrofit2.await
 
-class WorkFlow(service: SimpleNewApi) {
+class WorkFlow(val service: SimpleNewApi) {
 
-
-val service = service
 
     suspend fun getUserRole(username: String): String {
         val carRequest = service.getUserRole(username).await()

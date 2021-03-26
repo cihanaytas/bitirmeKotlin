@@ -1,12 +1,11 @@
 package com.example.bitirmeprojesi.methods
 
 import com.example.bitirmeprojesi.service.SimpleCustomerApi
-import com.example.bitirmeprojesi.view.serviceCustomer
 
 
-class CustomerWorkFlow() {
+class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
 
-    suspend fun test(serviceCustomer: SimpleCustomerApi): String? {
+    suspend fun test(): String? {
         val req = serviceCustomer.testCustomer().await()
         if (req.isSuccessful) {
             return "success " + req.body()
@@ -16,6 +15,6 @@ class CustomerWorkFlow() {
     }
 
 
-    }
+}
 
 

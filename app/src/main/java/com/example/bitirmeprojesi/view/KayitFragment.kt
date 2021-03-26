@@ -51,9 +51,7 @@ class KayitFragment : Fragment(){
                 R.array.planets_array,
                 android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             spinner.adapter = adapter
         }
         }
@@ -72,7 +70,7 @@ class KayitFragment : Fragment(){
     fun kayitOl(view: View){
         val userAddress = Address(UserCity.text.toString(),UserDistrict.text.toString(),UserStreet.text.toString(),UserHomeNo.text.toString())
         val user = UserAccount(UserNickName.text.toString(),UserName.text.toString(),UserSurname.text.toString(),UserMail.text.toString(),UserPassword.text.toString(),userAddress,planets_spinner.selectedItem.toString())
-        println(user)
+
         var serviceNew: SimpleNewApi = RetrofitInstance.createInstanceNew().create(SimpleNewApi::class.java)
         val sorgu  = serviceNew.addCustomer(user)
         sorgu.enqueue(object : Callback<String> {
@@ -82,17 +80,15 @@ class KayitFragment : Fragment(){
             }
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful) {
-                    println(response.body())
                     Toast.makeText(activity, "Kayıt Başarılı", Toast.LENGTH_LONG).show()
                     val action = KayitFragmentDirections.actionKayitFragmentToGirisFragment()
                     Navigation.findNavController(view).navigate(action)
                 }
                 else
                 {
-                    //validation hatası gösterir
                     val err = JsonParser().parse(response.errorBody()?.string()).asJsonObject["details"].asString
                     Toast.makeText(activity,err, Toast.LENGTH_LONG).show()
-                    println(err)
+
                 }
 
             }
