@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="planets_array_urun">
+        <item>Seçiniz</item>
+        <item>LAPTOP</item>
+        <item>TELEFON</item>
+        <item>TELEVIZYON</item>
+        <item>TABLET</item>
+        <item>KULAKLIK</item>
+
+    </string-array>
+</resources>

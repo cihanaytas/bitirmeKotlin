@@ -67,7 +67,7 @@ class KayitFragment : Fragment(){
 
 
 
-    fun kayitOl(view: View){
+    private fun kayitOl(view: View){
         val userAddress = Address(UserCity.text.toString(),UserDistrict.text.toString(),UserStreet.text.toString(),UserHomeNo.text.toString())
         val user = UserAccount(UserNickName.text.toString(),UserName.text.toString(),UserSurname.text.toString(),UserMail.text.toString(),UserPassword.text.toString(),userAddress,planets_spinner.selectedItem.toString())
 

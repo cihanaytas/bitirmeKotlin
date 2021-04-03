@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/anaconst"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.store.UrunEklemeFragment">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="214dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="83dp"
+        android:text="Ürün Ekleme Sayfası"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/planets_spinner_urun"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/planets_spinner_urun"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testconst1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+
+        <EditText
+            android:id="@+id/EFeatures"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Bilgi111111111"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/EUnit"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit" />
+
+        <EditText
+            android:id="@+id/EPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="Fiyat"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/EUnit"
+            app:layout_constraintStart_toStartOf="@+id/EUnit" />
+
+        <EditText
+            android:id="@+id/EUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="304dp"
+            android:ems="10"
+            android:hint="Adet"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonUrunEkleDb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ekle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit"
+            app:layout_constraintVertical_bias="0.523" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testconst2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+
+        <EditText
+            android:id="@+id/EFeatures2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Bilgi22222"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/EUnit2"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit2" />
+
+        <EditText
+            android:id="@+id/EPrice2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="Fiyat"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/EUnit2"
+            app:layout_constraintStart_toStartOf="@+id/EUnit2" />
+
+        <EditText
+            android:id="@+id/EUnit2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="304dp"
+            android:ems="10"
+            android:hint="Adet"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonUrunEkleDb2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ekle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit2"
+            app:layout_constraintVertical_bias="0.523" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/testconst3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+
+        <EditText
+            android:id="@+id/EFeatures3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="Bilgi333333333333"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="@+id/EUnit3"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit3" />
+
+        <EditText
+            android:id="@+id/EPrice3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginBottom="24dp"
+            android:ems="10"
+            android:hint="Fiyat"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/EUnit3"
+            app:layout_constraintStart_toStartOf="@+id/EUnit3" />
+
+        <EditText
+            android:id="@+id/EUnit3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="72dp"
+            android:layout_marginBottom="304dp"
+            android:ems="10"
+            android:hint="Adet"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/buttonUrunEkleDb3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ekle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/EUnit3"
+            app:layout_constraintVertical_bias="0.523" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

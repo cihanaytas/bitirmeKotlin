@@ -30,12 +30,6 @@ class StoreHomePage : AppCompatActivity() {
         val wf = StoreWorkFlow(serviceStore)
 
 
-        GlobalScope.launch(Dispatchers.Main) {
-            println(wf.test())
-
-            println(wf.cihan())
-
-        }
 
 
 

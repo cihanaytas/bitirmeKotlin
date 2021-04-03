@@ -74,7 +74,7 @@ class GirisFragment : Fragment() {
     }
 
 
-    fun girisYap(){
+    private fun girisYap(){
         val user =  ReqBodyLogin(kullaniciAdi.text.toString(),kullaniciParola.text.toString())
         val checked: Boolean = checkBoxRemember.isChecked
 
@@ -108,20 +108,20 @@ class GirisFragment : Fragment() {
 
 
 
-    fun kayitOl(view: View){
+   private fun kayitOl(view: View){
         val action = GirisFragmentDirections.actionGirisFragmentToKayitFragment()
         Navigation.findNavController(view).navigate(action)
     }
 
 
-    fun goPage(role: String,user:ReqBodyLogin){
+    private fun goPage(role: String,user:ReqBodyLogin){
         if(role=="CUSTOMER")
             goCustomerPage(user)
         else if(role=="STORE")
             goStorePage(user)
     }
 
-    fun goCustomerPage(user:ReqBodyLogin){
+    private fun goCustomerPage(user:ReqBodyLogin){
 
         val intent = Intent(getActivity(), CustomerHomePage::class.java)
         intent.putExtra("username",user.username)
@@ -130,7 +130,7 @@ class GirisFragment : Fragment() {
         getActivity()?.finish()
     }
 
-    fun goStorePage(user:ReqBodyLogin){
+    private fun goStorePage(user:ReqBodyLogin){
         val intent = Intent(getActivity(), StoreHomePage::class.java)
         intent.putExtra("username",user.username)
         intent.putExtra("password",user.password)
