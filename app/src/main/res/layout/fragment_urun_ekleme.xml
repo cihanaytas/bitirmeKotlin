@@ -76,6 +76,131 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/kulaklikconst"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/buttonKulaklikEkle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="9dp"
+            android:text="Ekle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <EditText
+            android:id="@+id/hpTip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="84dp"
+            android:ems="10"
+            android:hint="Tip"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/hpColor"
+            app:layout_constraintEnd_toEndOf="@+id/hpColor"
+            app:layout_constraintStart_toStartOf="@+id/hpColor" />
+
+        <EditText
+            android:id="@+id/hpColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="89dp"
+            android:layout_marginBottom="154dp"
+            android:ems="10"
+            android:hint="Renk"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tvconst"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp">
+
+        <Button
+            android:id="@+id/buttonTVEkle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="9dp"
+            android:text="Ekle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvInc" />
+
+        <EditText
+            android:id="@+id/tvBrand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="387dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="108dp"
+            android:ems="10"
+            android:hint="Marka"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tvColor"
+            app:layout_constraintEnd_toStartOf="@+id/tvModel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/tvModel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="387dp"
+            android:layout_marginEnd="34dp"
+            android:layout_marginBottom="94dp"
+            android:ems="10"
+            android:hint="Model"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tvInc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvBrand"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/tvColor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="65dp"
+            android:layout_marginBottom="110dp"
+            android:ems="10"
+            android:hint="Renk"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tvInc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBrand" />
+
+        <EditText
+            android:id="@+id/tvInc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="28dp"
+            android:layout_marginBottom="51dp"
+            android:ems="10"
+            android:hint="Inc"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/buttonTVEkle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvColor"
+            app:layout_constraintTop_toBottomOf="@+id/tvModel" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/tabletconst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -89,7 +214,7 @@
             android:layout_marginBottom="65dp"
             android:ems="10"
             android:hint="Kamera"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/buttonTabletEkle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tabletColor"
@@ -162,7 +287,7 @@
             android:layout_marginBottom="36dp"
             android:ems="10"
             android:hint="Hafıza"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonTabletEkle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -178,7 +303,7 @@
             android:layout_marginBottom="53dp"
             android:ems="10"
             android:hint="Ram"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/tabletModel"
             app:layout_constraintEnd_toStartOf="@+id/tabletBrand"
             app:layout_constraintStart_toStartOf="parent"
@@ -294,7 +419,7 @@
             android:layout_marginBottom="36dp"
             android:ems="10"
             android:hint="Hafıza"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonLaptopEkle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -310,7 +435,7 @@
             android:layout_marginBottom="53dp"
             android:ems="10"
             android:hint="Ram"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/laptopModel"
             app:layout_constraintEnd_toStartOf="@+id/laptopBrand"
             app:layout_constraintStart_toStartOf="parent"
@@ -356,7 +481,7 @@
             android:layout_marginBottom="65dp"
             android:ems="10"
             android:hint="Kamera"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/buttonTelefonEkle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/telefonColor"
@@ -429,7 +554,7 @@
             android:layout_marginBottom="36dp"
             android:ems="10"
             android:hint="Hafıza"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonTelefonEkle"
             app:layout_constraintHorizontal_chainStyle="packed"
@@ -445,7 +570,7 @@
             android:layout_marginBottom="53dp"
             android:ems="10"
             android:hint="Ram"
-            android:inputType="textPersonName"
+            android:inputType="number"
             app:layout_constraintBottom_toTopOf="@+id/telefonModel"
             app:layout_constraintEnd_toStartOf="@+id/telefonBrand"
             app:layout_constraintStart_toStartOf="parent"

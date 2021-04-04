@@ -15,15 +15,7 @@ import retrofit2.http.POST
 interface SimpleStoreApi : SimpleNewApi {
 
 
-    @GET("test")
-    fun testStore(): Deferred<Response<String>>
 
-    @GET("xx")
-    fun cihan(): Deferred<Response<ReqBodyLogin>>
-
-
-    @POST("addproduct")
-    fun urunekle(@Body product: Product): Call<String>
 
 
     @POST("addlaptop")
@@ -32,11 +24,11 @@ interface SimpleStoreApi : SimpleNewApi {
     @POST("addphone")
     fun telefonekle(@Body phone: Phone) : Call<String>
 
-    @POST("addltablet")
+    @POST("addtablet")
     fun tabletekle(@Body tablet: Tablet) : Call<String>
 
     @POST("addtv")
-    fun televizonekle(@Body television: Television) : Call<String>
+    fun tvekle(@Body television: Television) : Call<String>
 
     @POST("addheadphone")
     fun kulaklikekle(@Body headPhone: HeadPhone) : Call<String>
