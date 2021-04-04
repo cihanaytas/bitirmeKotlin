@@ -1,12 +1,7 @@
-package com.example.bitirmeprojesi.models
+package com.example.bitirmeprojesi.models.products
 
 data class Laptop(
-        val category: String,
-        val price: String,
-        val storeName: String,
-        val units: String,
-        val features: String,
-
+        val product: Product,
         val hddsize: String,
         val ramsize: String,
         val brand: String,

@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi.models
+package com.example.bitirmeprojesi.models.products
 
 data class Product(
     val category: String,

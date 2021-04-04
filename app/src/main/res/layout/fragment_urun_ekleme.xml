@@ -1,207 +1,478 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/anaconst"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/anaconst"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.store.UrunEklemeFragment">
 
 
+    <EditText
+        android:id="@+id/EFeatures"
+        android:layout_width="151dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="75dp"
+        android:layout_marginBottom="453dp"
+        android:ems="10"
+        android:hint="Bilgi111111111"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/EUnit"
+        app:layout_constraintStart_toStartOf="@+id/EPrice"
+        app:layout_constraintTop_toBottomOf="@+id/EUnit" />
+
+    <EditText
+        android:id="@+id/EUnit"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="21dp"
+        android:ems="10"
+        android:hint="Adet"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/EFeatures"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/EPrice"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="214dp"
-        android:layout_height="117dp"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginBottom="83dp"
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="86dp"
         android:text="Ürün Ekleme Sayfası"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/planets_spinner_urun"
+        app:layout_constraintBottom_toTopOf="@+id/EUnit"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/EPrice"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="43dp"
+        android:ems="10"
+        android:hint="Fiyat"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/EUnit"
+        app:layout_constraintEnd_toStartOf="@+id/EUnit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/EUnit" />
 
     <Spinner
         android:id="@+id/planets_spinner_urun"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:layout_height="41dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/EPrice"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/testconst1"
+        android:id="@+id/tabletconst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
-            android:id="@+id/EFeatures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="28dp"
+            android:id="@+id/tabletCam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="65dp"
             android:ems="10"
-            android:hint="Bilgi111111111"
+            android:hint="Kamera"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/EUnit"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonTabletEkle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tabletColor"
+            app:layout_constraintTop_toBottomOf="@+id/tabletTip" />
 
         <EditText
-            android:id="@+id/EPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="24dp"
+            android:id="@+id/tabletColor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="129dp"
             android:ems="10"
-            android:hint="Fiyat"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/EUnit"
-            app:layout_constraintStart_toStartOf="@+id/EUnit" />
-
-        <EditText
-            android:id="@+id/EUnit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginBottom="304dp"
-            android:ems="10"
-            android:hint="Adet"
+            android:hint="Renk"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/tabletCam"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabletModel" />
+
+        <EditText
+            android:id="@+id/tabletTip"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="62dp"
+            android:ems="10"
+            android:hint="Tip"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tabletCam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tabletModel"
+            app:layout_constraintTop_toBottomOf="@+id/tabletBrand" />
+
+        <EditText
+            android:id="@+id/tabletModel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="71dp"
+            android:layout_marginBottom="58dp"
+            android:ems="10"
+            android:hint="Model"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tabletColor"
+            app:layout_constraintEnd_toStartOf="@+id/tabletTip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabletRam" />
 
         <Button
-            android:id="@+id/buttonUrunEkleDb"
+            android:id="@+id/buttonTabletEkle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="9dp"
             android:text="Ekle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintHorizontal_bias="0.811"
+            app:layout_constraintStart_toEndOf="@+id/tabletHafiza"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintTop_toBottomOf="@+id/tabletCam"
+            app:layout_constraintVertical_bias="0.948" />
+
+        <EditText
+            android:id="@+id/tabletHafiza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="36dp"
+            android:ems="10"
+            android:hint="Hafıza"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonTabletEkle"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/tabletRam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="341dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Ram"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tabletModel"
+            app:layout_constraintEnd_toStartOf="@+id/tabletBrand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/tabletBrand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="334dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Marka"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/tabletTip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tabletRam"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/testconst2"
+        android:id="@+id/laptopconst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+        app:layout_constraintTop_toBottomOf="@+id/anaconst"
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
-            android:id="@+id/EFeatures2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="28dp"
+            android:id="@+id/laptopislemciType"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="65dp"
             android:ems="10"
-            android:hint="Bilgi22222"
+            android:hint="İşlemci"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/EUnit2"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit2" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonLaptopEkle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/laptopColor"
+            app:layout_constraintTop_toBottomOf="@+id/laptopislemcimodel" />
 
         <EditText
-            android:id="@+id/EPrice2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="24dp"
+            android:id="@+id/laptopColor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="129dp"
             android:ems="10"
-            android:hint="Fiyat"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/EUnit2"
-            app:layout_constraintStart_toStartOf="@+id/EUnit2" />
-
-        <EditText
-            android:id="@+id/EUnit2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginBottom="304dp"
-            android:ems="10"
-            android:hint="Adet"
+            android:hint="Renk"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/laptopislemciType"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/laptopModel" />
+
+        <EditText
+            android:id="@+id/laptopislemcimodel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="62dp"
+            android:ems="10"
+            android:hint="İşlemci Modeli"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/laptopislemciType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/laptopModel"
+            app:layout_constraintTop_toBottomOf="@+id/laptopBrand" />
+
+        <EditText
+            android:id="@+id/laptopModel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="71dp"
+            android:layout_marginBottom="58dp"
+            android:ems="10"
+            android:hint="Model"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/laptopColor"
+            app:layout_constraintEnd_toStartOf="@+id/laptopislemcimodel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/laptopRam" />
 
         <Button
-            android:id="@+id/buttonUrunEkleDb2"
+            android:id="@+id/buttonLaptopEkle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="9dp"
             android:text="Ekle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintHorizontal_bias="0.811"
+            app:layout_constraintStart_toEndOf="@+id/laptopHafiza"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit2"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintTop_toBottomOf="@+id/laptopislemciType"
+            app:layout_constraintVertical_bias="0.948" />
+
+        <EditText
+            android:id="@+id/laptopHafiza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="36dp"
+            android:ems="10"
+            android:hint="Hafıza"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonLaptopEkle"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/laptopRam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="341dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Ram"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/laptopModel"
+            app:layout_constraintEnd_toStartOf="@+id/laptopBrand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/laptopBrand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="334dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Marka"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/laptopislemcimodel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/laptopRam"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
+
+
+
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/testconst3"
+        android:id="@+id/telefonconst"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toBottomOf="@+id/anaconst">
+        tools:layout_editor_absoluteX="0dp">
 
         <EditText
-            android:id="@+id/EFeatures3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="28dp"
+            android:id="@+id/telefonCam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="65dp"
             android:ems="10"
-            android:hint="Bilgi333333333333"
+            android:hint="Kamera"
             android:inputType="textPersonName"
-            app:layout_constraintStart_toStartOf="@+id/EUnit3"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit3" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonTelefonEkle"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/telefonColor"
+            app:layout_constraintTop_toBottomOf="@+id/telefonTip" />
 
         <EditText
-            android:id="@+id/EPrice3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="1dp"
-            android:layout_marginBottom="24dp"
+            android:id="@+id/telefonColor"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="72dp"
+            android:layout_marginBottom="129dp"
             android:ems="10"
-            android:hint="Fiyat"
-            android:inputType="textPersonName"
-            app:layout_constraintBottom_toTopOf="@+id/EUnit3"
-            app:layout_constraintStart_toStartOf="@+id/EUnit3" />
-
-        <EditText
-            android:id="@+id/EUnit3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="72dp"
-            android:layout_marginBottom="304dp"
-            android:ems="10"
-            android:hint="Adet"
+            android:hint="Renk"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/telefonCam"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telefonModel" />
+
+        <EditText
+            android:id="@+id/telefonTip"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="41dp"
+            android:layout_marginBottom="62dp"
+            android:ems="10"
+            android:hint="Tip"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/telefonCam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/telefonModel"
+            app:layout_constraintTop_toBottomOf="@+id/telefonBrand" />
+
+        <EditText
+            android:id="@+id/telefonModel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="71dp"
+            android:layout_marginBottom="58dp"
+            android:ems="10"
+            android:hint="Model"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/telefonColor"
+            app:layout_constraintEnd_toStartOf="@+id/telefonTip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/telefonRam" />
 
         <Button
-            android:id="@+id/buttonUrunEkleDb3"
+            android:id="@+id/buttonTelefonEkle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="9dp"
             android:text="Ekle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.318"
+            app:layout_constraintHorizontal_bias="0.811"
+            app:layout_constraintStart_toEndOf="@+id/telefonHafiza"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/EUnit3"
-            app:layout_constraintVertical_bias="0.523" />
+            app:layout_constraintTop_toBottomOf="@+id/telefonCam"
+            app:layout_constraintVertical_bias="0.948" />
+
+        <EditText
+            android:id="@+id/telefonHafiza"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="17dp"
+            android:layout_marginBottom="36dp"
+            android:ems="10"
+            android:hint="Hafıza"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonTelefonEkle"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/telefonRam"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="341dp"
+            android:layout_marginEnd="43dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Ram"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/telefonModel"
+            app:layout_constraintEnd_toStartOf="@+id/telefonBrand"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/telefonBrand"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="334dp"
+            android:layout_marginEnd="37dp"
+            android:layout_marginBottom="53dp"
+            android:ems="10"
+            android:hint="Marka"
+            android:inputType="textPersonName"
+            app:layout_constraintBottom_toTopOf="@+id/telefonTip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/telefonRam"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
