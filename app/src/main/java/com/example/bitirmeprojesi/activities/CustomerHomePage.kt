@@ -30,33 +30,9 @@ class CustomerHomePage : AppCompatActivity() {
         serviceCustomer = RetrofitInstance.createInstanceCustomer(username,password).create(SimpleCustomerApi::class.java)
         val wf = CustomerWorkFlow(serviceCustomer)
 
-        GlobalScope.launch(Dispatchers.Main) {
-            println(wf.test())
-        }
-
 
     }
 
 
-    fun cikisYap(view: View) {
-        sharedPreferences.edit().remove("USERNAME").apply()
-        sharedPreferences.edit().remove("CHECKBOX").apply()
-        sharedPreferences.edit().remove("ROLE").apply()
 
-        val req = serviceCustomer.logOut()
-        req.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                println("cikis")
-            }
-
-        })
-
-
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
-    }
 }

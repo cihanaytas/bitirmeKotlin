@@ -29,21 +29,8 @@ class StoreHomePage : AppCompatActivity() {
 
         val wf = StoreWorkFlow(serviceStore)
 
-
-
-
-
-
     }
 
 
-    fun cikisYap(view: View){
-        sharedPreferences.edit().remove("USERNAME").apply()
-        sharedPreferences.edit().remove("CHECKBOX").apply()
-        sharedPreferences.edit().remove("ROLE").apply()
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
 
-    }
 }

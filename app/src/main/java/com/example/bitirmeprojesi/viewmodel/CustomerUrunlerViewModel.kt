@@ -1,4 +1,4 @@
-package com.example.bitirmeprojesi.view
+package com.example.bitirmeprojesi.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class CustomerUrunlerViewModel(application: Application) :  ViewModel(){
+class CustomerUrunlerViewModel(application: Application) : BaseViewModel(application) {
 
     val urunler = MutableLiveData<List<Product>>()
 

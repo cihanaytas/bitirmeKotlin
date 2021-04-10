@@ -1,5 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/customer_graph">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/customer_graph"
+    app:startDestination="@id/customerHomeFragment">
 
+    <fragment
+        android:id="@+id/customerHomeFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.CustomerHomeFragment"
+        android:label="fragment_customer_home"
+        tools:layout="@layout/fragment_customer_home" >
+        <action
+            android:id="@+id/action_customerHomeFragment_to_urunlerFragment"
+            app:destination="@id/urunlerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/urunPageFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.UrunPageFragment"
+        android:label="fragment_urun_page"
+        tools:layout="@layout/fragment_urun_page" >
+        <action
+            android:id="@+id/action_urunPageFragment_to_urunlerFragment"
+            app:destination="@id/urunlerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/urunlerFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.UrunlerFragment"
+        android:label="fragment_urunler"
+        tools:layout="@layout/fragment_urunler" >
+        <action
+            android:id="@+id/action_urunlerFragment_to_customerHomeFragment"
+            app:destination="@id/customerHomeFragment" />
+        <action
+            android:id="@+id/action_urunlerFragment_to_urunPageFragment"
+            app:destination="@id/urunPageFragment" />
+    </fragment>
 </navigation>

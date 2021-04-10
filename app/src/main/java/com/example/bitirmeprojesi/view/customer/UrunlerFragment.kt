@@ -1,33 +1,33 @@
 package com.example.bitirmeprojesi.view.customer
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
+import com.example.bitirmeprojesi.activities.serviceCustomer
+import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
+import com.example.bitirmeprojesi.methods.CustomerWorkFlow
+import com.example.bitirmeprojesi.viewmodel.CustomerUrunlerViewModel
+import kotlinx.android.synthetic.main.fragment_urunler.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [UrunlerFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class UrunlerFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    private lateinit var viewModel : CustomerUrunlerViewModel
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+        val wf = CustomerWorkFlow(serviceCustomer)
+//        GlobalScope.launch(Dispatchers.Main) {
+//        val a = wf.getProductList()
+//            println(a)
+//        }
+
     }
 
     override fun onCreateView(
@@ -38,23 +38,32 @@ class UrunlerFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_urunler, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment UrunlerFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            UrunlerFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
+        viewModel.urunleriAl()
+
+        urunListRecyclerView.layoutManager = LinearLayoutManager(context)
+        urunListRecyclerView.adapter = recyclerProductAdapter
+
+        observeLiveData()
     }
+
+
+
+    fun observeLiveData(){
+        viewModel.urunler.observe(viewLifecycleOwner, Observer { urunler ->
+            urunler?.let {
+                println(urunler)
+                 urunListRecyclerView.visibility = View.VISIBLE
+                urunHataMessage.visibility = View.GONE
+                urunlerYukleniyor.visibility = View.GONE
+                recyclerProductAdapter.productListesiniGuncelle(urunler)
+            }
+        })
+
+    }
+
+
 }

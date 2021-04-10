@@ -1,6 +1,7 @@
 package com.example.bitirmeprojesi.service
 
 
+import com.example.bitirmeprojesi.models.products.Product
 import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -16,6 +17,9 @@ interface SimpleCustomerApi{
 
     @GET("test")
     fun testCustomer(): Deferred<Response<String>>
+
+    @GET("products")
+    fun getAllProducts(): Deferred<Response<List<Product>>>
 
 
 

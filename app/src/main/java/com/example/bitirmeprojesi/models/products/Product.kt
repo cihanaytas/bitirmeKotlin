@@ -1,13 +1,20 @@
 package com.example.bitirmeprojesi.models.products
 
+import android.os.Build
+
 data class Product(
-    val category: String,
-    val price: String,
-    val storeName: String,
-    val units: String,
-    val features: String)
+        val id: String,
+        val price: String,
+        val brand: String,
+        val model: String,
+        val category: String,
+        val storeName: String,
+        val features: String,
+        val units: String,
+        val gorsel: String
+)
 
 {
-    constructor(category: String, price: String, unit: String, features: String) :
-            this(category, price, "",unit, features)
+    constructor(price: String, brand:String, model: String, category:String, features: String, units: String) :
+            this("",price,brand,model,category,"",features,units,"")
 }

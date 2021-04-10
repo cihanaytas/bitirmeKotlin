@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.methods
 
+import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.service.SimpleCustomerApi
 
 
@@ -11,6 +12,19 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
             return "success " + req.body()
         } else {
             return "bos"
+        }
+    }
+
+
+
+    suspend fun getProductList(): List<Product>? {
+        val sorgu = serviceCustomer.getAllProducts().await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
         }
     }
 

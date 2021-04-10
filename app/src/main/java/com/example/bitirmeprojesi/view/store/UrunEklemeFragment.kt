@@ -126,11 +126,12 @@ private fun goneAllConstarint(){
 
 
     private fun urunEkleLaptop(view: View){
-        val urun = Product(planets_spinner_urun.selectedItem.toString(), EPrice.text.toString()
-                , EUnit.text.toString(), EFeatures.text.toString())
+        val urun = Product(EPrice.text.toString(),laptopBrand.text.toString(),laptopModel.text.toString(),
+                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
 
-        val laptop = Laptop(urun, laptopHafiza.text.toString(),laptopRam.text.toString(),laptopBrand.text.toString(),laptopColor.text.toString(),
-        laptopModel.text.toString(),laptopislemcimodel.text.toString(),laptopislemciType.text.toString())
+
+        val laptop = Laptop(urun, laptopHafiza.text.toString(),laptopRam.text.toString(),laptopColor.text.toString(),
+        laptopislemcimodel.text.toString(),laptopislemciType.text.toString())
 
         val sorgu = serviceStore.laptopekle(laptop)
 
@@ -152,11 +153,12 @@ private fun goneAllConstarint(){
 
 
     private fun urunEkleTelefon(view: View){
-        val urun = Product(planets_spinner_urun.selectedItem.toString(), EPrice.text.toString()
-                , EUnit.text.toString(), EFeatures.text.toString())
+        val urun = Product(EPrice.text.toString(),telefonBrand.text.toString(),telefonModel.text.toString(),
+                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
 
-        val telefon = Phone(urun,telefonBrand.text.toString(),telefonModel.text.toString(),telefonRam.text.toString(),telefonCam.text.toString(),
-        telefonHafiza.text.toString(),telefonColor.text.toString(),telefonTip.text.toString())
+        val telefon = Phone(urun,telefonRam.text.toString(),telefonCam.text.toString(),telefonHafiza.text.toString(),telefonColor.text.toString()
+        ,telefonTip.text.toString())
+
 
         val sorgu = serviceStore.telefonekle(telefon)
         sorgu.enqueue(object : Callback<String>{
@@ -178,11 +180,11 @@ private fun goneAllConstarint(){
 
 
     private fun urunEkleTablet(view: View){
-        val urun = Product(planets_spinner_urun.selectedItem.toString(), EPrice.text.toString()
-                , EUnit.text.toString(), EFeatures.text.toString())
+        val urun = Product(EPrice.text.toString(),tabletBrand.text.toString(),tabletModel.text.toString(),
+                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
 
-        val tablet = Tablet(urun,tabletBrand.text.toString(),tabletModel.text.toString(),tabletRam.text.toString(),tabletCam.text.toString(),
-                tabletHafiza.text.toString(),tabletColor.text.toString(),tabletTip.text.toString())
+        val tablet = Tablet(urun,tabletRam.text.toString(),tabletCam.text.toString(),tabletColor.text.toString(),tabletTip.text.toString(), tabletHafiza.text.toString())
+
 
         val sorgu = serviceStore.tabletekle(tablet)
         sorgu.enqueue(object : Callback<String>{
@@ -202,10 +204,11 @@ private fun goneAllConstarint(){
 
 
     private fun urunEkleTV(view: View){
-        val urun = Product(planets_spinner_urun.selectedItem.toString(), EPrice.text.toString()
-                , EUnit.text.toString(), EFeatures.text.toString())
+        val urun = Product(EPrice.text.toString(),tvBrand.text.toString(),tvModel.text.toString(),
+                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
 
-        val tv = Television(urun,tvBrand.text.toString(),tvModel.text.toString(),tvInc.text.toString(),tvColor.text.toString())
+
+        val tv = Television(urun,tvInc.text.toString(),tvColor.text.toString())
 
         val sorgu = serviceStore.tvekle(tv)
         sorgu.enqueue(object : Callback<String>{
@@ -226,8 +229,9 @@ private fun goneAllConstarint(){
 
 
     private fun urunEkleKulaklik(view: View){
-        val urun = Product(planets_spinner_urun.selectedItem.toString(), EPrice.text.toString()
-                , EUnit.text.toString(), EFeatures.text.toString())
+        val urun = Product(EPrice.text.toString(),"aa","bb",planets_spinner_urun.selectedItem.toString(),
+                EFeatures.text.toString(),EUnit.text.toString())
+        
 
         val kulaklik = HeadPhone(urun,hpTip.text.toString(),hpColor.text.toString())
 

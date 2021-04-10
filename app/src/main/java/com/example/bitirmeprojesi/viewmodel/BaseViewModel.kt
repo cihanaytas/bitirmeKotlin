@@ -1,4 +1,4 @@
-package com.example.besinlerkitabi.viewmodel
+package com.example.bitirmeprojesi.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
