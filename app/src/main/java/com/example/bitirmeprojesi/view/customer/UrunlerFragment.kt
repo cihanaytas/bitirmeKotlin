@@ -22,7 +22,7 @@ class UrunlerFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val wf = CustomerWorkFlow(serviceCustomer)
+
 //        GlobalScope.launch(Dispatchers.Main) {
 //        val a = wf.getProductList()
 //            println(a)
@@ -55,7 +55,6 @@ class UrunlerFragment : Fragment() {
     fun observeLiveData(){
         viewModel.urunler.observe(viewLifecycleOwner, Observer { urunler ->
             urunler?.let {
-                println(urunler)
                  urunListRecyclerView.visibility = View.VISIBLE
                 urunHataMessage.visibility = View.GONE
                 urunlerYukleniyor.visibility = View.GONE

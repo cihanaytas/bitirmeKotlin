@@ -57,9 +57,9 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>) : Recycler
     }
 
     override fun urunTiklandi(view: View) {
-        val uuid = view.urun_id.text.toString().toIntOrNull()
-        uuid?.let {
-            val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment()
+        val id = view.urun_id.text.toString().toLong()
+        id?.let {
+            val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it)
             Navigation.findNavController(view).navigate(action)
         }
 

@@ -21,33 +21,8 @@ interface SimpleCustomerApi{
     @GET("products")
     fun getAllProducts(): Deferred<Response<List<Product>>>
 
-
-
-
-
-
-//
-//    @GET("cars")
-//    fun getCars(): Call<List<Car>>
-//
-//    @GET("cars")
-//    fun getCarss(): Deferred<Response<List<Car>>>
-//
-//    @GET("cars")
-//    fun getDeneme() : Single<List<Car>>
-//
-//
-//    @GET("car/{car_id}")
-//    fun getCarbyCarID(@Path("car_id") carID:Long): Single<Car>
-//
-//    @GET("car/{car_id}")
-//    fun getCarbyCarID1(@Path("car_id") carID:Long): Deferred<Response<Car>>
-//
-//
-//    @GET("resptest")
-//    fun getCihan(): Call<Customer>
-
-
+    @GET("product/{id}")
+    fun getProduct(@Path("id") id:Long) : Deferred<Response<Product>>
 
 
 

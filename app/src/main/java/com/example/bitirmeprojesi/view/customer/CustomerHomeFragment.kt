@@ -10,6 +10,7 @@ import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.MainActivity
 import com.example.bitirmeprojesi.activities.serviceCustomer
+import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.view.sharedPreferences
 import com.example.bitirmeprojesi.view.store.StoreHomeFragmentDirections
 import kotlinx.android.synthetic.main.activity_customer_home_page.*
@@ -19,12 +20,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+
 class CustomerHomeFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -29,6 +29,17 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
     }
 
 
+    suspend fun getProduct(id:Long): Product? {
+        val sorgu = serviceCustomer.getProduct(id).await()
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+
 }
 
 

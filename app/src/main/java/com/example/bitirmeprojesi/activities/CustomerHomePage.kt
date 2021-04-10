@@ -28,7 +28,7 @@ class CustomerHomePage : AppCompatActivity() {
         val password = intent.getStringExtra("password").toString()
 
         serviceCustomer = RetrofitInstance.createInstanceCustomer(username,password).create(SimpleCustomerApi::class.java)
-        val wf = CustomerWorkFlow(serviceCustomer)
+
 
 
     }

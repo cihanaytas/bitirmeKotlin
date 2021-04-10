@@ -8,7 +8,7 @@ data class Product(
         val brand: String,
         val model: String,
         val category: String,
-        val storeName: String,
+        val storeNickName: String,
         val features: String,
         val units: String,
         val gorsel: String
