@@ -14,14 +14,14 @@
         android:layout_marginStart="67dp"
         android:layout_marginTop="14dp"
         android:layout_marginEnd="64dp"
-        android:text="Soyisim:"
+        android:text="Puan"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView12"
+        app:layout_constraintEnd_toStartOf="@+id/EstorePoint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/EstorePoint"
         android:layout_width="99dp"
         android:layout_height="42dp"
         android:layout_marginEnd="143dp"
@@ -32,17 +32,17 @@
         app:layout_constraintTop_toTopOf="@+id/textView13" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/EstoreName"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="143dp"
         android:layout_marginBottom="44dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintBottom_toBottomOf="@+id/EstorePoint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toTopOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/EstoreNickName" />
 
     <TextView
         android:id="@+id/textView11"
@@ -53,7 +53,7 @@
         android:layout_marginEnd="64dp"
         android:text="İsim:"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/textView10"
+        app:layout_constraintEnd_toStartOf="@+id/EstoreName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -68,12 +68,12 @@
         android:text="Store:"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-        app:layout_constraintEnd_toStartOf="@+id/textView9"
+        app:layout_constraintEnd_toStartOf="@+id/EstoreNickName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/EstoreNickName"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="143dp"

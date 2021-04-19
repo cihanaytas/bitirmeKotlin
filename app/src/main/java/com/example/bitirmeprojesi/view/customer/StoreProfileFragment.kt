@@ -39,7 +39,7 @@ class StoreProfileFragment : Fragment() {
 
         viewModel = ViewModelProviders.of(this).get(StoreProfileViewModel::class.java)
         viewModel.urunleriAl(storeName)
-        viewModel.storebilgi()
+        viewModel.storebilgi(storeName)
 
         urunListRecyclerView.layoutManager = LinearLayoutManager(context)
         urunListRecyclerView.adapter = recyclerProductAdapter
@@ -59,9 +59,11 @@ class StoreProfileFragment : Fragment() {
             }
         })
 
-        viewModel.stest.observe(viewLifecycleOwner, Observer { stest->
-            stest?.let {
-println("a " + stest)
+        viewModel.storeDetail.observe(viewLifecycleOwner, Observer { storeDetail->
+            storeDetail?.let {
+            EstoreNickName.text = storeName
+                EstoreName.text = storeDetail.store.name
+                EstorePoint.text = storeDetail.point.toString()
 
             }
         })

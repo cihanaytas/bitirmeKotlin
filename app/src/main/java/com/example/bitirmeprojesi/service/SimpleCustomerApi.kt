@@ -1,6 +1,7 @@
 package com.example.bitirmeprojesi.service
 
 
+import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.Product
 import io.reactivex.Single
 import kotlinx.coroutines.Deferred
@@ -30,6 +31,8 @@ interface SimpleCustomerApi{
     @POST("pointproduct/{productId}/{point}")
     fun pointToProduct(@Path("productId") productId:Long,@Path("point") point:Double): Call<Void>
 
+    @GET("getstoredetail/{storeNickName}")
+    fun getStoreDetail(@Path("storeNickName") storeNickName:String) : Deferred<Response<StoreDetails>>
 
 
 
