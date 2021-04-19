@@ -14,6 +14,7 @@ xmlns:tools="http://schemas.android.com/tools"
 </data>
 
 <RelativeLayout
+    android:id="@+id/test1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.customer.UrunPageFragment">
@@ -86,7 +87,7 @@ xmlns:tools="http://schemas.android.com/tools"
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/besinYag"
+        android:id="@+id/storenametext"
         android:layout_below="@id/besinProtein"
         android:text="@{`Store: ` + secilenUrun.storeNickName}"
         android:textSize="18sp"
@@ -97,27 +98,46 @@ xmlns:tools="http://schemas.android.com/tools"
     </TextView>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonYorumlar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/besinYag"
+        android:layout_below="@+id/storenametext"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="58dp"
         android:backgroundTint="#39383A"
         android:text="Yorumlar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonSepeteEkle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/besinYag"
+        android:layout_below="@+id/storenametext"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="36dp"
         android:backgroundTint="#1671CC"
         android:text="Sepete Ekle" />
 
+    <RatingBar
+        android:id="@+id/ratingBarPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonYorumlar"
+        android:layout_marginTop="35dp" />
+
+    <Button
+        android:id="@+id/buttonPuanla"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonSepeteEkle"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="39dp"
+        android:layout_toEndOf="@+id/ratingBarPoint"
+        android:backgroundTint="#dd0808"
+        android:text="Puanla" />
+
 
 </RelativeLayout>
+
 </layout>

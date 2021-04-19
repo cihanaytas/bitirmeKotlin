@@ -22,13 +22,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
+lateinit var serviceNew: SimpleNewApi
 class KayitFragment : Fragment(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        serviceNew = RetrofitInstance.createInstanceNew().create(SimpleNewApi::class.java)
 }
 
 
@@ -71,9 +71,35 @@ class KayitFragment : Fragment(){
         val userAddress = Address(UserCity.text.toString(),UserDistrict.text.toString(),UserStreet.text.toString(),UserHomeNo.text.toString())
         val user = UserAccount(UserNickName.text.toString(),UserName.text.toString(),UserSurname.text.toString(),UserMail.text.toString(),UserPassword.text.toString(),userAddress,planets_spinner.selectedItem.toString())
 
-        var serviceNew: SimpleNewApi = RetrofitInstance.createInstanceNew().create(SimpleNewApi::class.java)
-        val sorgu  = serviceNew.addCustomer(user)
+        val sorgu  = serviceNew.addUser(user)
         sorgu.enqueue(object : Callback<String> {
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                println(t.message)
+                println("fail")
+            }
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful) {
+                    Toast.makeText(activity, "Kayıt Başarılı", Toast.LENGTH_LONG).show()
+                    kayitol2(user.nickName,view)
+                }
+                else
+                {
+                    val err = JsonParser().parse(response.errorBody()?.string()).asJsonObject["details"].asString
+                    Toast.makeText(activity,err, Toast.LENGTH_LONG).show()
+                }
+
+            }
+        })
+
+
+
+
+
+    }
+
+    private fun kayitol2(nickname:String,view: View){
+        val sorgu2 = serviceNew.addUserDetail(nickname)
+        sorgu2.enqueue(object : Callback<String> {
             override fun onFailure(call: Call<String>, t: Throwable) {
                 println(t.message)
                 println("fail")
@@ -88,14 +114,10 @@ class KayitFragment : Fragment(){
                 {
                     val err = JsonParser().parse(response.errorBody()?.string()).asJsonObject["details"].asString
                     Toast.makeText(activity,err, Toast.LENGTH_LONG).show()
-
                 }
 
             }
-
         })
-
-
     }
 
 }

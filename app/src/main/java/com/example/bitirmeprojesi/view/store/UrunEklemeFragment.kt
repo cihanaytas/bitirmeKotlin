@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.serviceStore
 import com.example.bitirmeprojesi.models.products.*
+import com.google.gson.JsonParser
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -79,7 +80,7 @@ class UrunEklemeFragment : Fragment() {
                 {
                     goneAllConstarint()
                     telefonconst.visibility = View.VISIBLE
-                        buttonTVEkle.setOnClickListener{
+                        buttonTelefonEkle.setOnClickListener{
                         urunEkleTelefon(it)
                     }
 
@@ -100,17 +101,8 @@ class UrunEklemeFragment : Fragment() {
                         urunEkleKulaklik(it)
                     }
                 }
-
-
-
             }
-
-
         }
-
-
-
-
     }
 
 
@@ -171,6 +163,11 @@ private fun goneAllConstarint(){
                     Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
                     val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
                     Navigation.findNavController(view).navigate(action)
+                }
+                else
+                {
+                    val err = JsonParser().parse(response.errorBody()?.string()).asJsonObject["details"].asString
+                    Toast.makeText(activity,err, Toast.LENGTH_LONG).show()
                 }
             }
 

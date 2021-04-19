@@ -12,8 +12,11 @@ import retrofit2.http.Path
 
 interface SimpleNewApi {
 
-    @POST("addcustomer")
-    fun addCustomer(@Body userData: UserAccount) : Call<String>
+    @POST("adduser")
+    fun addUser(@Body userData: UserAccount) : Call<String>
+
+    @POST("adduserdetail/{nickName}")
+    fun addUserDetail(@Path("nickName") nickName: String) : Call<String>
 //
 //    @POST("login")
 //    fun login(@Body reqBodyLogin: ReqBodyLogin) : Call<Boolean>

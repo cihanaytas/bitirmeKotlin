@@ -17,7 +17,7 @@
         android:layout_marginEnd="75dp"
         android:layout_marginBottom="453dp"
         android:ems="10"
-        android:hint="Bilgi111111111"
+        android:hint="Bilgi"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/EUnit"

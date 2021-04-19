@@ -21,8 +21,14 @@ interface SimpleCustomerApi{
     @GET("products")
     fun getAllProducts(): Deferred<Response<List<Product>>>
 
+    @GET("products/{nickname}")
+    fun getAllProductsByNickname(@Path("nickname") nickname:String): Deferred<Response<List<Product>>>
+
     @GET("product/{id}")
     fun getProduct(@Path("id") id:Long) : Deferred<Response<Product>>
+
+    @POST("pointproduct/{productId}/{point}")
+    fun pointToProduct(@Path("productId") productId:Long,@Path("point") point:Double): Call<Void>
 
 
 

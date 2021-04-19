@@ -39,6 +39,17 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
         }
     }
 
+    suspend fun getProductListByNickname(storename: String): List<Product>? {
+        val sorgu = serviceCustomer.getAllProductsByNickname(storename).await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
 
 }
 

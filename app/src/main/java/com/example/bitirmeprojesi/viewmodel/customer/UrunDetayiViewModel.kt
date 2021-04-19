@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.models.products.Product
-import com.example.bitirmeprojesi.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

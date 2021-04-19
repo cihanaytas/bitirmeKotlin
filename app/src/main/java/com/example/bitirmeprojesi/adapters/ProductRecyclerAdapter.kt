@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.Product
+import com.example.bitirmeprojesi.view.customer.StoreProfileFragmentDirections
 import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 
 
-class ProductRecyclerAdapter(val productListesi : ArrayList<Product>) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
+class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
 
+    val x = nereden
     class ProductViewHolder(var view : UrunRecyclerRowBinding) : RecyclerView.ViewHolder(view.root) {
 
     }
@@ -40,12 +42,6 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>) : Recycler
         holder.view.listener = this
 
 
-//        holder.itemView.isim.text = besinListesi.get(position).besinIsim
-//        holder.itemView.kalori.text = besinListesi.get(position).besinKalori
-//        holder.itemView.setOnClickListener {
-//            val action = BesinListesiFragmentDirections.actionBesinListesiFragmentToBesinDetayiFragment(besinListesi.get(position).uuid)
-//            Navigation.findNavController(it).navigate(action)
-//        }
         //holder.itemView.imageView.gorselIndir(besinListesi.get(position).besinGorsel, placeholderYap(holder.itemView.context))
 
     }
@@ -58,9 +54,20 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>) : Recycler
 
     override fun urunTiklandi(view: View) {
         val id = view.urun_id.text.toString().toLong()
+
+
         id?.let {
-            val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it)
-            Navigation.findNavController(view).navigate(action)
+            if(x=="storeprofile"){
+
+                val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it)
+                Navigation.findNavController(view).navigate(action)
+            }
+
+            else if(x=="urunler"){
+                val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it)
+                Navigation.findNavController(view).navigate(action)
+            }
+
         }
 
     }

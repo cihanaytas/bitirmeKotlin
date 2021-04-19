@@ -26,6 +26,9 @@
         <argument
             android:name="urunId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_urunPageFragment_to_storeProfileFragment"
+            app:destination="@id/storeProfileFragment" />
     </fragment>
 
     <fragment
@@ -40,5 +43,17 @@
             android:id="@+id/action_urunlerFragment_to_urunPageFragment"
             app:destination="@id/urunPageFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/storeProfileFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.StoreProfileFragment"
+        android:label="fragment_store_profile"
+        tools:layout="@layout/fragment_store_profile" >
+        <action
+            android:id="@+id/action_storeProfileFragment_to_urunPageFragment"
+            app:destination="@id/urunPageFragment" />
+        <argument
+            android:name="storeId"
+            app:argType="string" />
     </fragment>
 </navigation>
