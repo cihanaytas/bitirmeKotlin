@@ -29,6 +29,8 @@ interface SimpleStoreApi : SimpleNewApi {
     fun kulaklikekle(@Body headPhone: HeadPhone) : Call<String>
 
 
+    @POST("addproduct")
+    fun urunEkle(@Body product: Product) : Call<String>
 
 
 

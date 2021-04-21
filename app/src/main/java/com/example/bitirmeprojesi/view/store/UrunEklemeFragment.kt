@@ -1,14 +1,14 @@
 package com.example.bitirmeprojesi.view.store
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.serviceStore
@@ -21,6 +21,10 @@ import retrofit2.Response
 
 
 class UrunEklemeFragment : Fragment() {
+
+    private var images: ArrayList<Uri?>? = null
+    private var positionImage = 0
+    private val PICK_IMAGES_CODE = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,33 @@ class UrunEklemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        images = ArrayList()
+        imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
+
+        pickImagesBtn.setOnClickListener {
+            pickImagesIntent()
+        }
+
+        nexBtn.setOnClickListener {
+            if(positionImage < images!!.size-1){
+                positionImage++
+                imageSwitcher.setImageURI(images!![positionImage])
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        previousBtn.setOnClickListener {
+            if(positionImage>0){
+                positionImage--
+                imageSwitcher.setImageURI(images!![positionImage])
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok",Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
+
         val spinner: Spinner = view.findViewById(R.id.planets_spinner_urun)
         context?.let {
             ArrayAdapter.createFromResource(
@@ -51,7 +82,6 @@ class UrunEklemeFragment : Fragment() {
             }
         }
 
-        goneAllConstarint()
 
         planets_spinner_urun?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -59,47 +89,37 @@ class UrunEklemeFragment : Fragment() {
             }
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    buttonUrunuEkle.setOnClickListener {
+                        urunEkle(it)
+                    }
+            }
+        }
+    }
 
-                if( planets_spinner_urun.selectedItem.toString()=="LAPTOP")
-                {
-                    goneAllConstarint()
-                    laptopconst.visibility = View.VISIBLE
-                    buttonLaptopEkle.setOnClickListener{
-                        urunEkleLaptop(it)
-                    }
-                }
-                else if(planets_spinner_urun.selectedItem.toString()=="TABLET")
-                {
-                    goneAllConstarint()
-                    tabletconst.visibility = View.VISIBLE
-                    buttonTabletEkle.setOnClickListener{
-                        urunEkleTablet(it)
-                    }
-                }
-                else if(planets_spinner_urun.selectedItem.toString()=="TELEFON")
-                {
-                    goneAllConstarint()
-                    telefonconst.visibility = View.VISIBLE
-                        buttonTelefonEkle.setOnClickListener{
-                        urunEkleTelefon(it)
-                    }
 
-                }
+    private fun pickImagesIntent(){
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE,true)
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(Intent.createChooser(intent,"Görsel Seç"), PICK_IMAGES_CODE)
+    }
 
-                else if(planets_spinner_urun.selectedItem.toString()=="TELEVIZYON"){
-                    goneAllConstarint()
-                    tvconst.visibility = View.VISIBLE
-                    buttonTVEkle.setOnClickListener {
-                        urunEkleTV(it)
-                    }
-                }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-                else if(planets_spinner_urun.selectedItem.toString()=="KULAKLIK"){
-                    goneAllConstarint()
-                    kulaklikconst.visibility = View.VISIBLE
-                    buttonKulaklikEkle.setOnClickListener {
-                        urunEkleKulaklik(it)
+        if(requestCode == PICK_IMAGES_CODE){
+            if(resultCode == Activity.RESULT_OK){
+                if(data!!.clipData != null){
+                    val count = data.clipData!!.itemCount
+                    for(i in 0 until count){
+                        val imageUri = data.clipData!!.getItemAt(i).uri
+                        images!!.add(imageUri)
                     }
+                    imageSwitcher.setImageURI(images!![0])
+                }else{
+                    val imageUri = data.data
+                    imageSwitcher.setImageURI(imageUri)
                 }
             }
         }
@@ -107,27 +127,15 @@ class UrunEklemeFragment : Fragment() {
 
 
 
-private fun goneAllConstarint(){
-    laptopconst.visibility = View.GONE
-    tabletconst.visibility = View.GONE
-    telefonconst.visibility = View.GONE
-    tvconst.visibility = View.GONE
-    kulaklikconst.visibility = View.GONE
-}
+
+   private fun urunEkle(view: View){
+       val urun = Product(UrunFiyat.text.toString(),UrunMarka.text.toString(),UrunModel.text.toString(),
+               planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString())
+
+       val sorgu = serviceStore.urunEkle(urun)
 
 
-
-    private fun urunEkleLaptop(view: View){
-        val urun = Product(EPrice.text.toString(),laptopBrand.text.toString(),laptopModel.text.toString(),
-                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
-
-
-        val laptop = Laptop(urun, laptopHafiza.text.toString(),laptopRam.text.toString(),laptopColor.text.toString(),
-        laptopislemcimodel.text.toString(),laptopislemciType.text.toString())
-
-        val sorgu = serviceStore.laptopekle(laptop)
-
-        sorgu.enqueue(object : Callback<String>{
+       sorgu.enqueue(object : Callback<String>{
             override fun onFailure(call: Call<String>, t: Throwable) {
              }
 
@@ -140,114 +148,6 @@ private fun goneAllConstarint(){
             }
 
         })
-
-    }
-
-
-    private fun urunEkleTelefon(view: View){
-        val urun = Product(EPrice.text.toString(),telefonBrand.text.toString(),telefonModel.text.toString(),
-                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
-
-        val telefon = Phone(urun,telefonRam.text.toString(),telefonCam.text.toString(),telefonHafiza.text.toString(),telefonColor.text.toString()
-        ,telefonTip.text.toString())
-
-
-        val sorgu = serviceStore.telefonekle(telefon)
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                    Navigation.findNavController(view).navigate(action)
-                }
-                else
-                {
-                    val err = JsonParser().parse(response.errorBody()?.string()).asJsonObject["details"].asString
-                    Toast.makeText(activity,err, Toast.LENGTH_LONG).show()
-                }
-            }
-
-        })
-
-    }
-
-
-    private fun urunEkleTablet(view: View){
-        val urun = Product(EPrice.text.toString(),tabletBrand.text.toString(),tabletModel.text.toString(),
-                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
-
-        val tablet = Tablet(urun,tabletRam.text.toString(),tabletCam.text.toString(),tabletColor.text.toString(),tabletTip.text.toString(), tabletHafiza.text.toString())
-
-
-        val sorgu = serviceStore.tabletekle(tablet)
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                    Navigation.findNavController(view).navigate(action)
-                }
-            }
-
-        })
-    }
-
-
-    private fun urunEkleTV(view: View){
-        val urun = Product(EPrice.text.toString(),tvBrand.text.toString(),tvModel.text.toString(),
-                planets_spinner_urun.selectedItem.toString(),EFeatures.text.toString(),EUnit.text.toString())
-
-
-        val tv = Television(urun,tvInc.text.toString(),tvColor.text.toString())
-
-        val sorgu = serviceStore.tvekle(tv)
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                    Navigation.findNavController(view).navigate(action)
-                }
-            }
-
-        })
-        
-    }
-
-
-    private fun urunEkleKulaklik(view: View){
-        val urun = Product(EPrice.text.toString(),"aa","bb",planets_spinner_urun.selectedItem.toString(),
-                EFeatures.text.toString(),EUnit.text.toString())
-        
-
-        val kulaklik = HeadPhone(urun,hpTip.text.toString(),hpColor.text.toString())
-
-       val sorgu = serviceStore.kulaklikekle(kulaklik)
-
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-            }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                    Navigation.findNavController(view).navigate(action)
-                }
-            }
-
-        })
-    }
-
+   }
 
 }

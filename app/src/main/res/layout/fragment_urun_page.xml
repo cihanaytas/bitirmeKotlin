@@ -13,6 +13,11 @@ xmlns:tools="http://schemas.android.com/tools"
 
 </data>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
 <RelativeLayout
     android:id="@+id/test1"
     android:layout_width="match_parent"
@@ -138,6 +143,22 @@ xmlns:tools="http://schemas.android.com/tools"
         android:text="Puanla" />
 
 
+    <ImageView
+        android:id="@+id/besinImagee"
+        android:layout_width="389dp"
+        android:layout_height="188dp"
+        android:layout_below="@+id/buttonPuanla"
+        android:layout_marginStart="-210dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/ratingBarPoint"
+        android:downloadImage="@{secilenUrun.gorsel}"
+        android:minHeight="200dp"
+        android:scaleType="fitCenter"></ImageView>
+
 </RelativeLayout>
+
+</ScrollView>
+
+
 
 </layout>
