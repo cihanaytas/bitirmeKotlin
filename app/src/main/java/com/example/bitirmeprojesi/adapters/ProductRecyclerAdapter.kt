@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.adapters
 
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +12,10 @@ import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.view.customer.StoreProfileFragmentDirections
 import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_urun_page.*
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
+import java.io.File
 
 
 class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
@@ -41,8 +45,15 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         holder.view.urun = productListesi[position]
         holder.view.listener = this
 
+        val storageDirectory =   Environment.getExternalStoragePublicDirectory(
+            Environment.DIRECTORY_PICTURES);
 
-        //holder.itemView.imageView.gorselIndir(besinListesi.get(position).besinGorsel, placeholderYap(holder.itemView.context))
+        val abc = productListesi.get(position).images[0]
+        println("${abc}.jpg")
+        val file = File(storageDirectory, "${abc}.jpg")
+
+        Picasso.get().load(file)
+            .into(holder.itemView.imageView)
 
     }
 

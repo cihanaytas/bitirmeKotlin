@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,6 +17,8 @@ import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.databinding.FragmentUrunPageBinding
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.UrunDetayiViewModel
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import kotlinx.android.synthetic.main.fragment_urun_page.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,6 +34,7 @@ class UrunPageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
     }
 
@@ -49,9 +54,33 @@ class UrunPageFragment : Fragment() {
         arguments?.let {
             urunId = UrunPageFragmentArgs.fromBundle(it).urunId
         }
-
         viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
         viewModel.getData(urunId)
+
+        images = ArrayList()
+        imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
+
+        pickImagesBtn.setOnClickListener {
+            pickImagesIntent()
+        }
+
+        nexBtn.setOnClickListener {
+            if(positionImage < images!!.size-1){
+                positionImage++
+                imageSwitcher.setImageURI(images!![positionImage])
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        previousBtn.setOnClickListener {
+            if(positionImage>0){
+                positionImage--
+                imageSwitcher.setImageURI(images!![positionImage])
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         observeLiveData()
 

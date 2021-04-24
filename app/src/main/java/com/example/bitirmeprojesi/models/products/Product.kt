@@ -1,5 +1,7 @@
 package com.example.bitirmeprojesi.models.products
 
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Build
 
 data class Product(
@@ -11,10 +13,11 @@ data class Product(
         val storeNickName: String,
         val features: String,
         val units: String,
-        val gorsel: String
+        val images: MutableList<String>
+      //  val images: HashMap<String,Any>
 )
 
 {
-    constructor(price: String, brand:String, model: String, category:String, features: String, units: String) :
-            this("",price,brand,model,category,"",features,units,"")
+    constructor(price: String, brand:String, model: String, category:String, features: String, units: String,images: MutableList<String>) :
+            this("",price,brand,model,category,"",features,units,images)
 }

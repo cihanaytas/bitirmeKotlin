@@ -24,23 +24,22 @@ xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     tools:context=".view.customer.UrunPageFragment">
 
-    <ImageView
-        android:id="@+id/besinImage"
+    <ImageSwitcher
+        android:id="@+id/imageSwitcherProduct"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:minHeight="200dp"
         android:scaleType="fitCenter"
-        android:downloadImage="@{secilenUrun.gorsel}"
         android:layout_margin="10dp">
 
-    </ImageView>
+    </ImageSwitcher>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/besinIsim"
-        android:layout_below="@id/besinImage"
+        android:layout_below="@id/imageSwitcherProduct"
         android:text="@{`Marka: ` + secilenUrun.brand}"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -151,7 +150,6 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_marginStart="-210dp"
         android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/ratingBarPoint"
-        android:downloadImage="@{secilenUrun.gorsel}"
         android:minHeight="200dp"
         android:scaleType="fitCenter"></ImageView>
 

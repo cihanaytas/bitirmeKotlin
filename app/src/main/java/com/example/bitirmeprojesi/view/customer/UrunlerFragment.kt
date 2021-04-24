@@ -39,6 +39,7 @@ class UrunlerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         viewModel = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel.urunleriAl()
 

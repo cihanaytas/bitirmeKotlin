@@ -1,28 +1,49 @@
 package com.example.bitirmeprojesi.view.store
 
+import android.Manifest
 import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.serviceStore
 import com.example.bitirmeprojesi.models.products.*
 import com.google.gson.JsonParser
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.*
+import java.lang.Exception
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class UrunEklemeFragment : Fragment() {
-
+    var secilenGorsel : Uri? = null
+    var secilenBitmap : Bitmap? = null
     private var images: ArrayList<Uri?>? = null
+
+    private var imagesUriList: MutableList<String> = mutableListOf()
+
     private var positionImage = 0
     private val PICK_IMAGES_CODE = 0
 
@@ -42,6 +63,8 @@ class UrunEklemeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         images = ArrayList()
         imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
@@ -123,31 +146,103 @@ class UrunEklemeFragment : Fragment() {
                 }
             }
         }
+
+
+
+
     }
 
 
 
 
    private fun urunEkle(view: View){
-       val urun = Product(UrunFiyat.text.toString(),UrunMarka.text.toString(),UrunModel.text.toString(),
-               planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString())
 
-       val sorgu = serviceStore.urunEkle(urun)
-
-
-       sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-             }
-
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                    Navigation.findNavController(view).navigate(action)
+               if(images!=null){
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if(ContextCompat.checkSelfPermission(requireActivity().applicationContext,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
+ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
                 }
+                else{  addimage()}
+            }else{
+                addimage()
             }
 
-        })
+        }
+
+
+       val urun = imagesUriList?.let {
+           Product(UrunFiyat.text.toString(),UrunMarka.text.toString(),UrunModel.text.toString(),
+                   planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString(), it)
+       }
+
+
+
+       val sorgu = urun?.let { serviceStore.urunEkle(it) }
+
+
+       if (sorgu != null) {
+           sorgu.enqueue(object : Callback<String>{
+               override fun onFailure(call: Call<String>, t: Throwable) {
+               }
+
+               override fun onResponse(call: Call<String>, response: Response<String>) {
+                   if(response.isSuccessful){
+                       Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
+                       val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+                       Navigation.findNavController(view).navigate(action)
+                   }
+               }
+
+           })
+       }
    }
 
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if(requestCode==100){
+            if(grantResults.size>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                println("geldim")
+    addimage()
+            }
+        }
+    }
+
+
+    private fun addimage(){
+        for(i in images!!){
+            if(Build.VERSION.SDK_INT >= 28) {
+
+                val source = ImageDecoder.createSource(requireActivity().contentResolver, i!!)
+                secilenBitmap = ImageDecoder.decodeBitmap(source)
+                val externalStorageState = Environment.getExternalStorageState()
+                if(externalStorageState.equals(Environment.MEDIA_MOUNTED)){
+               //     val resim = File("/sdcard/Resimler")
+
+                    val storageDirectory =   Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES);
+                    val uri = UUID.randomUUID()
+                    val file = File(storageDirectory, "${uri}.jpg")
+
+                    try{
+                        val stream: OutputStream = FileOutputStream(file)
+                        secilenBitmap!!.compress(Bitmap.CompressFormat.JPEG,100,stream)
+                        stream.flush()
+                        stream.close()
+                        imagesUriList!!.add(uri.toString())
+                    }catch (e:Exception){
+                        println(e.message)
+                    }
+                }
+
+            }
+
+        }
+    }
+
 }
+
