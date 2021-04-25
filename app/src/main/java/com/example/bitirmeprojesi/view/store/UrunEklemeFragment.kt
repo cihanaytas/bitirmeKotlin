@@ -38,12 +38,9 @@ import kotlin.collections.ArrayList
 
 
 class UrunEklemeFragment : Fragment() {
-    var secilenGorsel : Uri? = null
     var secilenBitmap : Bitmap? = null
     private var images: ArrayList<Uri?>? = null
-
     private var imagesUriList: MutableList<String> = mutableListOf()
-
     private var positionImage = 0
     private val PICK_IMAGES_CODE = 0
 
@@ -175,26 +172,21 @@ ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission
                    planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString(), it)
        }
 
-
-
        val sorgu = urun?.let { serviceStore.urunEkle(it) }
 
+       sorgu?.enqueue(object : Callback<String>{
+           override fun onFailure(call: Call<String>, t: Throwable) {
+           }
 
-       if (sorgu != null) {
-           sorgu.enqueue(object : Callback<String>{
-               override fun onFailure(call: Call<String>, t: Throwable) {
+           override fun onResponse(call: Call<String>, response: Response<String>) {
+               if(response.isSuccessful){
+                   Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
+                   val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+                   Navigation.findNavController(view).navigate(action)
                }
+           }
 
-               override fun onResponse(call: Call<String>, response: Response<String>) {
-                   if(response.isSuccessful){
-                       Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                       val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-                       Navigation.findNavController(view).navigate(action)
-                   }
-               }
-
-           })
-       }
+       })
    }
 
 

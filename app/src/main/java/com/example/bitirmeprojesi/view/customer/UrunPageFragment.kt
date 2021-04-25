@@ -1,12 +1,16 @@
 package com.example.bitirmeprojesi.view.customer
 
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,15 +24,19 @@ import com.example.bitirmeprojesi.viewmodel.customer.UrunDetayiViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import kotlinx.android.synthetic.main.fragment_urun_page.*
+import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class UrunPageFragment : Fragment() {
+    private var imagesUriList: MutableList<String> = mutableListOf()
     private var urunId : Long = 0
+    private var page = 0
     private lateinit var viewModel : UrunDetayiViewModel
     private lateinit var dataBinding : FragmentUrunPageBinding
 
@@ -53,33 +61,14 @@ class UrunPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             urunId = UrunPageFragmentArgs.fromBundle(it).urunId
+            page = UrunPageFragmentArgs.fromBundle(it).page
         }
         viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
         viewModel.getData(urunId)
 
-        images = ArrayList()
-        imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
-
-        pickImagesBtn.setOnClickListener {
-            pickImagesIntent()
-        }
-
-        nexBtn.setOnClickListener {
-            if(positionImage < images!!.size-1){
-                positionImage++
-                imageSwitcher.setImageURI(images!![positionImage])
-            }else{
-                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        previousBtn.setOnClickListener {
-            if(positionImage>0){
-                positionImage--
-                imageSwitcher.setImageURI(images!![positionImage])
-            }else{
-                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
-            }
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            val action = UrunPageFragmentDirections.actionUrunPageFragmentToUrunlerFragment(page)
+            Navigation.findNavController(view).navigate(action)
         }
 
         observeLiveData()
@@ -111,13 +100,59 @@ class UrunPageFragment : Fragment() {
     }
 
 
+
     fun observeLiveData(){
         viewModel.productLiveData.observe(viewLifecycleOwner, Observer {product ->
             product?.let {
                 dataBinding.secilenUrun = it
-
+                if(it.images.isNotEmpty()) {
+                    gorselEkle()
+                }
             }
         })
     }
 
+    private fun gorselEkle(){
+        var positionImage = 0
+        val img = dataBinding.secilenUrun!!.images
+
+        for(i in img){
+            imagesUriList.add(i)
+        }
+
+        picasso("${imagesUriList[0]}.jpg")
+
+        ileri.setOnClickListener {
+            if(positionImage < imagesUriList!!.size-1){
+                positionImage++
+                picasso("${imagesUriList[positionImage]}.jpg")
+
+
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        geri.setOnClickListener {
+            if(positionImage>0){
+                positionImage--
+                picasso("${imagesUriList[positionImage]}.jpg")
+
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun picasso(uri: String){
+        val storageDirectory =   Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+
+        val file = File(storageDirectory, uri)
+        Picasso.get().load(file)
+                .into(imageSwitcherProduct)
+    }
+
 }
+

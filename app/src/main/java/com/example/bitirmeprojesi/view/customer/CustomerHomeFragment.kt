@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.MainActivity
@@ -37,6 +38,10 @@ class CustomerHomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requireActivity().finish()
+        }
+
         buttonCikisCustomer.setOnClickListener {view ->
             cikisYap()
         }
@@ -64,7 +69,7 @@ class CustomerHomeFragment : Fragment() {
 
 
     private fun urunler(view: View){
-        val action = CustomerHomeFragmentDirections.actionCustomerHomeFragmentToUrunlerFragment()
+        val action = CustomerHomeFragmentDirections.actionCustomerHomeFragmentToUrunlerFragment(0)
         Navigation.findNavController(view).navigate(action)
     }
 

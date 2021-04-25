@@ -24,16 +24,19 @@ xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     tools:context=".view.customer.UrunPageFragment">
 
-    <ImageSwitcher
+    <ImageView
         android:id="@+id/imageSwitcherProduct"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="311dp"
+        android:layout_height="185dp"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:minHeight="200dp"
-        android:scaleType="fitCenter"
-        android:layout_margin="10dp">
+        android:scaleType="fitCenter">
 
-    </ImageSwitcher>
+    </ImageView>
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,6 +155,24 @@ xmlns:tools="http://schemas.android.com/tools"
         android:layout_toEndOf="@+id/ratingBarPoint"
         android:minHeight="200dp"
         android:scaleType="fitCenter"></ImageView>
+
+    <Button
+        android:id="@+id/ileri"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_toEndOf="@+id/imageSwitcherProduct"
+        android:text="Button" />
+
+    <Button
+        android:id="@+id/geri"
+        android:layout_width="66dp"
+        android:layout_height="78dp"
+        android:layout_below="@+id/ileri"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="21dp"
+        android:layout_toEndOf="@+id/imageSwitcherProduct"
+        android:text="Button" />
 
 </RelativeLayout>
 

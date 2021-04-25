@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_urunPageFragment_to_storeProfileFragment"
             app:destination="@id/storeProfileFragment" />
+        <argument
+            android:name="page"
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -42,6 +45,9 @@
         <action
             android:id="@+id/action_urunlerFragment_to_urunPageFragment"
             app:destination="@id/urunPageFragment" />
+        <argument
+            android:name="page"
+            app:argType="integer" />
 
     </fragment>
     <fragment

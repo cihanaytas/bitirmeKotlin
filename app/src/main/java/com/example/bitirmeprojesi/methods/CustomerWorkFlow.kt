@@ -30,6 +30,18 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
     }
 
 
+    suspend fun getProductListPaging(page : Int): List<Product>? {
+        val sorgu = serviceCustomer.getAllProductsPaging(page).await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+
     suspend fun getProduct(id:Long): Product? {
         val sorgu = serviceCustomer.getProduct(id).await()
         if(sorgu.isSuccessful){

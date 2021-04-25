@@ -21,6 +21,7 @@ import java.io.File
 class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
 
     val x = nereden
+    var page = 0
     class ProductViewHolder(var view : UrunRecyclerRowBinding) : RecyclerView.ViewHolder(view.root) {
 
     }
@@ -48,12 +49,13 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         val storageDirectory =   Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES);
 
-        val abc = productListesi.get(position).images[0]
-        println("${abc}.jpg")
-        val file = File(storageDirectory, "${abc}.jpg")
+        if(productListesi.get(position).images.isNotEmpty()){
+            val img = productListesi.get(position).images[0]
+            val file = File(storageDirectory, "${img}.jpg")
+            Picasso.get().load(file)
+                    .into(holder.itemView.imageView)
+        }
 
-        Picasso.get().load(file)
-            .into(holder.itemView.imageView)
 
     }
 
@@ -66,22 +68,22 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
     override fun urunTiklandi(view: View) {
         val id = view.urun_id.text.toString().toLong()
 
-
         id?.let {
             if(x=="storeprofile"){
-
-                val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it)
+                val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it,page)
                 Navigation.findNavController(view).navigate(action)
             }
 
             else if(x=="urunler"){
-                val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it)
+                val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it,page)
                 Navigation.findNavController(view).navigate(action)
             }
 
         }
 
     }
+
+
 
 
 }
