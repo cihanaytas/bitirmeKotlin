@@ -1,33 +1,32 @@
 package com.example.bitirmeprojesi.view.customer
 
 import android.os.Bundle
+import android.util.Log
+import android.view.*
+import android.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
+import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
 import kotlinx.android.synthetic.main.fragment_urunler.*
+import kotlinx.android.synthetic.main.urun_recycler_row.*
+import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 
 
-class UrunlerFragment : Fragment() {
+class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyclerAdapter.ShopInterface{
     var pageCount = 0
+    var category = ""
     private lateinit var viewModel : CustomerUrunlerViewModel
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler")
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler",this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-//        GlobalScope.launch(Dispatchers.Main) {
-//        val a = wf.getProductList()
-//            println(a)
-//        }
 
     }
 
@@ -41,17 +40,16 @@ class UrunlerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setHasOptionsMenu(true)
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             val action = UrunlerFragmentDirections.actionUrunlerFragmentToCustomerHomeFragment()
             Navigation.findNavController(view).navigate(action)
         }
-
         arguments?.let {
             pageCount = UrunlerFragmentArgs.fromBundle(it).page
         }
         viewModel = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
-        viewModel.urunleriAl(pageCount)
+        viewModel.urunleriAl(pageCount,category)
 
         if(pageCount==0){
             buttonGeri.visibility = View.GONE
@@ -61,7 +59,7 @@ class UrunlerFragment : Fragment() {
             pageCount++
             buttonGeri.visibility = View.VISIBLE
             recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount)
+            viewModel.urunleriAl(pageCount,category)
         }
 
         buttonGeri.setOnClickListener {
@@ -70,7 +68,7 @@ class UrunlerFragment : Fragment() {
                 buttonGeri.visibility = View.GONE
             }
             recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount)
+            viewModel.urunleriAl(pageCount,category)
         }
 
         urunListRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -80,9 +78,11 @@ class UrunlerFragment : Fragment() {
             urunlerYukleniyor.visibility = View.VISIBLE
             urunHataMessage.visibility = View.GONE
             urunListRecyclerView.visibility = View.GONE
-            viewModel.urunleriAl(0)
+            println(pageCount)
+            viewModel.urunleriAl(pageCount,category)
             swipeRefreshLayout.isRefreshing = false
         }
+
 
         observeLiveData()
     }
@@ -107,6 +107,54 @@ class UrunlerFragment : Fragment() {
         })
 
     }
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.menu_cart,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
+
+        val search = menu?.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if(query!=null){
+            category=query
+            viewModel.urunleriAl(0,category)
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if(query!=null){
+
+        }
+        if(query?.length==0){
+            category=""
+            viewModel.urunleriAl(0,query)
+        }
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val action = UrunlerFragmentDirections.actionUrunlerFragmentToCartFragment2()
+        view?.let {
+            Navigation.findNavController(it).navigate(action) }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun addItem(product: Product) {
+       Log.d("vvv","aaaaaaaaaaa")
+    }
+
+
 
 
 }

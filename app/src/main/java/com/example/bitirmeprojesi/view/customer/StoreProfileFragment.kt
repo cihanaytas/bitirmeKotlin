@@ -1,6 +1,7 @@
 package com.example.bitirmeprojesi.view.customer
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,11 @@ import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
 import com.example.bitirmeprojesi.viewmodel.customer.StoreProfileViewModel
 import kotlinx.android.synthetic.main.fragment_store_profile.*
 import androidx.lifecycle.Observer
+import com.example.bitirmeprojesi.models.products.Product
 
-class StoreProfileFragment : Fragment() {
+class StoreProfileFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
     private lateinit var viewModel : StoreProfileViewModel
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"storeprofile")
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"storeprofile",this)
     private var storeName : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +71,11 @@ class StoreProfileFragment : Fragment() {
         })
 
     }
+
+    override fun addItem(product: Product) {
+        Log.d("vvv","aaaaaaaaaaa")
+    }
+
 
 
 }

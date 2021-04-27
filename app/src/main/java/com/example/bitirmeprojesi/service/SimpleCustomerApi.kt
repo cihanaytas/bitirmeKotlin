@@ -25,6 +25,9 @@ interface SimpleCustomerApi{
     @GET("plist/{page}")
     fun getAllProductsPaging(@Path("page") page:Int): Deferred<Response<List<Product>>>
 
+    @GET("plist/{category}/{page}")
+    fun getAllProductsPagingCategory(@Path("page") page:Int, @Path("category") category:String): Deferred<Response<List<Product>>>
+
     @GET("products/{nickname}")
     fun getAllProductsByNickname(@Path("nickname") nickname:String): Deferred<Response<List<Product>>>
 

@@ -41,6 +41,17 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
         }
     }
 
+    suspend fun getProductListPagingCategory(page : Int,category: String): List<Product>? {
+        val sorgu = serviceCustomer.getAllProductsPagingCategory(page,category).await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
 
     suspend fun getProduct(id:Long): Product? {
         val sorgu = serviceCustomer.getProduct(id).await()

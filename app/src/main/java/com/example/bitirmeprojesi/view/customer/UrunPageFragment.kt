@@ -4,11 +4,10 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
@@ -59,6 +58,7 @@ class UrunPageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         arguments?.let {
             urunId = UrunPageFragmentArgs.fromBundle(it).urunId
             page = UrunPageFragmentArgs.fromBundle(it).page
@@ -153,6 +153,16 @@ class UrunPageFragment : Fragment() {
         Picasso.get().load(file)
                 .into(imageSwitcherProduct)
     }
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_cart,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+
 
 }
 

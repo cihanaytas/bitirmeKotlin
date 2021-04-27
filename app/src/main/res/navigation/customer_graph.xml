@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/customerHomeFragment"
         android:name="com.example.bitirmeprojesi.view.customer.CustomerHomeFragment"
-        android:label="fragment_customer_home"
-        tools:layout="@layout/fragment_customer_home" >
+        android:label="Ana Sayfa"
+        tools:layout="@layout/fragment_customer_home">
         <action
             android:id="@+id/action_customerHomeFragment_to_urunlerFragment"
             app:destination="@id/urunlerFragment" />
@@ -18,36 +18,54 @@
     <fragment
         android:id="@+id/urunPageFragment"
         android:name="com.example.bitirmeprojesi.view.customer.UrunPageFragment"
-        android:label="fragment_urun_page"
-        tools:layout="@layout/fragment_urun_page" >
+        android:label="Ürün Detay"
+        tools:layout="@layout/fragment_urun_page">
         <action
             android:id="@+id/action_urunPageFragment_to_urunlerFragment"
-            app:destination="@id/urunlerFragment" />
+            app:destination="@id/urunlerFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
         <argument
             android:name="urunId"
             app:argType="long" />
         <action
             android:id="@+id/action_urunPageFragment_to_storeProfileFragment"
-            app:destination="@id/storeProfileFragment" />
+            app:destination="@id/storeProfileFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="page"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_urunPageFragment_to_cartFragment2"
+            app:destination="@id/cartFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/urunlerFragment"
         android:name="com.example.bitirmeprojesi.view.customer.UrunlerFragment"
-        android:label="fragment_urunler"
-        tools:layout="@layout/fragment_urunler" >
+        android:label="Ürünler"
+        tools:layout="@layout/fragment_urunler">
         <action
             android:id="@+id/action_urunlerFragment_to_customerHomeFragment"
             app:destination="@id/customerHomeFragment" />
         <action
             android:id="@+id/action_urunlerFragment_to_urunPageFragment"
-            app:destination="@id/urunPageFragment" />
+            app:destination="@id/urunPageFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="page"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_urunlerFragment_to_cartFragment2"
+            app:destination="@id/cartFragment" />
 
     </fragment>
     <fragment
@@ -61,5 +79,14 @@
         <argument
             android:name="storeId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.CartFragment"
+        android:label="Sepet"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment2_to_urunlerFragment"
+            app:destination="@id/urunlerFragment" />
     </fragment>
 </navigation>

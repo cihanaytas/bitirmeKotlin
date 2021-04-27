@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+>
 
     <data>
         <variable
-            name="urun"
+            name="product"
             type="com.example.bitirmeprojesi.models.products.Product" />
         <variable
             name="listener"
             type="com.example.bitirmeprojesi.adapters.UrunClickListener" />
+        <variable
+            name="shopInterface"
+            type="com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter.ShopInterface" />
+
+
     </data>
 
     <LinearLayout
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:onClick="@{listener::urunTiklandi}"
@@ -22,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:text="@{String.valueOf(urun.id)}"
+            android:text="@{String.valueOf(product.id)}"
             >
 
         </TextView>
@@ -46,50 +53,41 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/category"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@{urun.category}"
-                android:textSize="20sp"
-                android:textStyle="bold">
 
-            </TextView>
 
             <TextView
                 android:id="@+id/brand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@{urun.brand}"
+                android:text="@{product.brand + ` ` +  product.model}"
                 android:textSize="20sp"
                 android:textStyle="bold">
 
             </TextView>
 
 
-            <TextView
-                android:id="@+id/model"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="@{urun.model}"
-                android:textSize="20sp"
-                android:textStyle="bold">
-            </TextView>
+
 
             <TextView
                 android:id="@+id/fiyat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="@{urun.price + ` lira`}"
+                android:text="@{product.price + `₺`}"
                 android:textSize="18sp">
 
             </TextView>
 
-
+            <Button
+                android:id="@+id/addToCartButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sepete Ekle"
+                android:layout_gravity="center"
+                android:onClick="@{() -> shopInterface.addItem(product)}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                style="@style/Widget.MaterialComponents.Button.TextButton" />
 
 
         </LinearLayout>

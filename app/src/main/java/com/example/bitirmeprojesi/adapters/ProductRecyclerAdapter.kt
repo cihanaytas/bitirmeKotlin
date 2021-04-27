@@ -13,29 +13,36 @@ import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.view.customer.StoreProfileFragmentDirections
 import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_urun_page.*
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import java.io.File
 
 
-class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
+class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String,shopInterface: ShopInterface?) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
 
+    interface ShopInterface {
+        fun addItem(product: Product)
+    }
     val x = nereden
     var page = 0
+
+    var shopInterface: ShopInterface? = shopInterface
+
     class ProductViewHolder(var view : UrunRecyclerRowBinding) : RecyclerView.ViewHolder(view.root) {
 
     }
 
-//    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//
-//    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val inflater = LayoutInflater.from(parent.context)
        // val view = inflater.inflate(R.layout.urun_recycler_row,parent,false)
         val view = DataBindingUtil.inflate<UrunRecyclerRowBinding>(inflater, R.layout.urun_recycler_row,parent,false)
+       view.shopInterface = shopInterface
+
         return ProductViewHolder(view)
     }
+
+
 
     override fun getItemCount(): Int {
         return productListesi.size
@@ -43,8 +50,9 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
 
-        holder.view.urun = productListesi[position]
+        holder.view.product = productListesi[position]
         holder.view.listener = this
+
 
         val storageDirectory =   Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES);
@@ -82,6 +90,13 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         }
 
     }
+
+
+
+
+
+
+
 
 
 

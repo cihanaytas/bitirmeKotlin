@@ -4,4 +4,5 @@ import android.view.View
 
 interface UrunClickListener {
     fun urunTiklandi(view : View)
+
 }

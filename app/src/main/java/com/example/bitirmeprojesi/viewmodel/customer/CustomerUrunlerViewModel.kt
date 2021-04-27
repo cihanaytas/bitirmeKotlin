@@ -15,15 +15,23 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
     val urunHataMesaji = MutableLiveData<Boolean>()
     val urunYukleniyor = MutableLiveData<Boolean>()
 
-    fun urunleriAl(page:Int){
+    fun urunleriAl(page:Int,category:String){
         val wf = CustomerWorkFlow(serviceCustomer)
         GlobalScope.launch(Dispatchers.Main) {
-         //   val productList = wf.getProductList()
-            val productList = wf.getProductListPaging(page)
-            urunler.value = productList
+            if(category.isNotEmpty()){
+                val productList = wf.getProductListPagingCategory(page,category)
+                urunler.value = productList
+            }else {
+                val productList = wf.getProductListPaging(page)
+                urunler.value = productList
+            }
         }
 
     }
+
+
+
+
 
 
 
