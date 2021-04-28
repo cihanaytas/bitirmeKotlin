@@ -12,13 +12,16 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.activities.serviceCustomer
+import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.databinding.FragmentUrunPageBinding
 import com.example.bitirmeprojesi.models.products.Product
+import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
 import com.example.bitirmeprojesi.viewmodel.customer.UrunDetayiViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
@@ -32,13 +35,16 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 
-class UrunPageFragment : Fragment() {
+
+class UrunPageFragment : Fragment(){
     private var imagesUriList: MutableList<String> = mutableListOf()
     private var urunId : Long = 0
     private var page = 0
     private lateinit var viewModel : UrunDetayiViewModel
+    private lateinit var viewModel2 : CustomerUrunlerViewModel
     private lateinit var dataBinding : FragmentUrunPageBinding
-
+    
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -64,6 +70,10 @@ class UrunPageFragment : Fragment() {
             page = UrunPageFragmentArgs.fromBundle(it).page
         }
         viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
+       //viewModel2 = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
+        viewModel2 =ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
+
+        dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
 
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -97,6 +107,9 @@ class UrunPageFragment : Fragment() {
         Navigation.findNavController(view).navigate(action)
     }
 
+
+
+
     }
 
 
@@ -110,6 +123,8 @@ class UrunPageFragment : Fragment() {
                 }
             }
         })
+
+
     }
 
     private fun gorselEkle(){
@@ -161,6 +176,14 @@ class UrunPageFragment : Fragment() {
         inflater.inflate(R.menu.menu_cart,menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val action = UrunPageFragmentDirections.actionUrunPageFragmentToCartFragment2()
+        view?.let {
+            Navigation.findNavController(it).navigate(action) }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
 

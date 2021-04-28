@@ -8,6 +8,10 @@
             name="product"
             type="com.example.bitirmeprojesi.models.products.CartItem" />
 
+        <variable
+            name="cartInterface"
+            type="com.example.bitirmeprojesi.adapters.CartRecyclerAdapter.CartInterface" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,7 +39,7 @@
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintStart_toEndOf="@+id/productImageView"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{product.product.brand + product.product.model}" />
+            android:text="@{product.product.brand + ` ` + product.product.model}" />
 
         <TextView
             android:id="@+id/textView"
@@ -72,6 +76,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/quantitySpinner"
             app:layout_constraintStart_toEndOf="@+id/quantitySpinner"
             app:layout_constraintTop_toTopOf="@+id/quantitySpinner"
+            android:onClick="@{() -> cartInterface.deleteItem(product)}"
             app:srcCompat="@drawable/ic_baseline_delete_24" />
 
         <TextView
@@ -84,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:text="@{String.valueOf(product.product.price)}" />
+/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

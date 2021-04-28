@@ -11,6 +11,12 @@
             name="secilenUrun"
             type="com.example.bitirmeprojesi.models.products.Product" />
 
+        <variable
+            name="shopViewModel"
+            type="com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel" />
+
+
+
     </data>
 
     <ScrollView
@@ -129,8 +135,9 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="52dp"
                 android:layout_marginEnd="39dp"
-                android:textColor="@color/black"
-                android:text="Sepete Ekle" />
+                android:text="Sepete Ekle"
+                android:onClick="@{() -> shopViewModel.cartUrunEkle(secilenUrun)}"
+                android:textColor="@color/black" />
 
             <RatingBar
                 android:id="@+id/ratingBarPoint"
