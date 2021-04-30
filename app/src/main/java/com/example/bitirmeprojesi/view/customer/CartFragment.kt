@@ -21,6 +21,7 @@ import com.example.bitirmeprojesi.databinding.FragmentUrunPageBinding
 import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
+import kotlinx.android.synthetic.main.cart_action_item.*
 import kotlinx.android.synthetic.main.cart_row.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*

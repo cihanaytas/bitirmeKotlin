@@ -8,6 +8,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.ImageView
 import android.widget.SearchView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.databinding.DataBindingUtil
@@ -175,6 +176,24 @@ class UrunPageFragment : Fragment(){
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_cart,menu)
         super.onCreateOptionsMenu(menu, inflater)
+
+        val menuItem = menu.findItem(R.id.cart)
+        val actionView = menuItem.actionView
+
+        val cbtv = actionView.findViewById<TextView>(R.id.cart_badge_text_view)
+
+        actionView.setOnClickListener {
+            onOptionsItemSelected(menuItem)
+        }
+
+
+        viewModel2.getCart().observe(viewLifecycleOwner, Observer{ list->
+            cbtv.text = list.size.toString()
+            if(list.size==0)
+                cbtv.visibility = View.GONE
+            else
+                cbtv.visibility = View.VISIBLE
+        })
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

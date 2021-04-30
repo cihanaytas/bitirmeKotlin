@@ -39,17 +39,6 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
 
 
     fun cartUrunEkle(product: Product): Boolean {
-//        println(cartUrunler.value )
-//        if(product.id in s) {
-//           val index = s.indexOf(product.id)
-//            sepet[index].adet++
-//        }
-//        else{
-//        s.add(product.id)
-//        val item = CartItem(product,1)
-//        sepet.add(item)}
-//        //cartUrunler.value = sepet
-//        cartUrunler.postValue(product)
         return repo.addItemToCart(product)
     }
 

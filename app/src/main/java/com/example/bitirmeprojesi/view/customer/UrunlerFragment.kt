@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.SearchView
+import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
@@ -17,6 +18,7 @@ import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
+import kotlinx.android.synthetic.main.cart_action_item.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
 import kotlinx.android.synthetic.main.urun_recycler_row.*
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
@@ -110,6 +112,7 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         })
 
 
+
     }
 
 
@@ -125,6 +128,25 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         val searchView = search.actionView as? SearchView
         searchView?.isSubmitButtonEnabled = true
         searchView?.setOnQueryTextListener(this)
+
+        val menuItem = menu.findItem(R.id.cart)
+        val actionView = menuItem.actionView
+
+        val cbtv = actionView.findViewById<TextView>(R.id.cart_badge_text_view)
+
+        actionView.setOnClickListener {
+            onOptionsItemSelected(menuItem)
+        }
+
+
+        viewModel.getCart().observe(viewLifecycleOwner, Observer{ list->
+            cbtv.text = list.size.toString()
+            if(list.size==0)
+                cbtv.visibility = View.GONE
+            else
+                cbtv.visibility = View.VISIBLE
+        })
+
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
@@ -148,6 +170,7 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        println("gege")
         val action = UrunlerFragmentDirections.actionUrunlerFragmentToCartFragment2()
         view?.let {
             Navigation.findNavController(it).navigate(action) }
