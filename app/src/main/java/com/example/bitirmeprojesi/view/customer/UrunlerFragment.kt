@@ -170,7 +170,6 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        println("gege")
         val action = UrunlerFragmentDirections.actionUrunlerFragmentToCartFragment2()
         view?.let {
             Navigation.findNavController(it).navigate(action) }

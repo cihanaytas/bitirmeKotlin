@@ -64,6 +64,10 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
         }
     }
 
+    fun resetCart(){
+        repo.initCart()
+    }
+
 
 
 

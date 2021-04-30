@@ -1,12 +1,15 @@
 package com.example.bitirmeprojesi.service
 
 
+import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.StoreDetails
+import com.example.bitirmeprojesi.models.products.CartItemDto
 import com.example.bitirmeprojesi.models.products.Product
 import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
 
 
@@ -39,6 +42,10 @@ interface SimpleCustomerApi{
 
     @GET("getstoredetail/{storeNickName}")
     fun getStoreDetail(@Path("storeNickName") storeNickName:String) : Deferred<Response<StoreDetails>>
+
+    @POST("sales")
+    fun sales(@Body cartItemDtoList: List<CartItemDto>) : Call<String>
+
 
 
 

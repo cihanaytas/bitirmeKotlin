@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
+import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.adapters.CartRecyclerAdapter
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.databinding.FragmentCartBinding
@@ -20,18 +23,26 @@ import com.example.bitirmeprojesi.databinding.FragmentGirisBinding
 import com.example.bitirmeprojesi.databinding.FragmentUrunPageBinding
 import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.CartItem
+import com.example.bitirmeprojesi.models.products.CartItemDto
+import com.example.bitirmeprojesi.repository.CartRepo
+import com.example.bitirmeprojesi.view.KayitFragmentDirections
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
 import kotlinx.android.synthetic.main.cart_action_item.*
 import kotlinx.android.synthetic.main.cart_row.*
 import kotlinx.android.synthetic.main.fragment_cart.*
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
 
     private lateinit var viewModel : CustomerUrunlerViewModel
     private lateinit var dataBinding : FragmentCartBinding
     private val recyclerCartAdapter = CartRecyclerAdapter(arrayListOf(),this)
+    private lateinit var cartList : List<CartItem>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +61,17 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
 
         cartRecyclerView.layoutManager = LinearLayoutManager(context)
         cartRecyclerView.adapter = recyclerCartAdapter
+        placeOrderButton.setOnClickListener {
+            var cartItemDtoList = arrayListOf<CartItemDto>()
+            for(i in cartList){
+                val cartItemDto = CartItemDto(i.product.id,i.adet)
+                cartItemDtoList.add(cartItemDto)
+            }
 
+            alisverisTamamla(cartItemDtoList,it)
 
-
+            println(cartItemDtoList)
+        }
         observeLiveData()
     }
 
@@ -60,6 +79,7 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
 
     fun observeLiveData(){
         viewModel.getCart().observe(viewLifecycleOwner, Observer<List<CartItem>>(){
+            cartList = it
             recyclerCartAdapter.productListesiniGuncelle(it)
         })
 
@@ -74,6 +94,28 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
 
     override fun changeQuantity(cartItem: CartItem?, quantity: Int) {
         viewModel.changeQuantity(cartItem,quantity)
+    }
+
+    private fun alisverisTamamla(cartItemDto: List<CartItemDto>,view: View){
+        val sorgu = serviceCustomer.sales(cartItemDto)
+        sorgu.enqueue(object : Callback<String>{
+            override fun onFailure(call: Call<String>, t: Throwable) {
+                println("fail")
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful){
+                    viewModel.resetCart()
+                    Toast.makeText(activity, "Satın Alma Başarılı", Toast.LENGTH_LONG).show()
+                    val action = CartFragmentDirections.actionCartFragment2ToUrunlerFragment(0)
+                    Navigation.findNavController(view).navigate(action)
+                }else{
+                    println("hata")
+                }
+            }
+
+        })
+
     }
 
 }
