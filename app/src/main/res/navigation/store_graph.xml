@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_storeHomeFragment_to_urunEklemeFragment"
             app:destination="@id/urunEklemeFragment" />
+        <action
+            android:id="@+id/action_storeHomeFragment_to_storeUrunlerimFragment"
+            app:destination="@id/storeUrunlerimFragment" />
     </fragment>
     <fragment
         android:id="@+id/urunEklemeFragment"
@@ -21,5 +24,20 @@
         <action
             android:id="@+id/action_urunEklemeFragment_to_storeHomeFragment"
             app:destination="@id/storeHomeFragment" />
+        <argument
+            android:name="productId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeUrunlerimFragment"
+        android:name="com.example.bitirmeprojesi.view.store.StoreUrunlerimFragment"
+        android:label="fragment_store_urunlerim"
+        tools:layout="@layout/fragment_store_urunlerim" >
+        <action
+            android:id="@+id/action_storeUrunlerimFragment_to_urunEklemeFragment"
+            app:destination="@id/urunEklemeFragment" />
+        <argument
+            android:name="page"
+            app:argType="integer" />
     </fragment>
 </navigation>

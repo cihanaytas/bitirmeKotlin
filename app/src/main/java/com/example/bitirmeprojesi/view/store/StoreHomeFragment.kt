@@ -42,6 +42,11 @@ class StoreHomeFragment : Fragment() {
         buttonUrunEkle.setOnClickListener {
             urunEkle(it)
         }
+
+        buttonUrunlerim.setOnClickListener {
+            val action = StoreHomeFragmentDirections.actionStoreHomeFragmentToStoreUrunlerimFragment(0)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
 
@@ -56,7 +61,7 @@ class StoreHomeFragment : Fragment() {
 
 
     private fun urunEkle(view: View){
-        val action = StoreHomeFragmentDirections.actionStoreHomeFragmentToUrunEklemeFragment()
+        val action = StoreHomeFragmentDirections.actionStoreHomeFragmentToUrunEklemeFragment("")
         Navigation.findNavController(view).navigate(action)
     }
 

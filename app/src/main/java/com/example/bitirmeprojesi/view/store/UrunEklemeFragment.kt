@@ -2,18 +2,15 @@ package com.example.bitirmeprojesi.view.store
 
 import android.Manifest
 import android.app.Activity
-import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
-import android.provider.MediaStore
+import android.text.Editable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -21,11 +18,12 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.activities.serviceStore
 import com.example.bitirmeprojesi.models.products.*
-import com.google.gson.JsonParser
+import com.example.bitirmeprojesi.viewmodel.customer.UrunDetayiViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import retrofit2.Call
@@ -43,6 +41,8 @@ class UrunEklemeFragment : Fragment() {
     private var imagesUriList: MutableList<String> = mutableListOf()
     private var positionImage = 0
     private val PICK_IMAGES_CODE = 0
+    private var urunId : String = ""
+    private lateinit var viewModel : UrunDetayiViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,10 +61,21 @@ class UrunEklemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
+
+        arguments?.let {
+            urunId = UrunEklemeFragmentArgs.fromBundle(it).productId
+        }
+
+        if(urunId.isNotEmpty()){
+            UrunMarka.text = "marka".toEditable()
+            viewModel.getDataStore(urunId.toLong())
+            observeLiveData()
+        }
 
 
         images = ArrayList()
-        imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
+      //  imageSwitcher.setFactory { ImageView(activity?.applicationContext) }
 
         pickImagesBtn.setOnClickListener {
             pickImagesIntent()
@@ -110,10 +121,75 @@ class UrunEklemeFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     buttonUrunuEkle.setOnClickListener {
-                        urunEkle(it)
+                        if(buttonUrunuEkle.text == "Kaydet")
+                            urunEkle(it)
+                        else
+                            urunGuncelle(it,urunId)
                     }
             }
         }
+    }
+
+    fun observeLiveData(){
+        viewModel.productLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {product->
+            UrunFiyat.text = product.price.toEditable()
+            UrunAdet.text = product.units.toEditable()
+            UrunMarka.text = product.brand.toEditable()
+            UrunModel.text = product.model.toEditable()
+            UrunBilgi.text = product.features.toEditable()
+            buttonUrunuEkle.text = "Güncelle"
+            val ap =  planets_spinner_urun.adapter
+            for(i in 0..ap.count-1){
+                if(product.category.toString()==ap.getItem(i).toString())
+                    planets_spinner_urun.setSelection(i)
+            }
+           gorselEkle(product)
+        })
+
+
+    }
+
+
+    private fun gorselEkle(product: Product){
+        var positionImage = 0
+        val img = product.images
+
+        for(i in img){
+            imagesUriList.add(i)
+        }
+
+        picasso("${imagesUriList[0]}.jpg")
+
+        nexBtn.setOnClickListener {
+            if(positionImage < imagesUriList!!.size-1){
+                positionImage++
+                picasso("${imagesUriList[positionImage]}.jpg")
+
+
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        previousBtn.setOnClickListener {
+            if(positionImage>0){
+                positionImage--
+                picasso("${imagesUriList[positionImage]}.jpg")
+
+            }else{
+                Toast.makeText(activity,"Fotoğraf yok", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
+    private fun picasso(uri: String){
+        val storageDirectory =   Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES);
+
+        val file = File(storageDirectory, uri)
+        Picasso.get().load(file)
+                .into(imageSwitcher)
     }
 
 
@@ -157,7 +233,7 @@ class UrunEklemeFragment : Fragment() {
                if(images!=null){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
                 if(ContextCompat.checkSelfPermission(requireActivity().applicationContext,Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
+            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),100)
                 }
                 else{  addimage()}
             }else{
@@ -190,6 +266,35 @@ ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission
    }
 
 
+
+    private fun urunGuncelle(view: View, urunId: String){
+        val urun = imagesUriList?.let {
+            println(imagesUriList)
+            Product(UrunFiyat.text.toString(),UrunMarka.text.toString(),UrunModel.text.toString(),
+                    planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString(), it)
+        }
+
+//        val sorgu = urun?.let { serviceStore.urunGuncelle(urunId.toLong(),urun) }
+//
+//        sorgu?.enqueue(object : Callback<String>{
+//            override fun onFailure(call: Call<String>, t: Throwable) {
+//            }
+//
+//            override fun onResponse(call: Call<String>, response: Response<String>) {
+//                if(response.isSuccessful){
+//                    Toast.makeText(activity, "Güncellendi", Toast.LENGTH_LONG).show()
+//                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+//                    Navigation.findNavController(view).navigate(action)
+//                }
+//            }
+//
+//        })
+
+
+    }
+
+
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -198,8 +303,7 @@ ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if(requestCode==100){
             if(grantResults.size>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                println("geldim")
-    addimage()
+            addimage()
             }
         }
     }
@@ -235,6 +339,8 @@ ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission
 
         }
     }
+
+    private fun  String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
 }
 

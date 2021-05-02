@@ -64,13 +64,13 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
         placeOrderButton.setOnClickListener {
             var cartItemDtoList = arrayListOf<CartItemDto>()
             for(i in cartList){
-                val cartItemDto = CartItemDto(i.product.id,i.adet)
+                val cartItemDto = CartItemDto(i.product.id,i.product.price.toDouble(),i.adet)
                 cartItemDtoList.add(cartItemDto)
             }
 
             alisverisTamamla(cartItemDtoList,it)
 
-            println(cartItemDtoList)
+
         }
         observeLiveData()
     }

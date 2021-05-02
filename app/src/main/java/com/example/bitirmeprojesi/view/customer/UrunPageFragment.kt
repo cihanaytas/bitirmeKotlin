@@ -124,8 +124,6 @@ class UrunPageFragment : Fragment(){
                 }
             }
         })
-
-
     }
 
     private fun gorselEkle(){

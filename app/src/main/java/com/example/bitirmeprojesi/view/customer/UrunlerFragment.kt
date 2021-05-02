@@ -1,27 +1,20 @@
 package com.example.bitirmeprojesi.view.customer
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.fragment.app.Fragment
 import androidx.activity.addCallback
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
-import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
-import kotlinx.android.synthetic.main.cart_action_item.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
-import kotlinx.android.synthetic.main.urun_recycler_row.*
-import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 
 
 class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyclerAdapter.ShopInterface{
@@ -58,6 +51,9 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         viewModel = ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
         viewModel.urunleriAl(pageCount,category)
 
+        urunListRecyclerView.layoutManager = LinearLayoutManager(context)
+        urunListRecyclerView.adapter = recyclerProductAdapter
+
         if(pageCount==0){
             buttonGeri.visibility = View.GONE
         }
@@ -78,15 +74,14 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
             viewModel.urunleriAl(pageCount,category)
         }
 
-        urunListRecyclerView.layoutManager = LinearLayoutManager(context)
-        urunListRecyclerView.adapter = recyclerProductAdapter
 
-        swipeRefreshLayout.setOnRefreshListener {
+
+        swipeRefreshLayoutStore.setOnRefreshListener {
             urunlerYukleniyor.visibility = View.VISIBLE
             urunHataMessage.visibility = View.GONE
             urunListRecyclerView.visibility = View.GONE
             viewModel.urunleriAl(pageCount,category)
-            swipeRefreshLayout.isRefreshing = false
+            swipeRefreshLayoutStore.isRefreshing = false
         }
 
 
@@ -110,8 +105,6 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
                 }
             }
         })
-
-
 
     }
 

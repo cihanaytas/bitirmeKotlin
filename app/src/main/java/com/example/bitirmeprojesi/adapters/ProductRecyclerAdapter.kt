@@ -12,7 +12,10 @@ import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.view.customer.StoreProfileFragmentDirections
 import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
+import com.example.bitirmeprojesi.view.store.StoreUrunlerimFragment
+import com.example.bitirmeprojesi.view.store.StoreUrunlerimFragmentDirections
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.urun_recycler_row.*
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import java.io.File
 
@@ -53,6 +56,10 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         holder.view.product = productListesi[position]
         holder.view.listener = this
 
+        if(x=="storemyprofile"){
+            holder.view.addToCartButton.visibility = View.GONE
+        }
+
 
         val storageDirectory =   Environment.getExternalStoragePublicDirectory(
             Environment.DIRECTORY_PICTURES);
@@ -84,6 +91,11 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
 
             else if(x=="urunler"){
                 val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it,page)
+                Navigation.findNavController(view).navigate(action)
+            }
+
+            else if(x=="storemyprofile"){
+                val action = StoreUrunlerimFragmentDirections.actionStoreUrunlerimFragmentToUrunEklemeFragment(id.toString())
                 Navigation.findNavController(view).navigate(action)
             }
 

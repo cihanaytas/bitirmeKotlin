@@ -3,7 +3,9 @@ package com.example.bitirmeprojesi.viewmodel.customer
 import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.bitirmeprojesi.activities.serviceCustomer
+import com.example.bitirmeprojesi.activities.serviceStore
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
+import com.example.bitirmeprojesi.methods.StoreWorkFlow
 import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.Product
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +24,16 @@ class StoreProfileViewModel(application: Application) : BaseViewModel(applicatio
         val wf = CustomerWorkFlow(serviceCustomer)
         GlobalScope.launch(Dispatchers.Main) {
             val productList = wf.getProductListByNickname(storename)
+            urunler.value = productList
+        }
+
+    }
+
+
+    fun urunlerimlAl(page: Int){
+        val wf = StoreWorkFlow(serviceStore)
+        GlobalScope.launch(Dispatchers.Main) {
+            val productList = wf.getProductListPaging(page)
             urunler.value = productList
         }
 

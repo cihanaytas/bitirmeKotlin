@@ -41,6 +41,15 @@
         app:layout_constraintBottom_toTopOf="@+id/buttonCikisStore"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <Button
+        android:id="@+id/buttonUrunlerim"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:text="Ürünlerim"
+        app:layout_constraintStart_toStartOf="@+id/buttonUrunEkle"
+        app:layout_constraintTop_toBottomOf="@+id/buttonUrunEkle" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

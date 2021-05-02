@@ -50,6 +50,10 @@ class CustomerHomeFragment : Fragment() {
             urunler(it)
         }
 
+        buttonAlisverislerim.setOnClickListener {
+            alisverisler(it)
+        }
+
 
     }
 
@@ -70,6 +74,11 @@ class CustomerHomeFragment : Fragment() {
 
     private fun urunler(view: View){
         val action = CustomerHomeFragmentDirections.actionCustomerHomeFragmentToUrunlerFragment(0)
+        Navigation.findNavController(view).navigate(action)
+    }
+
+    private fun alisverisler(view: View){
+        val action = CustomerHomeFragmentDirections.actionCustomerHomeFragmentToAlisverislerFragment()
         Navigation.findNavController(view).navigate(action)
     }
 
