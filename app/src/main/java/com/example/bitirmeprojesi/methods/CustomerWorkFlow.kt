@@ -2,6 +2,7 @@ package com.example.bitirmeprojesi.methods
 
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
+import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.service.SimpleCustomerApi
 
@@ -88,6 +89,18 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
 
     suspend fun getShoppingList(): List<ShopDto>? {
         val sorgu = serviceCustomer.getShoppingList().await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+
+    suspend fun getCartItemList(shoppingId: Long): List<CartItem>? {
+        val sorgu = serviceCustomer.getCartItemList(shoppingId).await()
 
         if(sorgu.isSuccessful){
             return sorgu.body()

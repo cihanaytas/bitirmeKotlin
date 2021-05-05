@@ -87,7 +87,7 @@ class StoreUrunlerimFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
                     urunListRecyclerViewStore.visibility = View.VISIBLE
                     urunHataMessageStore.visibility = View.GONE
                     urunlerYukleniyorStore.visibility = View.GONE
-                    recyclerProductAdapter.productListesiniGuncelle(urunler)
+                    recyclerProductAdapter.productListesiniGuncelle(urunler,0)
                 }
             }
         })

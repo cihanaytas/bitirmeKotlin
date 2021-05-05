@@ -20,9 +20,7 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
 
     val repo = CartRepo()
 
-    val cartUrunler = MutableLiveData<List<CartItem>>()
-    val sepet = arrayListOf<CartItem>()
-    val s = arrayListOf<String>()
+
     fun urunleriAl(page:Int,category:String){
         val wf = CustomerWorkFlow(serviceCustomer)
         GlobalScope.launch(Dispatchers.Main) {

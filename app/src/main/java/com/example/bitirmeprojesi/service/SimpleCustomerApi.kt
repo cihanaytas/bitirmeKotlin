@@ -4,6 +4,7 @@ package com.example.bitirmeprojesi.service
 import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
+import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.models.products.CartItemDto
 import com.example.bitirmeprojesi.models.products.Product
 import io.reactivex.Single
@@ -55,9 +56,12 @@ interface SimpleCustomerApi{
     @POST("sales")
     fun sales(@Body cartItemDtoList: List<CartItemDto>) : Call<String>
 
+    //daha önce yapılan alışverişleri listeler
     @GET("shoppinglist")
     fun getShoppingList(): Deferred<Response<List<ShopDto>>>
 
+    @GET("getcartitem/{shoppingId}")
+    fun getCartItemList(@Path("shoppingId") shoppingId: Long) : Deferred<Response<List<CartItem>>>
 
 
 

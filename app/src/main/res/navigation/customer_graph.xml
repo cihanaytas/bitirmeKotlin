@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_urunPageFragment_to_cartFragment2"
             app:destination="@id/cartFragment" />
+        <argument
+            android:name="nereden"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -96,5 +99,27 @@
         android:id="@+id/alisverislerFragment"
         android:name="com.example.bitirmeprojesi.view.customer.AlisverislerFragment"
         android:label="fragment_alisverisler"
-        tools:layout="@layout/fragment_alisverisler" />
+        tools:layout="@layout/fragment_alisverisler" >
+        <action
+            android:id="@+id/action_alisverislerFragment_to_alisverisDetayFragment"
+            app:destination="@id/alisverisDetayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/alisverisDetayFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.AlisverisDetayFragment"
+        android:label="AlisverisDetayFragment" >
+        <action
+            android:id="@+id/action_alisverisDetayFragment_to_alisverislerFragment"
+            app:destination="@id/alisverislerFragment" />
+        <argument
+            android:name="shoppingId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_alisverisDetayFragment_to_urunPageFragment"
+            app:destination="@id/urunPageFragment" />
+    </fragment>
 </navigation>

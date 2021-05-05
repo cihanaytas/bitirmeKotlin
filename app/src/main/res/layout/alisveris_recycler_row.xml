@@ -22,6 +22,15 @@
         android:onClick="@{listener::urunTiklandi}"
         android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/shop_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="@{String.valueOf(shop.id)}">
+
+        </TextView>
+
 
     <ImageView
         android:id="@+id/imageViewShop"

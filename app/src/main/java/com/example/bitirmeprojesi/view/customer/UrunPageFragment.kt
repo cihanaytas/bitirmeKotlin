@@ -40,6 +40,7 @@ import java.io.File
 class UrunPageFragment : Fragment(){
     private var imagesUriList: MutableList<String> = mutableListOf()
     private var urunId : Long = 0
+    private var nereden : String = ""
     private var page = 0
     private lateinit var viewModel : UrunDetayiViewModel
     private lateinit var viewModel2 : CustomerUrunlerViewModel
@@ -69,7 +70,9 @@ class UrunPageFragment : Fragment(){
         arguments?.let {
             urunId = UrunPageFragmentArgs.fromBundle(it).urunId
             page = UrunPageFragmentArgs.fromBundle(it).page
+            nereden = UrunPageFragmentArgs.fromBundle(it).nereden
         }
+
         viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
        //viewModel2 = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel2 =ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
@@ -77,12 +80,22 @@ class UrunPageFragment : Fragment(){
         dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
 
+        if(nereden!="cart"){
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             val action = UrunPageFragmentDirections.actionUrunPageFragmentToUrunlerFragment(page)
             Navigation.findNavController(view).navigate(action)
         }
+    }
 
         observeLiveData()
+
+        if(nereden=="urunler"){
+            buttonPuanla.visibility = View.GONE
+        }
+        else if(nereden=="cart"){
+            buttonPuanla.visibility = View.VISIBLE
+            ratingBarPoint.visibility = View.VISIBLE
+        }
 
         buttonPuanla.setOnClickListener {
             val sorgu = serviceCustomer.pointToProduct(dataBinding.secilenUrun!!.id.toLong(),ratingBarPoint.rating.toDouble())
@@ -94,6 +107,8 @@ class UrunPageFragment : Fragment(){
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if(response.isSuccessful){
                         println("başarılı")
+                        viewModel.getData(urunId)
+                        observeLiveData()
                     }
 
                     else{
@@ -119,6 +134,11 @@ class UrunPageFragment : Fragment(){
         viewModel.productLiveData.observe(viewLifecycleOwner, Observer {product ->
             product?.let {
                 dataBinding.secilenUrun = it
+                val listSize = it.points.size
+                val listTotal = it.points.sum()
+
+                ratingBarPoint.rating = (listTotal/listSize).toFloat()
+
                 if(it.images.isNotEmpty()) {
                     gorselEkle()
                 }

@@ -4,12 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.databinding.AlisverisRecyclerRowBinding
 import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.products.Product
+import com.example.bitirmeprojesi.view.customer.AlisverislerFragmentDirections
+import kotlinx.android.synthetic.main.alisveris_recycler_row.view.*
+import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
 
@@ -50,7 +54,10 @@ class ShopRecyclerAdapter (val alisverisListesi: ArrayList<ShopDto>) : RecyclerV
 
 
     override fun urunTiklandi(view: View) {
-        println("tıklandi")
+        val shoppingId = view.shop_id.text.toString().toLong()
+
+        val action = AlisverislerFragmentDirections.actionAlisverislerFragmentToAlisverisDetayFragment(shoppingId)
+        Navigation.findNavController(view).navigate(action)
     }
 
 

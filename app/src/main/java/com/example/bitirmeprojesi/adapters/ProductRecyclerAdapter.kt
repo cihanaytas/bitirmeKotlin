@@ -74,7 +74,8 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
 
     }
 
-    fun productListesiniGuncelle(yeniProductListesi: List<Product>){
+    fun productListesiniGuncelle(yeniProductListesi: List<Product>, pageCount: Int){
+        page = pageCount
         productListesi.clear()
         productListesi.addAll(yeniProductListesi)
         notifyDataSetChanged()
@@ -85,12 +86,12 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
 
         id?.let {
             if(x=="storeprofile"){
-                val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it,page)
+                val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it,page,"urunler")
                 Navigation.findNavController(view).navigate(action)
             }
 
             else if(x=="urunler"){
-                val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it,page)
+                val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it,page,"urunler")
                 Navigation.findNavController(view).navigate(action)
             }
 
@@ -102,15 +103,6 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         }
 
     }
-
-
-
-
-
-
-
-
-
 
 
 }

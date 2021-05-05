@@ -11,12 +11,14 @@ import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.databinding.CartRowBinding
 import com.example.bitirmeprojesi.models.products.CartItem
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.cart_row.*
 import kotlinx.android.synthetic.main.cart_row.view.*
 import java.io.File
 
 
-class CartRecyclerAdapter(val productListesi : ArrayList<CartItem>,cartInterface: CartInterface): RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>(){
+class CartRecyclerAdapter(
+    val productListesi: ArrayList<CartItem>,
+    cartInterface: CartInterface?
+): RecyclerView.Adapter<CartRecyclerAdapter.CartViewHolder>(){
 
     var cartInterface: CartInterface? = cartInterface
 
