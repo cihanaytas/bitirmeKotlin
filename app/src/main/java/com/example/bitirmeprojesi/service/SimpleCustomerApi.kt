@@ -4,9 +4,7 @@ package com.example.bitirmeprojesi.service
 import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
-import com.example.bitirmeprojesi.models.products.CartItem
-import com.example.bitirmeprojesi.models.products.CartItemDto
-import com.example.bitirmeprojesi.models.products.Product
+import com.example.bitirmeprojesi.models.products.*
 import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
@@ -63,7 +61,17 @@ interface SimpleCustomerApi{
     @GET("getcartitem/{shoppingId}")
     fun getCartItemList(@Path("shoppingId") shoppingId: Long) : Deferred<Response<List<CartItem>>>
 
+    @GET("getcommentlist/{productId}")
+    fun getCommentList(@Path("productId") productId: Long) : Deferred<Response<List<Comments>>>
 
+    @POST("addcomment")
+    fun addComment(@Body comments: CommentDto) : Call<Boolean>
+
+    @PUT("updatecomment")
+    fun updateComment(@Body comments: CommentDto) : Call<Boolean>
+
+    @DELETE("deletecomment/{commentId}")
+    fun deleteComment(@Path("commentId") commentId: Long) : Call<String>
 
 
 }

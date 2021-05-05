@@ -79,15 +79,16 @@ class UrunPageFragment : Fragment(){
 
         dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
+        observeLiveData()
 
         if(nereden!="cart"){
         val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
             val action = UrunPageFragmentDirections.actionUrunPageFragmentToUrunlerFragment(page)
             Navigation.findNavController(view).navigate(action)
         }
-    }
+          }
 
-        observeLiveData()
+
 
         if(nereden=="urunler"){
             buttonPuanla.visibility = View.GONE
@@ -118,10 +119,18 @@ class UrunPageFragment : Fragment(){
             })
         }
 
-    storenametext.setOnClickListener {
-        val action = UrunPageFragmentDirections.actionUrunPageFragmentToStoreProfileFragment(dataBinding.secilenUrun!!.storeNickName)
-        Navigation.findNavController(view).navigate(action)
-    }
+        storenametext.setOnClickListener {
+            val action = UrunPageFragmentDirections.actionUrunPageFragmentToStoreProfileFragment(dataBinding.secilenUrun!!.storeNickName)
+            Navigation.findNavController(view).navigate(action)
+        }
+
+
+        buttonYorumlar.setOnClickListener {
+            val action = UrunPageFragmentDirections.actionUrunPageFragmentToCommentsFragment2(urunId)
+            Navigation.findNavController(view).navigate(action)
+        }
+
+
 
 
 

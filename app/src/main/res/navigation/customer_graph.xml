@@ -49,6 +49,9 @@
         <argument
             android:name="nereden"
             app:argType="string" />
+        <action
+            android:id="@+id/action_urunPageFragment_to_commentsFragment2"
+            app:destination="@id/commentsFragment2" />
     </fragment>
 
     <fragment
@@ -121,5 +124,16 @@
         <action
             android:id="@+id/action_alisverisDetayFragment_to_urunPageFragment"
             app:destination="@id/urunPageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentsFragment2"
+        android:name="com.example.bitirmeprojesi.view.customer.CommentsFragment"
+        android:label="CommentsFragment" >
+        <action
+            android:id="@+id/action_commentsFragment2_to_urunPageFragment"
+            app:destination="@id/urunPageFragment" />
+        <argument
+            android:name="productId"
+            app:argType="long" />
     </fragment>
 </navigation>

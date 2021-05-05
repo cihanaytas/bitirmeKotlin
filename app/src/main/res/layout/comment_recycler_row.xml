@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="comment"
+            type="com.example.bitirmeprojesi.models.products.Comments" />
+
+        <variable
+            name="commentInterface"
+            type="com.example.bitirmeprojesi.adapters.CommentsRecyclerAdapter.CommentInterface" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <ImageView
+            android:id="@+id/asda"
+            android:layout_width="58dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_person_pin_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <ImageView
+            android:id="@+id/asda2"
+            android:layout_width="60dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="4dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_mode_comment_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/commentComment"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.674" />
+
+        <TextView
+            android:id="@+id/commentId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(comment.id)}"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints">
+
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/textViewAdet"
+            android:layout_width="125dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="@{String.valueOf(comment.username)}"
+            android:textAlignment="textStart"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toTopOf="@+id/commentComment"
+            app:layout_constraintStart_toEndOf="@+id/asda"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/commentComment"
+            android:layout_width="267dp"
+            android:layout_height="55dp"
+            android:layout_marginEnd="72dp"
+            android:text="@{String.valueOf(comment.comment)}"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.969" />
+
+        <TextView
+            android:id="@+id/commentDate"
+            android:layout_width="125dp"
+            android:layout_height="21dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toTopOf="@+id/commentComment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.693"
+            app:layout_constraintStart_toEndOf="@+id/textViewAdet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.384" />
+
+        <ImageButton
+            android:id="@+id/commentUpdate"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.035"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintStart_toEndOf="@+id/commentComment"
+            app:layout_constraintTop_toBottomOf="@+id/commentDate"
+            app:srcCompat="@drawable/ic_baseline_update_24"
+            android:onClick="@{() -> commentInterface.updateComment(comment)}"/>
+
+        <ImageButton
+            android:id="@+id/commentDelete"
+            android:layout_width="26dp"
+            android:layout_height="27dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="?android:attr/selectableItemBackground"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/commentComment"
+            app:layout_constraintTop_toBottomOf="@+id/commentUpdate"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/ic_baseline_delete_24"
+            android:onClick="@{() -> commentInterface.deleteComment(comment.id)}"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

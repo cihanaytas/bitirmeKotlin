@@ -51,7 +51,6 @@ class AlisverisDetayFragment : Fragment(){
         viewModel.getCartItemList(shoppingId)
 
 
-
         cartRecyclerViewA.layoutManager = LinearLayoutManager(context)
         cartRecyclerViewA.adapter = recyclerCartAdapter
 

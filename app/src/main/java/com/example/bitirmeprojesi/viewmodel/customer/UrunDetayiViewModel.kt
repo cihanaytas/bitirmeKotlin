@@ -6,6 +6,7 @@ import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.activities.serviceStore
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.methods.StoreWorkFlow
+import com.example.bitirmeprojesi.models.products.Comments
 import com.example.bitirmeprojesi.models.products.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -15,10 +16,11 @@ import kotlinx.coroutines.launch
 class UrunDetayiViewModel(application: Application) : BaseViewModel(application) {
 
     val productLiveData = MutableLiveData<Product>()
-
+    val commentListLiveData  = MutableLiveData<List<Comments>>()
+    val wf = CustomerWorkFlow(serviceCustomer)
 
     fun getData(id : Long) {
-        val wf = CustomerWorkFlow(serviceCustomer)
+
         GlobalScope.launch(Dispatchers.Main)  {
             val product = wf.getProduct(id)
             productLiveData.value = product
@@ -31,6 +33,13 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
         GlobalScope.launch(Dispatchers.Main)  {
             val product = wf.getProduct(id)
             productLiveData.value = product
+        }
+    }
+
+    fun getCommentList(productId: Long){
+        GlobalScope.launch(Dispatchers.Main)  {
+            val commentList = wf.getCommentList(productId)
+            commentListLiveData.value = commentList
         }
     }
 
