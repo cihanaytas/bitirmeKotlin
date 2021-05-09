@@ -11,61 +11,85 @@
 
     <EditText
         android:id="@+id/kullaniciParola"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="44dp"
         android:layout_marginTop="37dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_baseline_vpn_key_24"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:ems="10"
-        android:hint="Parola"
+        android:hint="  Parola"
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/kullaniciAdi"
         app:layout_constraintTop_toBottomOf="@+id/kullaniciAdi" />
 
     <EditText
         android:id="@+id/kullaniciAdi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="220dp"
+        android:layout_height="44dp"
         android:layout_marginStart="88dp"
         android:layout_marginTop="136dp"
+        android:background="@drawable/custom_input"
+        android:drawableStart="@drawable/ic_baseline_person_pin_24"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
         android:ems="10"
-        android:hint="Kullanıcı Adı"
+        android:hint="  Kullanıcı Adı"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/buttonGiris"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="64dp"
-        android:text="Giriş"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/kullaniciParola"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="220dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/round_bg"
+        android:text="giriş"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxRemember" />
 
     <Button
         android:id="@+id/buttonKayit"
-        android:layout_width="91dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
+        android:layout_width="116dp"
+        android:layout_height="63dp"
         android:layout_marginTop="224dp"
         android:layout_marginBottom="41dp"
         android:text="Kayıt Ol"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/buttonGiris"
-        app:layout_constraintTop_toBottomOf="@+id/checkBoxRemember" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxRemember"
+        app:layout_constraintVertical_bias="0.519" />
 
     <CheckBox
         android:id="@+id/checkBoxRemember"
         android:layout_width="196dp"
         android:layout_height="30dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="282dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="296dp"
         android:text="Hatırla"
-        app:layout_constraintBottom_toTopOf="@+id/buttonGiris"
         app:layout_constraintStart_toStartOf="@+id/kullaniciParola"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.227" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/pfText"
+        android:layout_width="136dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="16dp"
+        android:text="Parolanı mı Unuttun?"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBoxRemember" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

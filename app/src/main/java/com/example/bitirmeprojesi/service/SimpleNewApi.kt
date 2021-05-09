@@ -29,4 +29,13 @@ interface SimpleNewApi {
 
     @GET("userrole/{username}")
     fun getUserRole(@Path("username") username: String): Deferred<Response<String>>
+
+    @GET("parola/{mail}")
+    fun mailControl(@Path("mail") mail: String) : Call<String>
+
+    @POST("parola/{code}")
+    fun codeControl(@Path("code") code: String) : Call<String>
+
+    @POST("parola")
+    fun changePassword(@Body reqBodyLogin: ReqBodyLogin): Call<String>
 }

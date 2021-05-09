@@ -17,21 +17,10 @@ import com.example.bitirmeprojesi.activities.StoreHomePage
 import com.example.bitirmeprojesi.methods.WorkFlow
 import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.service.*
-import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.android.synthetic.main.fragment_giris.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.Request
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 lateinit var sharedPreferences: SharedPreferences
@@ -76,6 +65,11 @@ class GirisFragment : Fragment() {
 
         buttonKayit.setOnClickListener{
             kayitOl(it)
+        }
+
+        pfText.setOnClickListener {
+            val action = GirisFragmentDirections.actionGirisFragmentToPasswordForgotFragment()
+            Navigation.findNavController(it).navigate(action)
         }
     }
 

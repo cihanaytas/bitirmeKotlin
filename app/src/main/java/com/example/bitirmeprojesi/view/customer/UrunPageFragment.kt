@@ -126,7 +126,7 @@ class UrunPageFragment : Fragment(){
 
 
         buttonYorumlar.setOnClickListener {
-            val action = UrunPageFragmentDirections.actionUrunPageFragmentToCommentsFragment2(urunId)
+            val action = UrunPageFragmentDirections.actionUrunPageFragmentToCommentsFragment2(urunId,nereden)
             Navigation.findNavController(view).navigate(action)
         }
 
@@ -147,6 +147,7 @@ class UrunPageFragment : Fragment(){
                 val listTotal = it.points.sum()
 
                 ratingBarPoint.rating = (listTotal/listSize).toFloat()
+                textView.text = (listTotal/listSize).toString() + " | " + listSize.toString() + " Değerlendirme"
 
                 if(it.images.isNotEmpty()) {
                     gorselEkle()

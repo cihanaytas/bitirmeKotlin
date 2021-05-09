@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.view.customer
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
@@ -28,6 +29,7 @@ import retrofit2.Response
 class CommentsFragment : Fragment() , CommentsRecyclerAdapter.CommentInterface{
 
     private var productId : Long = 0
+    private var nereden : String = ""
     private lateinit var viewModel : UrunDetayiViewModel
     private var commentsRecyclerAdapter= CommentsRecyclerAdapter(arrayListOf(),this)
 
@@ -49,10 +51,16 @@ class CommentsFragment : Fragment() , CommentsRecyclerAdapter.CommentInterface{
 
         arguments?.let {
             productId = CommentsFragmentArgs.fromBundle(it).productId
+            nereden = CommentsFragmentArgs.fromBundle(it).nereden
         }
 
         commentConst.setOnClickListener {
             closeKeyboard(it)
+        }
+
+        if(nereden=="urunler"){
+            yorumText.visibility = View.GONE
+            buttonAddComment.visibility = View.GONE
         }
 
         viewModel = ViewModelProvider(requireActivity()).get(UrunDetayiViewModel::class.java)
@@ -98,6 +106,11 @@ class CommentsFragment : Fragment() , CommentsRecyclerAdapter.CommentInterface{
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    private fun upKeyboard(view: View){
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInputFromWindow(view.windowToken,InputMethodManager.SHOW_FORCED,0)
+    }
+
     private fun addComment(commentId: Long?){
         val sorgu: Call<Boolean>
         if(commentId!=null){
@@ -135,26 +148,42 @@ class CommentsFragment : Fragment() , CommentsRecyclerAdapter.CommentInterface{
     private fun  String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 
     override fun deleteComment(commentId: Long) {
-        val sorgu = serviceCustomer.deleteComment(commentId)
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
-                println("fail")
-            }
+        val builder = AlertDialog.Builder(activity)
+        builder.setMessage("Yorumunuzu silmek istiyor musunuz?")
+                .setCancelable(false)
+                .setPositiveButton("Evet") { dialog, id ->
+                    val sorgu = serviceCustomer.deleteComment(commentId)
+                    sorgu.enqueue(object : Callback<String>{
+                        override fun onFailure(call: Call<String>, t: Throwable) {
+                            println("fail")
+                        }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
-                if(response.isSuccessful){
-                    Toast.makeText(activity, "Yorumunuz silindi.", Toast.LENGTH_LONG).show()
-                    viewModel.getCommentList(productId)
-                    observeLiveData()
+                        override fun onResponse(call: Call<String>, response: Response<String>) {
+                            if(response.isSuccessful){
+                                Toast.makeText(activity, "Yorumunuz silindi.", Toast.LENGTH_LONG).show()
+                                viewModel.getCommentList(productId)
+                                observeLiveData()
+                            }
+                        }
+
+                    })
                 }
-            }
+                .setNegativeButton("Hayır") { dialog, id ->
+                    dialog.dismiss()
+                }
+        val alert = builder.create()
+        alert.show()
 
-        })
+
     }
 
 
     override fun updateComment(comment: Comments?) {
         yorumText.text =  comment?.comment?.toEditable()
+//        view?.let {
+//            yorumText.callOnClick()
+//           // upKeyboard(it)
+//            }
         buttonAddComment.setOnClickListener {
             addComment(comment?.id)
             closeKeyboard(it)

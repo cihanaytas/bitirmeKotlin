@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_girisFragment_to_kayitFragment"
             app:destination="@id/kayitFragment" />
+        <action
+            android:id="@+id/action_girisFragment_to_passwordForgotFragment"
+            app:destination="@id/passwordForgotFragment" />
     </fragment>
     <fragment
         android:id="@+id/kayitFragment"
@@ -21,6 +24,15 @@
         tools:layout="@layout/fragment_kayit" >
         <action
             android:id="@+id/action_kayitFragment_to_girisFragment"
+            app:destination="@id/girisFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordForgotFragment"
+        android:name="com.example.bitirmeprojesi.view.PasswordForgotFragment"
+        android:label="fragment_password_forgot"
+        tools:layout="@layout/fragment_password_forgot" >
+        <action
+            android:id="@+id/action_passwordForgotFragment_to_girisFragment"
             app:destination="@id/girisFragment" />
     </fragment>
 </navigation>
