@@ -51,7 +51,7 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
         placeOrderButton.setOnClickListener {
             var cartItemDtoList = arrayListOf<CartItemDto>()
             for(i in cartList){
-                val cartItemDto = CartItemDto(i.product.id,i.product.price.toDouble(),i.adet)
+                val cartItemDto = CartItemDto(i.product.id,i.product.price.toDouble(),i.adet,i.product.category)
                 cartItemDtoList.add(cartItemDto)
             }
 

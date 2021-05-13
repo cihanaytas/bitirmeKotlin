@@ -63,7 +63,7 @@ class UrunEklemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
 
         arguments?.let {
             urunId = UrunEklemeFragmentArgs.fromBundle(it).productId
@@ -127,10 +127,10 @@ class UrunEklemeFragment : Fragment() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     buttonUrunuEkle.setOnClickListener {
-                        if(buttonUrunuEkle.text == "Kaydet")
-                            urunEkle(it)
-                        else
-                            urunGuncelle(it,urunId)
+                        if(buttonUrunuEkle.text == "Ekle"){
+                            urunEkle(it)}
+                        else{
+                            urunGuncelle(it,urunId)}
                     }
             }
         }
@@ -255,7 +255,7 @@ class UrunEklemeFragment : Fragment() {
        }
 
        val sorgu = urun?.let { serviceStore.urunEkle(it) }
-
+       println("geldim")
        sorgu?.enqueue(object : Callback<String>{
            override fun onFailure(call: Call<String>, t: Throwable) {
            }

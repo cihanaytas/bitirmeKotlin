@@ -166,6 +166,7 @@ class UrunPageFragment : Fragment(){
 
         picasso("${imagesUriList[0]}.jpg")
 
+
         ileri.setOnClickListener {
             if(positionImage < imagesUriList!!.size-1){
                 positionImage++
