@@ -137,7 +137,7 @@ class UrunEklemeFragment : Fragment() {
     }
 
     fun observeLiveData(){
-        viewModel.productLiveData.observe(viewLifecycleOwner, androidx.lifecycle.Observer {product->
+        viewModel.productLiveData2.observe(viewLifecycleOwner, androidx.lifecycle.Observer {product->
             UrunFiyat.text = product.price.toEditable()
             UrunAdet.text = product.units.toEditable()
             UrunMarka.text = product.brand.toEditable()

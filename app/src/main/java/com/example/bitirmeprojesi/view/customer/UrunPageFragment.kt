@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.activities.serviceCustomer
@@ -27,6 +28,7 @@ import com.example.bitirmeprojesi.viewmodel.customer.UrunDetayiViewModel
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_urun_ekleme.*
 import kotlinx.android.synthetic.main.fragment_urun_page.*
+import kotlinx.android.synthetic.main.fragment_urunler.*
 import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,7 +39,7 @@ import retrofit2.Response
 import java.io.File
 
 
-class UrunPageFragment : Fragment(){
+class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
     private var imagesUriList: MutableList<String> = mutableListOf()
     private var urunId : Long = 0
     private var nereden : String = ""
@@ -45,7 +47,7 @@ class UrunPageFragment : Fragment(){
     private lateinit var viewModel : UrunDetayiViewModel
     private lateinit var viewModel2 : CustomerUrunlerViewModel
     private lateinit var dataBinding : FragmentUrunPageBinding
-    
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler",this)
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,8 +79,13 @@ class UrunPageFragment : Fragment(){
        //viewModel2 = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel2 =ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
 
+        besinImagee.layoutManager = LinearLayoutManager(context)
+        besinImagee.adapter = recyclerProductAdapter
+
         dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
+
+
         observeLiveData()
 
         if(nereden!="cart"){
@@ -142,14 +149,23 @@ class UrunPageFragment : Fragment(){
     fun observeLiveData(){
         viewModel.productLiveData.observe(viewLifecycleOwner, Observer {product ->
             product?.let {
-                dataBinding.secilenUrun = it
-                val listSize = it.points.size
-                val listTotal = it.points.sum()
+                var myList = arrayListOf<Product>()
+                myList.add(it.get(1))
+                myList.add(it.get(2))
+                recyclerProductAdapter.productListesiniGuncelle(myList,0)
 
-                ratingBarPoint.rating = (listTotal/listSize).toFloat()
-                textView.text = (listTotal/listSize).toString() + " | " + listSize.toString() + " Değerlendirme"
+                dataBinding.secilenUrun = it.get(0)
+                val listSize = it.get(0).points.size
+                val listTotal = it.get(0).points.sum()
 
-                if(it.images.isNotEmpty()) {
+                if(listSize==0){
+                    textView.text = " Değerlendirme yok."
+                }else{
+                    ratingBarPoint.rating = (listTotal/listSize).toFloat()
+                    textView.text = (listTotal/listSize).toString() + " | " + listSize.toString() + " Değerlendirme"
+                }
+
+                if(it.get(0).images.isNotEmpty()) {
                     gorselEkle()
                 }
             }
@@ -232,6 +248,10 @@ class UrunPageFragment : Fragment(){
         return super.onOptionsItemSelected(item)
     }
 
+
+    override fun addItem(product: Product) {
+        viewModel2.cartUrunEkle(product)
+    }
 
 
 

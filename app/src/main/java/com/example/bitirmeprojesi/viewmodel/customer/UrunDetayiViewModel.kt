@@ -15,7 +15,8 @@ import kotlinx.coroutines.launch
 
 class UrunDetayiViewModel(application: Application) : BaseViewModel(application) {
 
-    val productLiveData = MutableLiveData<Product>()
+    val productLiveData = MutableLiveData<List<Product>>()
+    val productLiveData2 = MutableLiveData<Product>()
     val commentListLiveData  = MutableLiveData<List<Comments>>()
     val wf = CustomerWorkFlow(serviceCustomer)
 
@@ -32,7 +33,7 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
         val wf = StoreWorkFlow(serviceStore)
         GlobalScope.launch(Dispatchers.Main)  {
             val product = wf.getProduct(id)
-            productLiveData.value = product
+            productLiveData2.value = product
         }
     }
 

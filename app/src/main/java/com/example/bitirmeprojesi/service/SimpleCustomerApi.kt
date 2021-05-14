@@ -40,7 +40,7 @@ interface SimpleCustomerApi{
 
     //id'si verilen product alınır
     @GET("product/{id}")
-    fun getProduct(@Path("id") id:Long) : Deferred<Response<Product>>
+    fun getProduct(@Path("id") id:Long) : Deferred<Response<List<Product>>>
 
     //product puanlama
     @POST("pointproduct/{productId}/{point}")

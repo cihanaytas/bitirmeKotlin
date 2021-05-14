@@ -18,7 +18,7 @@ data class Product(
         val comments: List<Comments>
 )
 
-{
+    {
     constructor(price: String, brand:String, model: String, category:String, features: String, units: String,images: MutableList<String>) :
             this("",price,brand,model,category,"",features,units,images,listOf(),listOf())
 
