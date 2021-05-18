@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/storenametext"
                 android:layout_below="@id/besinProtein"
-                android:text="@{`Store: ` + secilenUrun.storeNickName}"
+                android:text="@{`Satıcı: ` + secilenUrun.storeNickName}"
                 android:textSize="18sp"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="7dp"
@@ -201,6 +201,18 @@
                 android:layout_marginTop="23dp"
                 android:layout_marginEnd="186dp"
                 android:text="Ürün Puanı" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                android:layout_width="54dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/buttonSepeteEkle"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="58dp"
+                android:background="@drawable/ic_baseline_favorite_border_24"
+                android:textOn=""
+                android:textOff=""/>
 
         </RelativeLayout>
 

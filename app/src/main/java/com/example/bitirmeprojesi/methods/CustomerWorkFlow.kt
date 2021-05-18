@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.methods
 
+import com.example.bitirmeprojesi.dto.FavouriteProducts
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.CartItem
@@ -114,6 +115,17 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
 
     suspend fun getCommentList(productId: Long): List<Comments>? {
         val sorgu = serviceCustomer.getCommentList(productId).await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+    suspend fun getFavouriteList(): List<Long>? {
+        val sorgu = serviceCustomer.getFavouriteList().await()
 
         if(sorgu.isSuccessful){
             return sorgu.body()

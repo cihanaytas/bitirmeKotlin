@@ -55,8 +55,11 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
                 cartItemDtoList.add(cartItemDto)
             }
 
-            alisverisTamamla(cartItemDtoList,it)
-
+            if(cartItemDtoList.isEmpty()){
+                Toast.makeText(activity, "Sepetiz boş, lütfen ürün ekleyiniz.", Toast.LENGTH_LONG).show()
+            }else{
+                alisverisTamamla(cartItemDtoList,it)
+            }
 
         }
         observeLiveData()

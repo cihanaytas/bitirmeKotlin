@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.activities.serviceStore
+import com.example.bitirmeprojesi.dto.FavouriteProducts
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
 import com.example.bitirmeprojesi.methods.StoreWorkFlow
 import com.example.bitirmeprojesi.models.products.Comments
@@ -21,7 +22,6 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
     val wf = CustomerWorkFlow(serviceCustomer)
 
     fun getData(id : Long) {
-
         GlobalScope.launch(Dispatchers.Main)  {
             val product = wf.getProduct(id)
             productLiveData.value = product
@@ -43,6 +43,8 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
             commentListLiveData.value = commentList
         }
     }
+
+
 
 
 }

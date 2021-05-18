@@ -1,6 +1,8 @@
 package com.example.bitirmeprojesi.service
 
 
+import androidx.room.Delete
+import com.example.bitirmeprojesi.dto.FavouriteProducts
 import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
@@ -72,6 +74,15 @@ interface SimpleCustomerApi{
 
     @DELETE("deletecomment/{commentId}")
     fun deleteComment(@Path("commentId") commentId: Long) : Call<String>
+
+    @GET("favourites")
+    fun getFavouriteList() : Deferred<Response<List<Long>>>
+
+    @POST("addfavourite/{productId}")
+    fun addFavourite(@Path("productId") productId: Long) : Call<Void>
+
+    @DELETE("deletefavourite/{productId}")
+    fun deleteFavourite(@Path("productId") productId: Long) : Call<Void>
 
 
 }

@@ -50,6 +50,7 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         //viewModel = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
         viewModel.urunleriAl(pageCount,category)
+        viewModel.getFavouriteList()
 
         urunListRecyclerView.layoutManager = LinearLayoutManager(context)
         urunListRecyclerView.adapter = recyclerProductAdapter
@@ -152,7 +153,8 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 
     override fun onQueryTextChange(query: String?): Boolean {
         if(query!=null){
-
+            category=query
+            viewModel.urunleriAl(0,category)
         }
         if(query?.length==0){
             category=""

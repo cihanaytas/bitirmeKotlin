@@ -17,12 +17,12 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
     val urunler = MutableLiveData<List<Product>>()
     val urunHataMesaji = MutableLiveData<Boolean>()
     val urunYukleniyor = MutableLiveData<Boolean>()
-
+    val favouriteListLiveData = MutableLiveData<List<Long>>()
     val repo = CartRepo()
 
+    val wf = CustomerWorkFlow(serviceCustomer)
 
     fun urunleriAl(page:Int,category:String){
-        val wf = CustomerWorkFlow(serviceCustomer)
         GlobalScope.launch(Dispatchers.Main) {
             if(category.isNotEmpty()){
                 val productList = wf.getProductListPagingCategory(page,category)
@@ -64,6 +64,14 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
 
     fun resetCart(){
         repo.initCart()
+    }
+
+
+    fun getFavouriteList(){
+        GlobalScope.launch(Dispatchers.Main)  {
+            val favouriteList = wf.getFavouriteList()
+            favouriteListLiveData.value = favouriteList
+        }
     }
 
 

@@ -11,6 +11,7 @@ import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -48,10 +49,10 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
     private lateinit var viewModel2 : CustomerUrunlerViewModel
     private lateinit var dataBinding : FragmentUrunPageBinding
     private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler",this)
-    
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
     }
 
@@ -85,7 +86,6 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
         dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
 
-
         observeLiveData()
 
         if(nereden!="cart"){
@@ -106,24 +106,7 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
         }
 
         buttonPuanla.setOnClickListener {
-            val sorgu = serviceCustomer.pointToProduct(dataBinding.secilenUrun!!.id.toLong(),ratingBarPoint.rating.toDouble())
-            sorgu.enqueue(object : Callback<Void> {
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    println(t.message)
-                }
-
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if(response.isSuccessful){
-                        println("başarılı")
-                        viewModel.getData(urunId)
-                        observeLiveData()
-                    }
-
-                    else{
-                        println("error")}
-                }
-
-            })
+           puanla()
         }
 
         storenametext.setOnClickListener {
@@ -138,6 +121,15 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
         }
 
 
+        toggleButton.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_favorite_24))
+                addFavourite()
+            } else {
+                toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_favorite_border_24))
+                deleteFavourite()
+            }
+        }
 
 
 
@@ -167,6 +159,24 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
 
                 if(it.get(0).images.isNotEmpty()) {
                     gorselEkle()
+                }
+            }
+        })
+
+
+        viewModel2.favouriteListLiveData.observe(viewLifecycleOwner, Observer { list ->
+            list?.let {
+                if(list.contains(urunId)){
+                    toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_favorite_24))
+                    toggleButton.setOnCheckedChangeListener { _, isChecked ->
+                        if (isChecked) {
+                            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_favorite_border_24))
+                            deleteFavourite()
+                        }else{
+                            toggleButton.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(),R.drawable.ic_baseline_favorite_24))
+                            addFavourite()
+                        }
+                    }
                 }
             }
         })
@@ -251,6 +261,65 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
 
     override fun addItem(product: Product) {
         viewModel2.cartUrunEkle(product)
+    }
+
+    private fun puanla(){
+        val sorgu = serviceCustomer.pointToProduct(urunId,ratingBarPoint.rating.toDouble())
+        sorgu.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                println(t.message)
+            }
+
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                    println("başarılı")
+                    viewModel.getData(urunId)
+                    observeLiveData()
+                }
+
+                else{
+                    println("error")}
+            }
+
+        })
+    }
+
+
+    private fun addFavourite(){
+        val sorgu = serviceCustomer.addFavourite(urunId)
+        sorgu.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                println(t.message)
+            }
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                    Toast.makeText(activity,"Ürün favorilerinize eklendi.", Toast.LENGTH_SHORT).show()
+                }
+
+                else{
+                    println("error")}
+            }
+
+        })
+    }
+
+    private fun deleteFavourite(){
+        val sorgu = serviceCustomer.deleteFavourite(urunId)
+        sorgu.enqueue(object : Callback<Void> {
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                println(t.message)
+            }
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if(response.isSuccessful){
+                    val toast = Toast.makeText(activity,"Ürün favorilerinizden kaldırıldı.", Toast.LENGTH_SHORT)
+                    toast.show()
+                }
+
+                else{
+                    println("errorDeletefav")}
+            }
+
+        })
     }
 
 
