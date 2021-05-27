@@ -7,6 +7,7 @@
         <item>TELEVIZYON</item>
         <item>TABLET</item>
         <item>KULAKLIK</item>
+        <item>TELEFON_KABI</item>
 
     </string-array>
 </resources>

@@ -3,20 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/customer_graph"
-    app:startDestination="@id/customerHomeFragment">
-
-    <fragment
-        android:id="@+id/customerHomeFragment"
-        android:name="com.example.bitirmeprojesi.view.customer.CustomerHomeFragment"
-        android:label="Ana Sayfa"
-        tools:layout="@layout/fragment_customer_home">
-        <action
-            android:id="@+id/action_customerHomeFragment_to_urunlerFragment"
-            app:destination="@id/urunlerFragment" />
-        <action
-            android:id="@+id/action_customerHomeFragment_to_alisverislerFragment"
-            app:destination="@id/alisverislerFragment" />
-    </fragment>
+    app:startDestination="@id/urunlerFragment">
 
     <fragment
         android:id="@+id/urunPageFragment"
@@ -52,6 +39,9 @@
         <action
             android:id="@+id/action_urunPageFragment_to_commentsFragment2"
             app:destination="@id/commentsFragment2" />
+        <action
+            android:id="@+id/action_urunPageFragment_self"
+            app:destination="@id/urunPageFragment" />
     </fragment>
 
     <fragment
@@ -59,9 +49,6 @@
         android:name="com.example.bitirmeprojesi.view.customer.UrunlerFragment"
         android:label="Ürünler"
         tools:layout="@layout/fragment_urunler">
-        <action
-            android:id="@+id/action_urunlerFragment_to_customerHomeFragment"
-            app:destination="@id/customerHomeFragment" />
         <action
             android:id="@+id/action_urunlerFragment_to_urunPageFragment"
             app:destination="@id/urunPageFragment"
@@ -71,10 +58,20 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="page"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0"/>
         <action
             android:id="@+id/action_urunlerFragment_to_cartFragment2"
             app:destination="@id/cartFragment" />
+        <action
+            android:id="@+id/action_urunlerFragment_to_filterProductFragment"
+            app:destination="@id/filterProductFragment" />
+        <argument
+            android:name="selectedCategoryList"
+            app:argType="string[]"
+            app:nullable="true"
+            android:defaultValue="@null" />
+
 
     </fragment>
     <fragment
@@ -138,5 +135,14 @@
         <argument
             android:name="nereden"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/filterProductFragment"
+        android:name="com.example.bitirmeprojesi.viewmodel.customer.FilterProductFragment"
+        android:label="fragment_filter_product"
+        tools:layout="@layout/fragment_filter_product" >
+        <action
+            android:id="@+id/action_filterProductFragment_to_urunlerFragment"
+            app:destination="@id/urunlerFragment" />
     </fragment>
 </navigation>

@@ -18,7 +18,7 @@ import com.example.bitirmeprojesi.models.products.Product
 
 class StoreProfileFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
     private lateinit var viewModel : StoreProfileViewModel
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"storeprofile",this)
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),this,this)
     private var storeName : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -159,7 +159,7 @@
                 android:text="Puanla" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/besinImagee"
+                android:id="@+id/pageRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="265dp"
                 android:layout_below="@+id/buttonPuanla"

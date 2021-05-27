@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 class CustomerUrunlerViewModel(application: Application) : BaseViewModel(application) {
 
     val urunler = MutableLiveData<List<Product>>()
+    val favUrunler = MutableLiveData<List<Product>>()
     val urunHataMesaji = MutableLiveData<Boolean>()
     val urunYukleniyor = MutableLiveData<Boolean>()
     val favouriteListLiveData = MutableLiveData<List<Long>>()
@@ -24,15 +25,38 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
 
     fun urunleriAl(page:Int,category:String){
         GlobalScope.launch(Dispatchers.Main) {
-            if(category.isNotEmpty()){
+       //     if(category.isNotEmpty()){
                 val productList = wf.getProductListPagingCategory(page,category)
                 urunler.value = productList
-            }else {
-                val productList = wf.getProductListPaging(page)
-                urunler.value = productList
-            }
+//            }else {
+//                val productList = wf.getProductListPaging(page)
+//                urunler.value = productList
+//            }
         }
 
+    }
+
+    fun urunleriAl(page:Int,categoryList:Array<String>){
+        GlobalScope.launch(Dispatchers.Main) {
+                val productList = wf.getProductListByCategoryList(categoryList)
+                urunler.value = productList
+        }
+    }
+
+    fun urunleriAl(page:Int){
+        GlobalScope.launch(Dispatchers.Main) {
+                val productList = wf.getProductListPaging(page)
+                urunler.value = productList
+        }
+
+    }
+
+    fun getFavouriteProductsList(page:Int){
+        GlobalScope.launch(Dispatchers.Main) {
+                val productList = wf.getFavouriteProductList(page)
+                favUrunler.value = productList
+
+        }
     }
 
 

@@ -15,16 +15,56 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
             android:layout_height="match_parent"
             tools:context=".view.customer.UrunlerFragment">
 
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tablayout"
+                android:layout_width="411dp"
+                android:layout_height="74dp"
+                app:layout_constraintBottom_toTopOf="@+id/urunListRecyclerView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:tabBackground="@drawable/tab_selector"
+                app:tabIconTint="@color/white"
+                app:tabTextColor="@color/white"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp">
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/taba"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_baseline_store_24"
+                    android:text="Tümü" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_baseline_favorite_24"
+                    android:text="Favoriler" />
+
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:icon="@drawable/ic_baseline_filter_list_24"
+                    android:text="Filtrele" />
+
+            </com.google.android.material.tabs.TabLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/urunListRecyclerView"
-                android:layout_width="406dp"
-                android:layout_height="614dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="408dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="72dp"
+                android:layout_marginBottom="85dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                app:spanCount="2" />
 
             <TextView
                 android:id="@+id/urunHataMessage"
@@ -32,6 +72,20 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="144dp"
                 android:text="Hata! Tekrar Deneyiniz"
+                app:layout_constraintBottom_toBottomOf="@+id/urunListRecyclerView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+
+            <TextView
+                android:id="@+id/favoriyokmessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginEnd="144dp"
+                android:text="Favorilere eklenmiş ürün bulunmuyor."
                 app:layout_constraintBottom_toBottomOf="@+id/urunListRecyclerView"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -54,7 +108,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:id="@+id/buttonIleri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="56dp"
                 android:text="İleri"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,11 +119,13 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="60dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="4dp"
                 android:text="Geri"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/urunListRecyclerView" />
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

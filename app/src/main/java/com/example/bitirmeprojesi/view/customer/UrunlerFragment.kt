@@ -11,18 +11,21 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
+import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
+import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_customer_home.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
 
 
 class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyclerAdapter.ShopInterface{
     var pageCount = 0
     var category = ""
-
+    var selectedCategoryList: Array<String>? = null
     private lateinit var viewModel : CustomerUrunlerViewModel
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler",this)
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),this,this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,45 +38,42 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_urunler, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            val action = UrunlerFragmentDirections.actionUrunlerFragmentToCustomerHomeFragment()
-            Navigation.findNavController(view).navigate(action)
-        }
+//        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+//            val action = UrunlerFragmentDirections.actionUrunlerFragmentToCustomerHomeFragment()
+//            Navigation.findNavController(view).navigate(action)
+//        }
         arguments?.let {
             pageCount = UrunlerFragmentArgs.fromBundle(it).page
+            if(UrunlerFragmentArgs.fromBundle(it).selectedCategoryList!=null){
+                selectedCategoryList = UrunlerFragmentArgs.fromBundle(it).selectedCategoryList!!
+            }
+
         }
         //viewModel = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel = ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
-        viewModel.urunleriAl(pageCount,category)
         viewModel.getFavouriteList()
+        observeLiveData()
 
         urunListRecyclerView.layoutManager = LinearLayoutManager(context)
         urunListRecyclerView.adapter = recyclerProductAdapter
+
+        if(selectedCategoryList!=null){
+            viewModel.urunleriAl(0, selectedCategoryList!!)
+        }
+        else if(selectedCategoryList==null){
+            viewModel.urunleriAl(pageCount)
+        }
 
         if(pageCount==0){
             buttonGeri.visibility = View.GONE
         }
 
-        buttonIleri.setOnClickListener {
-            pageCount++
-            buttonGeri.visibility = View.VISIBLE
-            recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount,category)
-        }
-
-        buttonGeri.setOnClickListener {
-            pageCount--
-            if(pageCount==0){
-                buttonGeri.visibility = View.GONE
-            }
-            recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount,category)
-        }
 
 
 
@@ -81,12 +81,37 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
             urunlerYukleniyor.visibility = View.VISIBLE
             urunHataMessage.visibility = View.GONE
             urunListRecyclerView.visibility = View.GONE
-            viewModel.urunleriAl(pageCount,category)
+            viewModel.urunleriAl(pageCount)
             swipeRefreshLayoutStore.isRefreshing = false
         }
 
+        tablayout.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab : TabLayout.Tab) {
+                when (tab.getPosition()) {
+                    0->   {viewModel.urunleriAl(0)
+                      //  observeLiveData()
+                         }
+                    1->   {viewModel.getFavouriteProductsList(0)
+                            observeLiveDataFavourite()
+                    }
+                    2-> {
+                        val action = UrunlerFragmentDirections.actionUrunlerFragmentToFilterProductFragment()
+                        Navigation.findNavController(view).navigate(action)
+                    }
 
-        observeLiveData()
+                else -> { // Note the block
+                   // print("x is neither 1 nor 2")
+                }}
+
+
+
+            }
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+        })
+
     }
 
 
@@ -96,19 +121,71 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
             urunler?.let {
                 if(urunler.isEmpty()){
                     pageCount--
+                    if(pageCount<0)
+                        pageCount=0
                     recyclerProductAdapter.page=pageCount
                 }
                 else {
                     urunListRecyclerView.visibility = View.VISIBLE
                     urunHataMessage.visibility = View.GONE
+                    favoriyokmessage.visibility=View.GONE
                     urunlerYukleniyor.visibility = View.GONE
                     recyclerProductAdapter.productListesiniGuncelle(urunler,pageCount)
                 }
             }
         })
+        buttonIleri.setOnClickListener {
+            pageCount++
+            buttonGeri.visibility = View.VISIBLE
+            recyclerProductAdapter.page=pageCount
+            viewModel.urunleriAl(pageCount)
+        }
 
+        buttonGeri.setOnClickListener {
+            pageCount--
+            if(pageCount==0){
+                buttonGeri.visibility = View.GONE
+            }
+            recyclerProductAdapter.page=pageCount
+            viewModel.urunleriAl(pageCount)
+        }
     }
 
+    fun observeLiveDataFavourite(){
+        pageCount = 0
+        viewModel.favUrunler.observe(viewLifecycleOwner, Observer { favUrunler ->
+            favUrunler?.let {
+                if(favUrunler.isEmpty()){
+                    pageCount--
+                    if(pageCount<0)
+                        pageCount=0
+                  //  recyclerProductAdapter.page=pageCount
+                    urunListRecyclerView.visibility = View.GONE
+                favoriyokmessage.visibility = View.VISIBLE
+                }
+                else {
+                    favoriyokmessage.visibility = View.GONE
+                    recyclerProductAdapter.productListesiniGuncelle(favUrunler,pageCount)
+                    buttonIleri.setOnClickListener {
+                        pageCount++
+                        buttonGeri.visibility = View.VISIBLE
+                        recyclerProductAdapter.page=pageCount
+                        viewModel.getFavouriteProductsList(pageCount)
+                    }
+
+                    buttonGeri.setOnClickListener {
+                        pageCount--
+                        if(pageCount==0){
+                            buttonGeri.visibility = View.GONE
+                        }
+                        recyclerProductAdapter.page=pageCount
+                        viewModel.getFavouriteProductsList(pageCount)
+                    }
+
+                }
+            }
+        })
+    }
 
 
 
@@ -155,19 +232,24 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         if(query!=null){
             category=query
             viewModel.urunleriAl(0,category)
+            observeLiveData()
         }
         if(query?.length==0){
             category=""
             viewModel.urunleriAl(0,query)
+            observeLiveData()
         }
         return true
     }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val action = UrunlerFragmentDirections.actionUrunlerFragmentToCartFragment2()
-        view?.let {
-            Navigation.findNavController(it).navigate(action) }
+        if(item.itemId==R.id.cart){
+            val action = UrunlerFragmentDirections.actionUrunlerFragmentToCartFragment2()
+            view?.let {
+                Navigation.findNavController(it).navigate(action) }
+        }
+
         return super.onOptionsItemSelected(item)
     }
 

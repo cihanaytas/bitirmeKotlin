@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.urun_recycler_row.*
 class StoreUrunlerimFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
     var pageCount = 0
     private lateinit var viewModel : StoreProfileViewModel
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"storemyprofile",this)
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),this,this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

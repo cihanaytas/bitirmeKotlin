@@ -48,7 +48,7 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
     private lateinit var viewModel : UrunDetayiViewModel
     private lateinit var viewModel2 : CustomerUrunlerViewModel
     private lateinit var dataBinding : FragmentUrunPageBinding
-    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),"urunler",this)
+    private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),this,this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,8 +80,8 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
        //viewModel2 = ViewModelProviders.of(this).get(CustomerUrunlerViewModel::class.java)
         viewModel2 =ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
 
-        besinImagee.layoutManager = LinearLayoutManager(context)
-        besinImagee.adapter = recyclerProductAdapter
+        pageRecyclerView.layoutManager = LinearLayoutManager(context)
+        pageRecyclerView.adapter = recyclerProductAdapter
 
         dataBinding.shopViewModel = viewModel2
         viewModel.getData(urunId)
@@ -93,9 +93,7 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
             val action = UrunPageFragmentDirections.actionUrunPageFragmentToUrunlerFragment(page)
             Navigation.findNavController(view).navigate(action)
         }
-          }
-
-
+        }
 
         if(nereden=="urunler"){
             buttonPuanla.visibility = View.GONE
@@ -154,7 +152,8 @@ class UrunPageFragment : Fragment(),ProductRecyclerAdapter.ShopInterface{
                     textView.text = " Değerlendirme yok."
                 }else{
                     ratingBarPoint.rating = (listTotal/listSize).toFloat()
-                    textView.text = (listTotal/listSize).toString() + " | " + listSize.toString() + " Değerlendirme"
+                    val point = (listTotal/listSize)
+                    textView.text = String.format("%.2f", point) + " | " + listSize.toString() + " Değerlendirme"
                 }
 
                 if(it.get(0).images.isNotEmpty()) {

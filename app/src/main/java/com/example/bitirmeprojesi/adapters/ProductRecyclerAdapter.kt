@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.databinding.UrunRecyclerRowBinding
 import com.example.bitirmeprojesi.models.products.Product
-import com.example.bitirmeprojesi.view.customer.StoreProfileFragmentDirections
-import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
+import com.example.bitirmeprojesi.view.customer.*
 import com.example.bitirmeprojesi.view.store.StoreUrunlerimFragment
 import com.example.bitirmeprojesi.view.store.StoreUrunlerimFragmentDirections
 import com.squareup.picasso.Picasso
@@ -20,12 +21,13 @@ import kotlinx.android.synthetic.main.urun_recycler_row.view.*
 import java.io.File
 
 
-class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:String,shopInterface: ShopInterface?) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
+class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,fragment:Fragment,shopInterface: ShopInterface?) : RecyclerView.Adapter<ProductRecyclerAdapter.ProductViewHolder>(),UrunClickListener{
 
     interface ShopInterface {
         fun addItem(product: Product)
     }
-    val x = nereden
+    val xx = fragment
+  //  val x = nereden
     var page = 0
 
     var shopInterface: ShopInterface? = shopInterface
@@ -56,7 +58,11 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         holder.view.product = productListesi[position]
         holder.view.listener = this
 
-        if(x=="storemyprofile"){
+//        if(x=="storemyprofile"){
+//            holder.view.addToCartButton.visibility = View.GONE
+//        }
+
+        if(xx==StoreProfileFragment::class.java){
             holder.view.addToCartButton.visibility = View.GONE
         }
 
@@ -85,18 +91,23 @@ class ProductRecyclerAdapter(val productListesi : ArrayList<Product>,nereden:Str
         val id = view.urun_id.text.toString().toLong()
 
         id?.let {
-            if(x=="storeprofile"){
+            if(xx::class.java==StoreProfileFragment::class.java){
                 val action = StoreProfileFragmentDirections.actionStoreProfileFragmentToUrunPageFragment(it,page,"urunler")
                 Navigation.findNavController(view).navigate(action)
             }
 
-            else if(x=="urunler"){
+            else if(xx::class.java==UrunlerFragment::class.java){
                 val action = UrunlerFragmentDirections.actionUrunlerFragmentToUrunPageFragment(it,page,"urunler")
                 Navigation.findNavController(view).navigate(action)
             }
 
-            else if(x=="storemyprofile"){
+            else if(xx::class.java==StoreUrunlerimFragment::class.java){
                 val action = StoreUrunlerimFragmentDirections.actionStoreUrunlerimFragmentToUrunEklemeFragment(id.toString())
+                Navigation.findNavController(view).navigate(action)
+            }
+
+            else if(xx::class.java==UrunPageFragment::class.java){
+                val action = UrunPageFragmentDirections.actionUrunPageFragmentSelf(it,0,"urunler")
                 Navigation.findNavController(view).navigate(action)
             }
 

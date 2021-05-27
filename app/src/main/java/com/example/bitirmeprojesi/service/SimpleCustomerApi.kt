@@ -1,17 +1,12 @@
 package com.example.bitirmeprojesi.service
 
 
-import androidx.room.Delete
-import com.example.bitirmeprojesi.dto.FavouriteProducts
-import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.*
-import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.*
 
 
@@ -83,6 +78,12 @@ interface SimpleCustomerApi{
 
     @DELETE("deletefavourite/{productId}")
     fun deleteFavourite(@Path("productId") productId: Long) : Call<Void>
+
+    @GET("favouritesproducts/{page}")
+    fun getFavouriteProducts(@Path("page") page: Int) : Deferred<Response<List<Product>>>
+
+    @GET("plistt/{categorylist}")
+    fun getProductListByCategoryList(@Path("categorylist") categorylist: String) : Deferred<Response<List<Product>>>
 
 
 }
