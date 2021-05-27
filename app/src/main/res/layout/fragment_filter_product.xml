@@ -9,6 +9,8 @@
 
     <org.florescu.android.rangeseekbar.RangeSeekBar
         android:id="@+id/rangeSeekBar"
+        app:absoluteMinValue="0"
+        app:absoluteMaxValue="10000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="136dp"

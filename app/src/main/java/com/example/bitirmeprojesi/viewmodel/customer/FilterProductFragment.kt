@@ -27,6 +27,7 @@ class FilterProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //rr
 
         buttonfilter.setOnClickListener {
             requireFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss()
