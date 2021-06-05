@@ -68,9 +68,8 @@
             app:destination="@id/filterProductFragment" />
         <argument
             android:name="selectedCategoryList"
-            app:argType="string[]"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            app:argType="boolean"
+            android:defaultValue="false" />
 
 
     </fragment>

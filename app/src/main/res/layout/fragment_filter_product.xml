@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,37 +8,47 @@
     tools:context=".viewmodel.customer.FilterProductFragment">
 
 
-    <org.florescu.android.rangeseekbar.RangeSeekBar
-        android:id="@+id/rangeSeekBar"
-        app:absoluteMinValue="0"
-        app:absoluteMaxValue="10000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
-        android:layout_marginBottom="168dp"
-        app:layout_constraintBottom_toTopOf="@+id/switch2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ListView
+        android:id="@+id/lsw"
+        android:layout_width="match_parent"
+        android:layout_height="341dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginBottom="66dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    </org.florescu.android.rangeseekbar.RangeSeekBar>
-
-    <Switch
-        android:id="@+id/switch2"
-        android:layout_width="125dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginTop="104dp"
-        android:text="Switch"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rangeSeekBar" />
 
     <Button
         android:id="@+id/buttonfilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="192dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_below="@+id/rangeSeekBar"
+        android:layout_marginTop="38dp"
+        android:text="Filtrele" />
+
+
+    <TextView
+        android:id="@+id/textMinMax"
+        android:layout_width="177dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/rangeSeekBar"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="34dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rangeSeekBar" />
+
+    <org.florescu.android.rangeseekbar.RangeSeekBar
+        android:id="@+id/rangeSeekBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lsw"
+        android:layout_marginTop="1dp"
+        app:absoluteMaxValue="0"
+        app:absoluteMinValue="30000"
+        app:layout_constraintVertical_bias="0.037">
+
+    </org.florescu.android.rangeseekbar.RangeSeekBar>
+
+
+</RelativeLayout>

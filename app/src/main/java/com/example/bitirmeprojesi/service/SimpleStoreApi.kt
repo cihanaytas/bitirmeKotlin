@@ -1,6 +1,7 @@
 package com.example.bitirmeprojesi.service
 
 
+import com.example.bitirmeprojesi.models.NotificationProduct
 import com.example.bitirmeprojesi.models.products.*
 import kotlinx.coroutines.Deferred
 import retrofit2.Call
@@ -22,6 +23,9 @@ interface SimpleStoreApi : SimpleNewApi {
 
     @GET("product/{id}")
     fun getProduct(@Path("id") id:Long) : Deferred<Response<Product>>
+
+    @GET("notifications")
+    fun getNotifications() : Deferred<Response<List<NotificationProduct>>>
 
 
 

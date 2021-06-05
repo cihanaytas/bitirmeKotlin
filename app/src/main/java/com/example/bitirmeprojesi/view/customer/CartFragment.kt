@@ -88,12 +88,12 @@ class CartFragment : Fragment() , CartRecyclerAdapter.CartInterface{
 
     private fun alisverisTamamla(cartItemDto: List<CartItemDto>,view: View){
         val sorgu = serviceCustomer.sales(cartItemDto)
-        sorgu.enqueue(object : Callback<String>{
-            override fun onFailure(call: Call<String>, t: Throwable) {
+        sorgu.enqueue(object : Callback<Void>{
+            override fun onFailure(call: Call<Void>, t: Throwable) {
                 println("fail")
             }
 
-            override fun onResponse(call: Call<String>, response: Response<String>) {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 if(response.isSuccessful){
                     viewModel.resetCart()
                     Toast.makeText(activity, "Satın Alma Başarılı", Toast.LENGTH_LONG).show()

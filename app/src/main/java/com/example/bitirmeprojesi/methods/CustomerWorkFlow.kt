@@ -6,6 +6,8 @@ import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.models.products.Comments
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.service.SimpleCustomerApi
+import kotlinx.coroutines.Deferred
+import okhttp3.Response
 
 
 class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
@@ -146,24 +148,53 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
     }
 
 
-    suspend fun  getProductListByCategoryList(categoryList: Array<String>): List<Product>? {
+    suspend fun  getProductListByCategoryList(page:Int,categoryList: Array<String>,min:Double,max:Double): List<Product>? {
+        if(categoryList.isEmpty()){
+            val sorgu = serviceCustomer.getProductListByCategoryList(page,min,max).await()
+            if(sorgu.isSuccessful){
+                return sorgu.body()
+            }
+            else{
+                return null
+            }
+
+        }
+        else if(min==0.0 && max==0.0){
+            val str = listToStr(categoryList)
+            val sorgu = serviceCustomer.getProductListByCategoryList(page,str).await()
+            if(sorgu.isSuccessful){
+                return sorgu.body()
+            }
+            else{
+                return null
+            }
+        }
+        else{
+            val str = listToStr(categoryList)
+            val sorgu = serviceCustomer.getProductListByCategoryList(page,str,min,max).await()
+            if(sorgu.isSuccessful){
+                return sorgu.body()
+            }
+            else{
+                return null
+            }
+        }
+
+
+
+    }
+
+    private fun listToStr(list: Array<String>): String {
         var str =""
-        for(i in categoryList.toList()){
-            if(i==categoryList[categoryList.lastIndex]){
+        for(i in list.toList()){
+            if(i==list[list.lastIndex]){
                 str+=i
             }else{
                 str+=i
                 str+=","
             }
-
         }
-        val sorgu = serviceCustomer.getProductListByCategoryList(str).await()
-        if(sorgu.isSuccessful){
-            return sorgu.body()
-        }
-        else{
-            return null
-        }
+        return str
     }
 
 

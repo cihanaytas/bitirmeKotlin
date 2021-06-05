@@ -25,20 +25,20 @@ class CustomerUrunlerViewModel(application: Application) : BaseViewModel(applica
 
     fun urunleriAl(page:Int,category:String){
         GlobalScope.launch(Dispatchers.Main) {
-       //     if(category.isNotEmpty()){
+            if(category.isNotEmpty()){
                 val productList = wf.getProductListPagingCategory(page,category)
                 urunler.value = productList
-//            }else {
-//                val productList = wf.getProductListPaging(page)
-//                urunler.value = productList
-//            }
+            }else {
+                val productList = wf.getProductListPaging(page)
+                urunler.value = productList
+            }
         }
 
     }
 
-    fun urunleriAl(page:Int,categoryList:Array<String>){
+    fun urunleriAl(page:Int,categoryList:Array<String>,min:Double,max:Double){
         GlobalScope.launch(Dispatchers.Main) {
-                val productList = wf.getProductListByCategoryList(categoryList)
+                val productList = wf.getProductListByCategoryList(page,categoryList,min,max)
                 urunler.value = productList
         }
     }

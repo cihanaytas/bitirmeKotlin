@@ -49,7 +49,7 @@ interface SimpleCustomerApi{
 
     //alışveriş tamamlanır
     @POST("sales")
-    fun sales(@Body cartItemDtoList: List<CartItemDto>) : Call<String>
+    fun sales(@Body cartItemDtoList: List<CartItemDto>) : Call<Void>
 
     //daha önce yapılan alışverişleri listeler
     @GET("shoppinglist")
@@ -82,8 +82,17 @@ interface SimpleCustomerApi{
     @GET("favouritesproducts/{page}")
     fun getFavouriteProducts(@Path("page") page: Int) : Deferred<Response<List<Product>>>
 
-    @GET("plistt/{categorylist}")
-    fun getProductListByCategoryList(@Path("categorylist") categorylist: String) : Deferred<Response<List<Product>>>
+
+
+    @GET("plistt/{page}/{categorylist}")
+    fun getProductListByCategoryList(@Path("page") page: Int,@Path("categorylist") categorylist: String) : Deferred<Response<List<Product>>>
+
+    @GET("plistt/{page}/{min}/{max}")
+    fun getProductListByCategoryList(@Path("page") page: Int,@Path("min") min: Double,@Path("max") max: Double) : Deferred<Response<List<Product>>>
+
+    @GET("plistt/{page}/{categorylist}/{min}/{max}")
+    fun getProductListByCategoryList(@Path("page") page: Int,@Path("categorylist") categorylist: String
+            ,@Path("min") min: Double,@Path("max") max: Double) : Deferred<Response<List<Product>>>
 
 
 }

@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.methods
 
+import com.example.bitirmeprojesi.models.NotificationProduct
 import com.example.bitirmeprojesi.models.ReqBodyLogin
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.service.SimpleStoreApi
@@ -43,6 +44,17 @@ class StoreWorkFlow(val serviceStore: SimpleStoreApi) {
 
     suspend fun getProduct(id:Long): Product? {
         val sorgu = serviceStore.getProduct(id).await()
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+    suspend fun getNotifications(): List<NotificationProduct>? {
+        val sorgu = serviceStore.getNotifications().await()
+
         if(sorgu.isSuccessful){
             return sorgu.body()
         }

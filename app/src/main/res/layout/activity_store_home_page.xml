@@ -23,15 +23,14 @@ tools:context=".activities.StoreHomePage">
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnv"
+        android:id="@+id/bottomNavigationViewStore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        app:itemIconTint="@drawable/bottomappselector"
+        android:background="@color/white"
         app:itemTextColor="@drawable/bottomappselector"
-        app:labelVisibilityMode="labeled"
+        app:itemIconTint="@drawable/bottomappselector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom" />
+        app:menu="@menu/menu_bottom"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

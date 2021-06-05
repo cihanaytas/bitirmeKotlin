@@ -19,10 +19,11 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
     val productLiveData = MutableLiveData<List<Product>>()
     val productLiveData2 = MutableLiveData<Product>()
     val commentListLiveData  = MutableLiveData<List<Comments>>()
-    val wf = CustomerWorkFlow(serviceCustomer)
+
 
     fun getData(id : Long) {
         GlobalScope.launch(Dispatchers.Main)  {
+            val wf = CustomerWorkFlow(serviceCustomer)
             val product = wf.getProduct(id)
             productLiveData.value = product
         }
@@ -39,6 +40,7 @@ class UrunDetayiViewModel(application: Application) : BaseViewModel(application)
 
     fun getCommentList(productId: Long){
         GlobalScope.launch(Dispatchers.Main)  {
+            val wf = CustomerWorkFlow(serviceCustomer)
             val commentList = wf.getCommentList(productId)
             commentListLiveData.value = commentList
         }

@@ -63,7 +63,7 @@ class UrunEklemeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
 
         arguments?.let {
             urunId = UrunEklemeFragmentArgs.fromBundle(it).productId
@@ -275,26 +275,26 @@ class UrunEklemeFragment : Fragment() {
 
     private fun urunGuncelle(view: View, urunId: String){
         val urun = imagesUriList?.let {
-            println(imagesUriList)
+            //println(imagesUriList)
             Product(UrunFiyat.text.toString(),UrunMarka.text.toString(),UrunModel.text.toString(),
                     planets_spinner_urun.selectedItem.toString(),UrunBilgi.text.toString(),UrunAdet.text.toString(), it)
         }
 
-//        val sorgu = urun?.let { serviceStore.urunGuncelle(urunId.toLong(),urun) }
-//
-//        sorgu?.enqueue(object : Callback<String>{
-//            override fun onFailure(call: Call<String>, t: Throwable) {
-//            }
-//
-//            override fun onResponse(call: Call<String>, response: Response<String>) {
-//                if(response.isSuccessful){
-//                    Toast.makeText(activity, "Güncellendi", Toast.LENGTH_LONG).show()
-//                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
-//                    Navigation.findNavController(view).navigate(action)
-//                }
-//            }
-//
-//        })
+        val sorgu = urun?.let { serviceStore.urunGuncelle(urunId.toLong(),urun) }
+
+        sorgu?.enqueue(object : Callback<String>{
+            override fun onFailure(call: Call<String>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<String>, response: Response<String>) {
+                if(response.isSuccessful){
+                    Toast.makeText(activity, "Güncellendi", Toast.LENGTH_LONG).show()
+                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+                    Navigation.findNavController(view).navigate(action)
+                }
+            }
+
+        })
 
 
     }

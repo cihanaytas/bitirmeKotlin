@@ -1,0 +1,17 @@
+<resources>
+    <string name="categories">elektronik</string>
+
+    <string-array name="categoryName">
+
+        <item>TELEFON</item>
+        <item>TELEVIZYON</item>
+        <item>LAPTOP</item>
+        <item>TABLET</item>
+        <item>KULAKLIK</item>
+        <item>TELEFON_KABI</item>
+
+    </string-array>
+
+
+
+</resources>

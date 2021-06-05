@@ -15,6 +15,7 @@ import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.models.products.Product
 import com.example.bitirmeprojesi.viewmodel.customer.CustomerUrunlerViewModel
+import com.example.bitirmeprojesi.viewmodel.customer.FilterProductFragment
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_customer_home.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
@@ -23,9 +24,13 @@ import kotlinx.android.synthetic.main.fragment_urunler.*
 class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyclerAdapter.ShopInterface{
     var pageCount = 0
     var category = ""
-    var selectedCategoryList: Array<String>? = null
+    var selectedCategoryList: Boolean = false
     private lateinit var viewModel : CustomerUrunlerViewModel
     private val recyclerProductAdapter = ProductRecyclerAdapter(arrayListOf(),this,this)
+    private lateinit var myInflater: LayoutInflater
+    private lateinit var myContainer: ViewGroup
+    private lateinit var placeholder: ViewGroup
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +42,13 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_urunler, container, false)
-
+       // return inflater.inflate(R.layout.fragment_urunler, container, false)
+        myInflater = inflater
+        if (container != null) {
+            myContainer = container
+        }
+        placeholder = inflater.inflate(R.layout.fragment_urunler, container, false) as ViewGroup
+        return placeholder
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +58,8 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 //            val action = UrunlerFragmentDirections.actionUrunlerFragmentToCustomerHomeFragment()
 //            Navigation.findNavController(view).navigate(action)
 //        }
+
+
         arguments?.let {
             pageCount = UrunlerFragmentArgs.fromBundle(it).page
             if(UrunlerFragmentArgs.fromBundle(it).selectedCategoryList!=null){
@@ -59,16 +71,17 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         viewModel = ViewModelProvider(requireActivity()).get(CustomerUrunlerViewModel::class.java)
         viewModel.getFavouriteList()
         observeLiveData()
+        observeLiveDataFavourite()
 
         urunListRecyclerView.layoutManager = LinearLayoutManager(context)
         urunListRecyclerView.adapter = recyclerProductAdapter
 
-        if(selectedCategoryList!=null){
-            viewModel.urunleriAl(0, selectedCategoryList!!)
-        }
-        else if(selectedCategoryList==null){
+
+
+        if(selectedCategoryList==false){
             viewModel.urunleriAl(pageCount)
         }
+
 
         if(pageCount==0){
             buttonGeri.visibility = View.GONE
@@ -92,9 +105,11 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
                       //  observeLiveData()
                          }
                     1->   {viewModel.getFavouriteProductsList(0)
-                            observeLiveDataFavourite()
+
                     }
                     2-> {
+//                        placeholder.removeAllViews()
+//                        placeholder.addView(myInflater.inflate(R.layout.filter_products, myContainer, false) as ViewGroup)
                         val action = UrunlerFragmentDirections.actionUrunlerFragmentToFilterProductFragment()
                         Navigation.findNavController(view).navigate(action)
                     }
@@ -116,7 +131,7 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 
 
 
-    fun observeLiveData(){
+    private fun observeLiveData(){
         viewModel.urunler.observe(viewLifecycleOwner, Observer { urunler ->
             urunler?.let {
                 if(urunler.isEmpty()){
@@ -138,7 +153,10 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
             pageCount++
             buttonGeri.visibility = View.VISIBLE
             recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount)
+            if(selectedCategoryList==true)
+
+                else
+            viewModel.urunleriAl(pageCount,category)
         }
 
         buttonGeri.setOnClickListener {
@@ -147,11 +165,11 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
                 buttonGeri.visibility = View.GONE
             }
             recyclerProductAdapter.page=pageCount
-            viewModel.urunleriAl(pageCount)
+            viewModel.urunleriAl(pageCount,category)
         }
     }
 
-    fun observeLiveDataFavourite(){
+    private fun observeLiveDataFavourite(){
         pageCount = 0
         viewModel.favUrunler.observe(viewLifecycleOwner, Observer { favUrunler ->
             favUrunler?.let {
@@ -232,12 +250,12 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
         if(query!=null){
             category=query
             viewModel.urunleriAl(0,category)
-            observeLiveData()
+          //  observeLiveData()
         }
         if(query?.length==0){
             category=""
-            viewModel.urunleriAl(0,query)
-            observeLiveData()
+            viewModel.urunleriAl(0)
+           // observeLiveData()
         }
         return true
     }

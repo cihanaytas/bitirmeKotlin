@@ -39,5 +39,17 @@
         <argument
             android:name="page"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_storeUrunlerimFragment_to_storeNotificationsFragment"
+            app:destination="@id/storeNotificationsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeNotificationsFragment"
+        android:name="com.example.bitirmeprojesi.view.store.StoreNotificationsFragment"
+        android:label="fragment_store_notifications"
+        tools:layout="@layout/fragment_store_notifications" >
+        <action
+            android:id="@+id/action_storeNotificationsFragment_to_storeUrunlerimFragment"
+            app:destination="@id/storeUrunlerimFragment" />
     </fragment>
 </navigation>

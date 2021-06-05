@@ -96,8 +96,6 @@ class CommentsFragment : Fragment() , CommentsRecyclerAdapter.CommentInterface{
             }
         })
 
-
-
     }
 
 

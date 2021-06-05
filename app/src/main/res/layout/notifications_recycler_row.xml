@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="comment"
+        type="com.example.bitirmeprojesi.models.products.Comments" />
+
+    <variable
+        name="commentInterface"
+        type="com.example.bitirmeprojesi.adapters.CommentsRecyclerAdapter.CommentInterface" />
+
+</data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <TextView
+            android:id="@+id/notificationText"
+            android:layout_width="0dp"
+            android:layout_height="66dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="34dp"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonNotRed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </TextView>
+
+        <Button
+            android:id="@+id/buttonNotOnay"
+            android:layout_width="81dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="31dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="6dp"
+            android:backgroundTint="#4ADD21"
+            android:text="Onayla"
+            app:layout_constraintBottom_toTopOf="@+id/buttonNotRed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notificationText"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonNotRed"
+            android:layout_width="106dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="#dd0808"
+            android:text="İptal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notificationText"
+            app:layout_constraintTop_toBottomOf="@+id/buttonNotOnay" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

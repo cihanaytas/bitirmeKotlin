@@ -65,6 +65,7 @@ class CustomerHomePage : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
+       // inflater.inflate(R.menu.menu_notification,menu)
         inflater.inflate(R.menu.menu_customer_home, menu)
         return true
     }

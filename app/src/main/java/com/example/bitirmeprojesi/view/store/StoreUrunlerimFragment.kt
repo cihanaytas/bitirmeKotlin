@@ -1,16 +1,17 @@
 package com.example.bitirmeprojesi.view.store
 
 import android.os.Bundle
+import android.view.*
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.bitirmeprojesi.R
 import com.example.bitirmeprojesi.adapters.ProductRecyclerAdapter
 import com.example.bitirmeprojesi.models.products.Product
+import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
 import com.example.bitirmeprojesi.viewmodel.customer.StoreProfileViewModel
 import kotlinx.android.synthetic.main.fragment_store_urunlerim.*
 import kotlinx.android.synthetic.main.fragment_urunler.*
@@ -36,6 +37,7 @@ class StoreUrunlerimFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(this).get(StoreProfileViewModel::class.java)
         viewModel.urunlerimlAl(pageCount)
 
@@ -93,6 +95,13 @@ class StoreUrunlerimFragment : Fragment() ,ProductRecyclerAdapter.ShopInterface{
         })
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu, menu)
+
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
 
 
 
