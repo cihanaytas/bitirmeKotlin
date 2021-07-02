@@ -5,42 +5,29 @@ xmlns:tools="http://schemas.android.com/tools">
 
 <data>
     <variable
-        name="comment"
-        type="com.example.bitirmeprojesi.models.products.Comments" />
+        name="notification"
+        type="com.example.bitirmeprojesi.models.NotificationProduct" />
 
     <variable
-        name="commentInterface"
-        type="com.example.bitirmeprojesi.adapters.CommentsRecyclerAdapter.CommentInterface" />
+        name="notificationInterface"
+        type="com.example.bitirmeprojesi.adapters.NotificationAdapter.NotificationInterface" />
 
 </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="120dp">
-
-        <TextView
-            android:id="@+id/notificationText"
-            android:layout_width="0dp"
-            android:layout_height="66dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="34dp"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/buttonNotRed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-        </TextView>
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonNotOnay"
+        app:layout_constraintTop_toBottomOf="@+id/buttonNotOnay">
 
         <Button
             android:id="@+id/buttonNotOnay"
-            android:layout_width="81dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="31dp"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
             android:layout_marginTop="21dp"
-            android:layout_marginEnd="32dp"
             android:layout_marginBottom="6dp"
             android:backgroundTint="#4ADD21"
+            android:onClick="@{() -> notificationInterface.onay(notification.id)}"
             android:text="Onayla"
             app:layout_constraintBottom_toTopOf="@+id/buttonNotRed"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,16 +36,44 @@ xmlns:tools="http://schemas.android.com/tools">
 
         <Button
             android:id="@+id/buttonNotRed"
-            android:layout_width="106dp"
+            android:layout_width="0dp"
             android:layout_height="36dp"
-            android:layout_marginEnd="32dp"
             android:layout_marginBottom="16dp"
             android:backgroundTint="#dd0808"
+            android:onClick="@{() -> notificationInterface.red(notification.id)}"
             android:text="İptal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/notificationText"
+            app:layout_constraintStart_toEndOf="@+id/notificationImage"
             app:layout_constraintTop_toBottomOf="@+id/buttonNotOnay" />
+
+        <ImageView
+            android:id="@+id/notificationImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="178dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonNotRed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/notificationText"
+            android:layout_width="138dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="33dp"
+            android:layout_marginBottom="35dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/notificationImage"
+            app:layout_constraintEnd_toStartOf="@+id/buttonNotOnay"
+            app:layout_constraintStart_toEndOf="@+id/notificationImage"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.272" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

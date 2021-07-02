@@ -8,13 +8,13 @@
         />
 
     <item android:id="@+id/miShop"
-        android:title="Alışverişler"
-        android:icon="@drawable/ic_baseline_shopping_basket2_24"
+        android:title="Ürün Ekle"
+        android:icon="@drawable/ic_baseline_add_24"
         />
 
     <item android:id="@+id/miProfile"
-        android:title="Bildirimler"
-        android:icon="@drawable/ic_baseline_notifications_24"
-   />
+        android:title="Profil"
+        android:icon="@drawable/ic_baseline_person_pin2_24"
+        />
 
 </menu>

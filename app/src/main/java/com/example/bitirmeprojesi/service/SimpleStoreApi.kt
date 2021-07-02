@@ -27,6 +27,9 @@ interface SimpleStoreApi : SimpleNewApi {
     @GET("notifications")
     fun getNotifications() : Deferred<Response<List<NotificationProduct>>>
 
+    @PUT("notification/{notificationID}/{onay}")
+    fun notificationConfirmation(@Path("notificationID")notificationID:Long
+    ,@Path("onay") onay: Boolean) : Call<Void>
 
 
 }

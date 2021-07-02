@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="notification"
+        type="com.example.bitirmeprojesi.models.NotificationProduct" />
+
+
+</data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="@+id/notificationTextC"
+        app:layout_constraintTop_toBottomOf="@+id/notificationTextC">
+
+
+        <ImageView
+            android:id="@+id/notificationImageC"
+            android:layout_width="0dp"
+            android:layout_height="111dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonUruneGit"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/notificationTextC"
+            android:layout_width="246dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="12dp"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toTopOf="@+id/buttonUruneGit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/notificationImageC"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/buttonUruneGit"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="49dp"
+            android:layout_marginBottom="4dp"
+            android:text="Ürüne Git"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonSepeteGit"
+            app:layout_constraintStart_toEndOf="@+id/notificationImageC"
+            app:layout_constraintTop_toBottomOf="@+id/notificationTextC" />
+
+        <ImageButton
+            android:id="@+id/buttonSepeteGit"
+            android:layout_width="85dp"
+            android:layout_height="51dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="42dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/black"
+            android:src="@drawable/ic_baseline_shopping_basket2_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonUruneGit"
+            app:layout_constraintTop_toBottomOf="@+id/notificationTextC"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

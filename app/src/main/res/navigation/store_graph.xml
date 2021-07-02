@@ -3,30 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/giris_graph"
-    app:startDestination="@id/storeHomeFragment">
-    <fragment
-        android:id="@+id/storeHomeFragment"
-        android:name="com.example.bitirmeprojesi.view.store.StoreHomeFragment"
-        android:label="fragment_store_home"
-        tools:layout="@layout/fragment_store_home" >
-        <action
-            android:id="@+id/action_storeHomeFragment_to_urunEklemeFragment"
-            app:destination="@id/urunEklemeFragment" />
-        <action
-            android:id="@+id/action_storeHomeFragment_to_storeUrunlerimFragment"
-            app:destination="@id/storeUrunlerimFragment" />
-    </fragment>
+    app:startDestination="@id/storeUrunlerimFragment">
     <fragment
         android:id="@+id/urunEklemeFragment"
         android:name="com.example.bitirmeprojesi.view.store.UrunEklemeFragment"
         android:label="fragment_urun_ekleme"
         tools:layout="@layout/fragment_urun_ekleme" >
-        <action
-            android:id="@+id/action_urunEklemeFragment_to_storeHomeFragment"
-            app:destination="@id/storeHomeFragment" />
         <argument
             android:name="productId"
-            app:argType="string" />
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_urunEklemeFragment_to_storeUrunlerimFragment"
+            app:destination="@id/storeUrunlerimFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeUrunlerimFragment"

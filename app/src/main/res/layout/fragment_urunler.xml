@@ -17,11 +17,10 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tablayout"
-                android:layout_width="411dp"
-                android:layout_height="74dp"
+                android:layout_width="410dp"
+                android:layout_height="77dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/urunListRecyclerView"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
                 app:tabBackground="@drawable/tab_selector"
                 app:tabIconTint="@color/white"
                 app:tabTextColor="@color/white"
@@ -53,9 +52,9 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/urunListRecyclerView"
-                android:layout_width="408dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="72dp"
+                android:layout_width="409dp"
+                android:layout_height="489dp"
+                android:layout_marginTop="100dp"
                 android:layout_marginBottom="85dp"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"

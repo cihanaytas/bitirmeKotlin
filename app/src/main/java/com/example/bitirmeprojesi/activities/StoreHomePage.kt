@@ -17,6 +17,8 @@ import com.example.bitirmeprojesi.service.SimpleStoreApi
 import com.example.bitirmeprojesi.view.customer.UrunlerFragmentDirections
 import com.example.bitirmeprojesi.view.sharedPreferences
 import com.example.bitirmeprojesi.view.store.StoreUrunlerimFragmentDirections
+import kotlinx.android.synthetic.main.activity_customer_home_page.*
+import kotlinx.android.synthetic.main.activity_store_home_page.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,6 +38,30 @@ class StoreHomePage : AppCompatActivity() {
 
         val wf = StoreWorkFlow(serviceStore)
 
+
+        bottomNavigationViewStore.setOnNavigationItemSelectedListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.miHome -> {
+                    val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment2) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    navController.navigate(R.id.storeUrunlerimFragment)
+
+                }
+
+                R.id.miShop -> {
+                    val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragment2) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    navController.navigate(R.id.urunEklemeFragment)
+
+                }
+
+
+            }
+            true
+            // false
+
+        }
+
     }
 
 
@@ -51,6 +77,9 @@ class StoreHomePage : AppCompatActivity() {
             onOptionsItemSelected(menuItem)
         }
         inflater.inflate(R.menu.menu_customer_home, menu)
+
+
+
         return true
     }
 

@@ -1,6 +1,7 @@
 package com.example.bitirmeprojesi.service
 
 
+import com.example.bitirmeprojesi.models.NotificationProduct
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.*
@@ -82,8 +83,6 @@ interface SimpleCustomerApi{
     @GET("favouritesproducts/{page}")
     fun getFavouriteProducts(@Path("page") page: Int) : Deferred<Response<List<Product>>>
 
-
-
     @GET("plistt/{page}/{categorylist}")
     fun getProductListByCategoryList(@Path("page") page: Int,@Path("categorylist") categorylist: String) : Deferred<Response<List<Product>>>
 
@@ -93,6 +92,9 @@ interface SimpleCustomerApi{
     @GET("plistt/{page}/{categorylist}/{min}/{max}")
     fun getProductListByCategoryList(@Path("page") page: Int,@Path("categorylist") categorylist: String
             ,@Path("min") min: Double,@Path("max") max: Double) : Deferred<Response<List<Product>>>
+
+    @GET("notifications")
+    fun getNotification() : Deferred<Response<List<NotificationProduct>>>
 
 
 }

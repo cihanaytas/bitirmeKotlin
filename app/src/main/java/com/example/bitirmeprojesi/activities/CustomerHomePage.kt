@@ -54,6 +54,14 @@ class CustomerHomePage : AppCompatActivity() {
 
                 }
 
+
+                R.id.miProfile -> {
+                    val navHostFragment = supportFragmentManager.findFragmentById(R.id.navhostfragment) as NavHostFragment
+                    val navController = navHostFragment.navController
+                    navController.navigate(R.id.customerNotificationsFragment)
+
+                }
+
             }
             true
            // false
@@ -65,8 +73,9 @@ class CustomerHomePage : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
-       // inflater.inflate(R.menu.menu_notification,menu)
         inflater.inflate(R.menu.menu_customer_home, menu)
+
+
         return true
     }
 
@@ -74,6 +83,8 @@ class CustomerHomePage : AppCompatActivity() {
         if(item.itemId==R.id.miCikis){
             cikisYap()
         }
+
+
 
         return super.onOptionsItemSelected(item)
 

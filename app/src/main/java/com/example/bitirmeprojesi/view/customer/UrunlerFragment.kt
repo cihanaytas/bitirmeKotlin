@@ -209,6 +209,7 @@ class UrunlerFragment : Fragment() , SearchView.OnQueryTextListener,ProductRecyc
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu, menu)
+        //inflater.inflate(R.menu.menu_notification,menu)
         inflater.inflate(R.menu.menu_cart,menu)
         super.onCreateOptionsMenu(menu, inflater)
 

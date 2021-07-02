@@ -36,7 +36,7 @@
                 android:layout_height="185dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="17dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:minHeight="200dp"
@@ -176,20 +176,20 @@
                 android:id="@+id/ileri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="21dp"
+                android:layout_marginStart="35dp"
                 android:layout_toEndOf="@+id/imageSwitcherProduct"
                 android:src="@drawable/ic_baseline_ileri"
                 android:textSize="18sp" />
 
             <ImageButton
                 android:id="@+id/geri"
-                android:src="@drawable/ic_baseline_geri"
                 android:layout_width="69dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ileri"
-                android:layout_marginStart="21dp"
-                android:layout_marginTop="21dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="42dp"
                 android:layout_toEndOf="@+id/imageSwitcherProduct"
+                android:src="@drawable/ic_baseline_geri"
                 android:textSize="18sp" />
 
             <TextView

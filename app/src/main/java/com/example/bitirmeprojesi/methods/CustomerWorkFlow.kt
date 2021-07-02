@@ -1,5 +1,6 @@
 package com.example.bitirmeprojesi.methods
 
+import com.example.bitirmeprojesi.models.NotificationProduct
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.StoreDetails
 import com.example.bitirmeprojesi.models.products.CartItem
@@ -138,6 +139,18 @@ class CustomerWorkFlow(val serviceCustomer: SimpleCustomerApi) {
 
     suspend fun getFavouriteProductList(page: Int): List<Product>? {
         val sorgu = serviceCustomer.getFavouriteProducts(page).await()
+
+        if(sorgu.isSuccessful){
+            return sorgu.body()
+        }
+        else{
+            return null
+        }
+    }
+
+
+    suspend fun getNotification(): List<NotificationProduct>? {
+        val sorgu = serviceCustomer.getNotification().await()
 
         if(sorgu.isSuccessful){
             return sorgu.body()

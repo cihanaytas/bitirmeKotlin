@@ -29,7 +29,8 @@
             app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="page"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_urunPageFragment_to_cartFragment2"
             app:destination="@id/cartFragment" />
@@ -143,5 +144,16 @@
         <action
             android:id="@+id/action_filterProductFragment_to_urunlerFragment"
             app:destination="@id/urunlerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerNotificationsFragment"
+        android:name="com.example.bitirmeprojesi.view.customer.CustomerNotificationsFragment"
+        android:label="CustomerNotificationsFragment" >
+        <action
+            android:id="@+id/action_customerNotificationsFragment_to_urunPageFragment"
+            app:destination="@id/urunPageFragment" />
+        <action
+            android:id="@+id/action_customerNotificationsFragment_to_alisverisDetayFragment"
+            app:destination="@id/alisverisDetayFragment" />
     </fragment>
 </navigation>

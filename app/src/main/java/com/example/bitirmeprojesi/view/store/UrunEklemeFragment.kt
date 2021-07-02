@@ -66,10 +66,10 @@ class UrunEklemeFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(UrunDetayiViewModel::class.java)
 
         arguments?.let {
-            urunId = UrunEklemeFragmentArgs.fromBundle(it).productId
+            urunId = UrunEklemeFragmentArgs.fromBundle(it).productId.toString()
         }
 
-        if(urunId.isNotEmpty()){
+        if(urunId.isNotEmpty() && urunId.toInt()!=0){
             UrunMarka.text = "marka".toEditable()
             viewModel.getDataStore(urunId.toLong())
             observeLiveData()
@@ -255,7 +255,6 @@ class UrunEklemeFragment : Fragment() {
        }
 
        val sorgu = urun?.let { serviceStore.urunEkle(it) }
-       println("geldim")
        sorgu?.enqueue(object : Callback<String>{
            override fun onFailure(call: Call<String>, t: Throwable) {
            }
@@ -263,7 +262,7 @@ class UrunEklemeFragment : Fragment() {
            override fun onResponse(call: Call<String>, response: Response<String>) {
                if(response.isSuccessful){
                    Toast.makeText(activity, "Eklendi", Toast.LENGTH_LONG).show()
-                   val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+                   val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreUrunlerimFragment(0)
                    Navigation.findNavController(view).navigate(action)
                }
            }
@@ -289,7 +288,7 @@ class UrunEklemeFragment : Fragment() {
             override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful){
                     Toast.makeText(activity, "Güncellendi", Toast.LENGTH_LONG).show()
-                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreHomeFragment()
+                    val action = UrunEklemeFragmentDirections.actionUrunEklemeFragmentToStoreUrunlerimFragment(0)
                     Navigation.findNavController(view).navigate(action)
                 }
             }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import com.example.bitirmeprojesi.activities.serviceCustomer
 import com.example.bitirmeprojesi.methods.CustomerWorkFlow
+import com.example.bitirmeprojesi.models.NotificationProduct
 import com.example.bitirmeprojesi.models.ShopDto
 import com.example.bitirmeprojesi.models.products.CartItem
 import com.example.bitirmeprojesi.repository.CartRepo
@@ -17,6 +18,7 @@ class AlisverislerViewModel (application: Application) : BaseViewModel(applicati
 
     val alisverisler = MutableLiveData<List<ShopDto>>()
     val cartUrunler = MutableLiveData<List<CartItem>>()
+    val liveCustomerNotifications = MutableLiveData<List<NotificationProduct>>()
     val wf = CustomerWorkFlow(serviceCustomer)
     val repo = CartRepo()
 
@@ -37,6 +39,12 @@ class AlisverislerViewModel (application: Application) : BaseViewModel(applicati
         var totalPrice = 0.0
         println(cartUrunler.value)
         return repo.getTotalPrice()
+    }
+
+    fun getNotifications(){
+        GlobalScope.launch(Dispatchers.Main) {
+            liveCustomerNotifications.value = wf.getNotification()
+        }
     }
 
 
